@@ -1,0 +1,16 @@
+Backend/zipkin-server-*.jar
+
+# Ignore jar files
+*.jar
+
+# Optional: Maven / Gradle
+target/
+build/
+
+# Logs
+*.log
+
+# OS / IDE
+.idea/
+.vscode/
+*.iml
