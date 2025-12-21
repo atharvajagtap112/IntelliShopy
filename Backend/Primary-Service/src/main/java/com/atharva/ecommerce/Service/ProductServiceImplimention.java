@@ -1,5 +1,7 @@
 package com.atharva.ecommerce.Service;
 
+import com.atharva.ecommerce.DTO.ProductDTO;
+import com.atharva.ecommerce.DTO.SizeDTO;
 import com.atharva.ecommerce.Exception.ProductException;
 import com.atharva.ecommerce.Model.Category;
 import com.atharva.ecommerce.Model.Product;
@@ -15,11 +17,10 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -93,23 +94,28 @@ public class ProductServiceImplimention implements ProductService {
     }
 
 
-    // In your ProductService or a new Logic Service
-    @Cacheable(value = "ProductsByCategories", key = "#categories.toString().concat('local')")
-    public List<ProductsByCategoryResponse> getProductsByCategoriesLogic(List<ProductCategoryRequest> categories) {
-        List<ProductsByCategoryResponse> responseList = new ArrayList<>();
+//
+//    @Cacheable(value = "ProductsByCategories", key = "#categories.toString().concat('local')")
+//    public List<ProductsByCategoryResponse> getProductsByCategoriesLogic(List<ProductCategoryRequest> categories) {
+//        List<ProductsByCategoryResponse> responseList = new ArrayList<>();
+//
+//        for (ProductCategoryRequest category : categories) {
+//            List<Product> products = findProductsByCategory(category.getCategoryName());
+//            // Convert subList to a new ArrayList
+//            products = new ArrayList<>(products.subList(0, Math.min(products. size(), 10)));
+//
+//            ProductsByCategoryResponse response = new ProductsByCategoryResponse();
+//            response.setProducts(products);
+//            response.setCategoryName(category.getCategoryTitle());
+//
+//            responseList.add(response);
+//        }
+//        return responseList;
+//    }
 
-        for (ProductCategoryRequest category : categories) {
-            List<Product> products = findProductsByCategory(category.getCategoryName());
-            products = products.subList(0, Math.min(products.size(), 10));
 
-            ProductsByCategoryResponse response = new ProductsByCategoryResponse();
-            response.setProducts(products);
-            response.setCategoryName(category.getCategoryTitle());
 
-            responseList.add(response);
-        }
-        return responseList;
-    }
+
 
     @Override
     public String deleteProduct(Long id) throws ProductException {
@@ -199,4 +205,76 @@ public class ProductServiceImplimention implements ProductService {
     public List<Product> findAllProducts() {
         return productRepository.findAll();
     }
+
+
+
+    @Transactional(readOnly = true)
+    @Cacheable(value = "ProductsByCategories", key = "#categories.toString().concat('local')")
+    public List<ProductsByCategoryResponse> getProductsByCategoriesLogic(List<ProductCategoryRequest> categories) {
+        List<ProductsByCategoryResponse> responseList = new ArrayList<>();
+
+        for (ProductCategoryRequest category : categories) {
+            List<Product> products = productRepository.findProductsByCategoryWithSizes(category.getCategoryName());
+            products = new ArrayList<>(products.subList(0, Math.min(products.size(), 10)));
+
+            // Convert entities to DTOs (this triggers lazy loading while session is active)
+            List<ProductDTO> productDTOs = products.stream()
+                    .map(this::convertProductToDTO)
+                    .collect(Collectors.toList());
+
+            ProductsByCategoryResponse response = new ProductsByCategoryResponse();
+            response.setProducts(productDTOs);
+            response.setCategoryName(category.getCategoryTitle());
+
+            responseList.add(response);
+        }
+
+        return responseList;
+    }
+
+    // Conversion method - called within transaction so lazy loading works
+    private ProductDTO convertProductToDTO(Product product) {
+        // Convert sizes (this forces lazy loading while Hibernate session is active)
+        Set<SizeDTO> sizeDTOs = new HashSet<>();
+        if (product.getSizes() != null && !product.getSizes().isEmpty()) {
+            sizeDTOs = product.getSizes().stream()
+                    .map(size -> new SizeDTO(
+                            size.getName(),
+                            size.getQuantity(),
+                            size.getStock()
+                    ))
+                    .collect(Collectors.toSet());
+        }
+
+        // Calculate average rating (triggers lazy loading of ratings)
+        Double averageRating = null;
+        if (product.getRating() != null && ! product.getRating().isEmpty()) {
+            averageRating = product.getRating().stream()
+                    .mapToDouble(com.atharva.ecommerce.Model.Rating::getRating)
+                    .average()
+                    .orElse(0.0);
+        }
+
+        // Get category name (safe access)
+        String categoryName = product. getCategory() != null ? product.getCategory().getName() : null;
+
+        return new ProductDTO(
+                product.getId(),
+                product.getTitle(),
+                product.getPrice(),
+                product. getDescription(),
+                product.getDiscountPresent(),
+                product.getDiscountPrice(),
+                product.getBrand(),
+                product.getQuantity(),
+                product.getColor(),
+                sizeDTOs,
+                product.getImageUrl(),
+                product.getNumRating(),
+                averageRating,
+                categoryName,
+                product.getCreatedAt()
+        );
+    }
 }
+

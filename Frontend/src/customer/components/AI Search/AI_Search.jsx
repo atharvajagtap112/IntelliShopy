@@ -16,7 +16,7 @@ const AISearch = () => {
 
   useEffect(() => {
     const connectWebSocket = () => {
-      const ws = new WebSocket("wss://ecommerce-backend-5vxu.onrender.com/chat");
+      const ws = new WebSocket("ws://localhost:3333/chat");
 
       ws.onopen = () => {
         console.log("✅ WebSocket connection established.");

@@ -47,6 +47,9 @@ public class GeminiWebSocketHandler extends TextWebSocketHandler {
 
     private String callGeminiForAnswer(String userInput) {
 
+
+
+
          String prompt="You are an AI that converts messy e-commerce search queries into structured JSON filters.\n" +
                  "\n" +
                  "Use the JSON structure below and fill all fields. \n" +

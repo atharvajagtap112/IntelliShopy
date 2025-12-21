@@ -1,23 +1,25 @@
 package com.atharva.ecommerce.Response;
 
-import com.atharva.ecommerce.Model.Product;
-
+import com.atharva.ecommerce.DTO. ProductDTO;
 import java.io.Serializable;
 import java.util.List;
 
-public class ProductsByCategoryResponse  implements Serializable {
-    String categoryName;
-    List<Product> products;
+public class ProductsByCategoryResponse implements Serializable {
+    private static final long serialVersionUID = 1L;
 
-   public ProductsByCategoryResponse(){
+    private String categoryName;
+    private List<ProductDTO> products;
 
-    }
+    // Default constructor
+    public ProductsByCategoryResponse() {}
 
-   public ProductsByCategoryResponse(String categoryName, List<Product> products) {
+    // All fields constructor
+    public ProductsByCategoryResponse(String categoryName, List<ProductDTO> products) {
         this.categoryName = categoryName;
         this.products = products;
     }
 
+    // Getters and Setters
     public String getCategoryName() {
         return categoryName;
     }
@@ -26,11 +28,11 @@ public class ProductsByCategoryResponse  implements Serializable {
         this.categoryName = categoryName;
     }
 
-    public List<Product> getProducts() {
+    public List<ProductDTO> getProducts() {
         return products;
     }
 
-    public void setProducts(List<Product> products) {
+    public void setProducts(List<ProductDTO> products) {
         this.products = products;
     }
 }
