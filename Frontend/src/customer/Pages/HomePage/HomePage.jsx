@@ -45,7 +45,7 @@ const HomePage = () => {
           
       dispatch(findProductsByCategories(data));
     },[
-     dispatch
+     
   ])   
     
 
@@ -60,7 +60,7 @@ const HomePage = () => {
             <Loading/>
 
     :
-        <div className='space-y-10 py-20 flex flex-col justify-center px-50 lg:px-10'>
+        <div className=' py-3 md:py-6'>
            < HomeSectionCarosel data={products?.productsByCategories[0]?.products} sectionName={products?.productsByCategories[0]?.categoryName} />
            < HomeSectionCarosel data={products?.productsByCategories[1]?.products } sectionName={products?.productsByCategories[1]?.categoryName}/>
            < HomeSectionCarosel data={products?.productsByCategories[2]?.products }  sectionName={products?.productsByCategories[2]?.categoryName }/>

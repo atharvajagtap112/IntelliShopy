@@ -1,45 +1,31 @@
 import { Rating } from '@mui/material';
-import React from 'react';
-
-// ⭐ Star Rating Component
-const StarRating = ({ value, maxStars = 5 }) => {
-  const fullStars = Math.floor(value);
-  const hasHalfStar = value % 1 !== 0;
-
-  return (
-    <div className="flex items-center text-yellow-400 text-lg">
-      {[...Array(fullStars)].map((_, i) => (
-        <span key={i}>★</span>
-      ))}
-      {hasHalfStar && <span>⭐</span>}
-      {[...Array(maxStars - Math.ceil(value))].map((_, i) => (
-        <span key={i} className="text-gray-300">☆</span>
-      ))}
-    </div>
-  );
-};
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
+import ProductReviewsCard from './ProductReviewsCard';
 
 // 📊 Progress Bar Component
-const ProgressBar = ({ value, color = 'bg-blue-500' }) => {
-  const colorClasses = {
-    'bg-green-500': 'bg-green-500',
-    'bg-blue-500': 'bg-blue-500',
-    'bg-yellow-500': 'bg-yellow-500',
-    'bg-red-500': 'bg-red-500'
-  };
-
+const ProgressBar = ({ value, color = 'bg-gray-900' }) => {
   return (
-    <div className="w-full bg-gray-200 rounded-full h-2">
-      <div 
-        className={`h-2 rounded-full transition-all duration-300 ${colorClasses[color] || color}`}
-        style={{ width: `${value}%` }}
-      ></div>
+    <div className="w-full bg-gray-100 rounded-full h-2.5 overflow-hidden">
+      <motion.div
+        initial={{ width: 0 }}
+        animate={{ width: `${value}%` }}
+        transition={{ duration: 0.8, ease: 'easeOut' }}
+        className={`h-full rounded-full ${color} relative overflow-hidden`}
+      >
+        <motion.div
+          className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-30"
+          animate={{ x: ['-100%', '200%'] }}
+          transition={{ duration: 1.5, repeat: Infinity, ease: 'linear' }}
+        />
+      </motion.div>
     </div>
   );
 };
 
 const ProductReviewsSection = ({ item }) => {
-  const reviews = item ||[] ;
+  const reviews = item || [];
+  const [filter, setFilter] = useState('all'); // all, 5, 4, 3, 2, 1
 
   const totalReviews = reviews.length;
 
@@ -49,88 +35,147 @@ const ProductReviewsSection = ({ item }) => {
       ? 0
       : (reviews.reduce((sum, r) => sum + r.rating, 0) / totalReviews).toFixed(1);
 
-  // Group reviews by star rating (5, 4, 3, 2, 1)
-  const starCount = [0, 0, 0, 0, 0]; // index 0 = 5 stars, index 4 = 1 star
-
+  // Group reviews by star rating
+  const starCount = [0, 0, 0, 0, 0];
   reviews.forEach((r) => {
-    const starIndex = Math.floor(5 - r.rating); // rating 5 -> index 0, 4 -> 1, etc.
+    const starIndex = Math.floor(5 - r.rating);
     if (starIndex >= 0 && starIndex < 5) {
       starCount[starIndex]++;
     }
   });
 
-  // Create dynamic rating breakdown data
+  // Rating breakdown data
   const ratingData = [
-    { label: 'Excellent', value: starCount[0], color: 'bg-green-500' },
-    { label: 'Very Good', value: starCount[1], color: 'bg-green-500' },
-    { label: 'Good', value: starCount[2], color: 'bg-blue-500' },
-    { label: 'Average', value: starCount[3], color: 'bg-yellow-500' },
-    { label: 'Poor', value: starCount[4], color: 'bg-red-500' }
-  ].map(entry => ({
+    { label: 'Excellent', stars: 5, value: starCount[0], color:  'bg-gray-900' },
+    { label: 'Very Good', stars:  4, value: starCount[1], color: 'bg-gray-700' },
+    { label: 'Good', stars: 3, value: starCount[2], color: 'bg-gray-600' },
+    { label: 'Average', stars: 2, value: starCount[3], color: 'bg-gray-500' },
+    { label: 'Poor', stars: 1, value: starCount[4], color: 'bg-gray-400' },
+  ].map((entry) => ({
     ...entry,
-    percent: totalReviews === 0 ? 0 : ((entry.value / totalReviews) * 100).toFixed(0)
+    percent: totalReviews === 0 ? 0 : ((entry.value / totalReviews) * 100).toFixed(0),
   }));
 
+  // Filter reviews
+  const filteredReviews =
+    filter === 'all' ? reviews : reviews.filter((r) => r.rating === parseInt(filter));
+
   return (
-     <section className="w-full max-w-6xl  p-4">
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        {/* Left: Overall Rating & Breakdown */}
-        <div className="lg:col-span-5">
-          <h2 className="text-xl font-semibold pb-3">Product Rating</h2>
+    <section className="w-full bg-white py-8 md:py-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Header */}
 
-          <div className="flex items-center space-x-3 mb-6">
-            <Rating value={Number(averageRating)} readOnly precision={0.1} />
-            <p className="text-gray-600 font-medium">
-              {averageRating} ({totalReviews} Review{totalReviews !== 1 && 's'})
-            </p>
-          </div>
-
-          <div className="space-y-4">
-            {ratingData.map((rating, index) => (
-              <div key={index} className="flex items-center gap-4">
-                <div className="w-20 text-right">
-                  <p className="text-sm font-semibold text-gray-700">{rating.label}</p>
-                </div>
-                <div className="flex-1">
-                  <ProgressBar value={rating.percent} color={rating.color} />
-                </div>
-                <div className="w-12 text-left">
-                  <p className="text-sm text-gray-600">{rating.percent}%</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-       
-
-         {/* Right: Customer Reviews */}
-        {/* <div className="lg:col-span-7">
-          <h2 className="text-xl font-semibold pb-3">Customer Reviews</h2>
-          <div className="space-y-6">
-            {totalReviews > 0 ? (
-              reviews.map((rev) => (
-                <div key={rev.id} className="border p-4 rounded-lg shadow-sm">
-                  <div className="flex items-center justify-between mb-2">
-                    <StarRating value={rev.rating} />
-                    <p className="text-sm text-gray-500 opacity-70">
-                      {new Date(rev.createdAt).toLocaleDateString('en-US', {
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric'
-                      })}
-                    </p>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+          {/* Left:  Overall Rating & Breakdown */}
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity:  1, x: 0 }}
+            transition={{ duration: 0.5 }}
+            className="lg:col-span-5"
+          >
+            {/* Overall Rating Card */}
+            <div className="bg-gradient-to-br from-gray-50 to-white border-2 border-gray-900 rounded-3xl p-6 md:p-8 shadow-lg mb-6">
+              <div className="text-center mb-6">
+                <motion.div
+                  initial={{ scale: 0 }}
+                  animate={{ scale:  1 }}
+                  transition={{ type: 'spring', stiffness: 200, delay: 0.2 }}
+                  className="inline-block"
+                >
+                  <div className="text-6xl md:text-7xl font-black text-gray-900 mb-2">
+                    {averageRating}
                   </div>
-                  <p className="text-gray-800">{rev.review}</p>
-                </div>
-              ))
-            ) : (
-              <p className="text-gray-600">No reviews yet.</p>
-            )}
-          </div>
-        </div> */}
+                </motion.div>
+                <Rating
+                  value={Number(averageRating)}
+                  readOnly
+                  precision={0.1}
+                  size="large"
+                  sx={{
+                    '& .MuiRating-iconFilled': { color: '#1f2937' },
+                    '& .MuiRating-iconEmpty': { color: '#d1d5db' },
+                  }}
+                />
+                <p className="text-gray-600 font-medium mt-2 text-sm md:text-base">
+                  Based on {totalReviews} review{totalReviews !== 1 && 's'}
+                </p>
+              </div>
+
+              {/* Rating Breakdown */}
+              <div className="space-y-3">
+                {ratingData.map((rating, index) => (
+                  <motion.button
+                    key={index}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.1 * index }}
+                    onClick={() =>
+                      setFilter(filter === rating.stars.toString() ? 'all' : rating.stars.toString())
+                    }
+                    className={`w-full flex items-center gap-3 p-3 rounded-xl transition-all duration-300 ${
+                      filter === rating.stars.toString()
+                        ? 'bg-gray-900 text-white shadow-lg scale-105'
+                        : 'bg-white hover:bg-gray-50 border border-gray-200'
+                    }`}
+                  >
+                    <div className="w-16 md:w-20 text-left">
+                      <p className="text-xs md:text-sm font-bold">{rating.label}</p>
+                    </div>
+                    <div className="flex-1">
+                      <ProgressBar
+                        value={rating.percent}
+                        color={filter === rating.stars.toString() ? 'bg-white' : rating.color}
+                      />
+                    </div>
+                    <div className="w-14 md:w-16 text-right">
+                      <p className="text-xs md:text-sm font-bold">{rating.value}</p>
+                    </div>
+                    <div className="flex gap-0.5">
+                      {[...Array(rating.stars)].map((_, i) => (
+                        <span key={i} className="text-xs md:text-sm">
+                          ⭐
+                        </span>
+                      ))}
+                    </div>
+                  </motion.button>
+                ))}
+              </div>
+
+              {/* Filter Reset */}
+          
+            </div>
+          </motion.div>
+
+          {/* Right: Customer Reviews */}
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5 }}
+            className="lg: col-span-7"
+          >
+            <div className="h-[30rem] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
+              <div className="space-y-4 pr-2">
+                {filteredReviews.length > 0 ? (
+                  filteredReviews.map((rev, index) => (
+                    <ProductReviewsCard key={rev.id} item={rev} index={index} />
+                  ))
+                ) : (
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    className="text-center py-12 bg-gray-50 rounded-2xl border-2 border-dashed border-gray-300"
+                  >
+                    <div className="text-6xl mb-4">📝</div>
+                    <p className="text-lg text-gray-600 font-medium">
+                      No reviews yet for this rating
+                    </p>
+                  </motion.div>
+                )}
+              </div>
+            </div>
+          </motion.div>
+        </div>
       </div>
-        
-      
     </section>
   );
 };

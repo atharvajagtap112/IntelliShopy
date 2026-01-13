@@ -1,4 +1,4 @@
-import { FIND_PRODUCT_BY_ID_FAILURE, FIND_PRODUCT_BY_ID_REQUEST, FIND_PRODUCT_BY_ID_SUCCESS, FIND_PRODUCT_FAILURE, FIND_PRODUCT_REQUEST, FIND_PRODUCT_SUCCESS, FIND_PRODUCTS_BY_CATEGORY_FAILURE, FIND_PRODUCTS_BY_CATEGORY_SUCCESS, FIND_PRODUCTS_BY_CATEGORYS_REQUEST } from "./ActionType"
+import { FIND_PRODUCT_BY_ID_FAILURE, FIND_PRODUCT_BY_ID_REQUEST, FIND_PRODUCT_BY_ID_SUCCESS, FIND_PRODUCT_FAILURE, FIND_PRODUCT_REQUEST, FIND_PRODUCT_SUCCESS, FIND_PRODUCTS_BY_CATEGORY_FAILURE, FIND_PRODUCTS_BY_CATEGORY_SUCCESS, FIND_PRODUCTS_BY_CATEGORYS_REQUEST, REMOVE_PRODUCT } from "./ActionType"
 
 const initialState = {
     products:[],
@@ -13,11 +13,17 @@ const initialState = {
 export const customerProductReducer = (state =initialState, action) => {
     
     switch (action.type) {
+
+      case REMOVE_PRODUCT:
+        return {
+          ...state,
+          product: null,
+        };
        
         case FIND_PRODUCT_REQUEST:
            
         return{
-            ...state, products:[], loading:true, error:null
+            ...state,product: null, products:[], loading:true, error:null
         }
 
           case FIND_PRODUCTS_BY_CATEGORYS_REQUEST:

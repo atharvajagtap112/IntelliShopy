@@ -30,6 +30,10 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { findProducts } from "../../../State/Product/Action";
 import { store } from "../../../State/store";
+import CircularProgress from "@mui/material/CircularProgress";
+import Loading from "../Loading/loading"; 
+
+
 
 const sortOptions = [
   { name: "Price: Low to High", href: "#", current: false , option:"price_low" },
@@ -514,14 +518,26 @@ export default function SearchedProduct() {
                 </form>
               </div>
               
-              {/* Product grid */}
-              <div className="lg:col-span-4 w-full">
-                <div className="flex flex-wrap justify-left bg-white py-5">
-                  {products.products && products.products?.content?.map((product) => (
-                    <ProductCard key={product.id} product={product} />
-                  ))}
-                </div>
-              </div>
+           {/* Product grid */}
+<div className="lg:col-span-4 w-full">
+  {products.loading ? (
+    <div className="flex justify-center items-center h-screen">
+      <Loading /> {/* OR use CircularProgress if you don't have Loading component */}
+    </div>
+  ) : (
+    <div className="flex flex-wrap justify-left bg-white py-5">
+      {products.products && products.products?.content?.length > 0 ? (
+        products.products.content.map((product) => (
+          <ProductCard key={product.id} product={product} />
+        ))
+      ) : (
+        <div className="w-full text-center py-20">
+          <p className="text-gray-500 text-lg">No products found</p>
+        </div>
+      )}
+    </div>
+  )}
+</div>
             </div>
           </section>
 

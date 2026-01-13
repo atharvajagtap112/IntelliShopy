@@ -14,3 +14,32 @@ code {
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+
+
+/* Swiper custom styles */
+.swiper {
+  padding-bottom: 40px ! important;
+}
+
+.swiper-button-disabled {
+  opacity: 0.3 !important;
+  cursor: not-allowed !important;
+}

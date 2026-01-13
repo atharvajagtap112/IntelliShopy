@@ -1,6 +1,6 @@
 import axios from "axios";
 import { api, API_BASE_URL } from "../../config/apiConfig";
-import { FIND_PRODUCT_BY_ID_FAILURE, FIND_PRODUCT_BY_ID_REQUEST, FIND_PRODUCT_BY_ID_SUCCESS, FIND_PRODUCT_REQUEST, FIND_PRODUCT_SUCCESS, FIND_PRODUCTS_BY_CATEGORY_FAILURE, FIND_PRODUCTS_BY_CATEGORY_SUCCESS, FIND_PRODUCTS_BY_CATEGORYS_REQUEST } from "./ActionType";
+import { FIND_PRODUCT_BY_ID_FAILURE, FIND_PRODUCT_BY_ID_REQUEST, FIND_PRODUCT_BY_ID_SUCCESS, FIND_PRODUCT_REQUEST, FIND_PRODUCT_SUCCESS, FIND_PRODUCTS_BY_CATEGORY_FAILURE, FIND_PRODUCTS_BY_CATEGORY_SUCCESS, FIND_PRODUCTS_BY_CATEGORYS_REQUEST, REMOVE_PRODUCT } from "./ActionType";
 
 export const findProducts=(reqData)=>async(dispatch)=>{
     
@@ -29,13 +29,15 @@ export const findProducts=(reqData)=>async(dispatch)=>{
     catch(error){
         console.error("Error fetching products:", error);
        dispatch({
-           type:FIND_PRODUCT_BY_ID_SUCCESS,
+           type:FIND_PRODUCT_BY_ID_FAILURE,
            payload:error.message
        })
     }
 }
 
-
+export const removeProduct=()=>(dispatch)=>{
+    dispatch({type:REMOVE_PRODUCT})
+}
 
 export const findProductsById=(reqData)=>async(dispatch)=>{
     
