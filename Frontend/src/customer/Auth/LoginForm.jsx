@@ -1,103 +1,72 @@
 import { Button, Grid, TextField } from "@mui/material";
-import React, { use, useEffect } from "react";
+import { motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { getUser, login } from "../../State/Auth/Action";
-import { authReaducer } from "../../State/Auth/Reducer";
-import { store } from "../../State/store";
+import { login } from "../../State/Auth/Action";
 
-const LoginForm = () => {
-  const navigate = useNavigate();
+const LoginForm = ({ switchMode }) => {
   const dispatch = useDispatch();
+  const { auth } = useSelector((store) => store);
 
- const {auth}=useSelector(store =>store)
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const data = new FormData(e.currentTarget);
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
-    const data = new FormData(event.currentTarget);
-
-    const userData = {
-   
-      email: data.get("email"),
-      password: data.get("password"),
-    };
-
-    dispatch(login(userData))
-
-    console.log(userData);
+    dispatch(
+      login({
+        email: data.get("email"),
+        password: data.get("password"),
+      })
+    );
   };
 
-  useEffect(() => {
-
-  }, [auth.isLoading]);
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <Grid container spacing={3} width={"100%"}>
-          <Grid item xs={12} width={"100%"}>
-            <TextField
-              required
-              id="email"
-              name="email"
-              label="Email"
-              fullWidth
-              autoComplete="email"
-            />
-          </Grid>
+    <motion.form
+      onSubmit={handleSubmit}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+    >
+      <Grid container spacing={3}>
+        <Grid item xs={12}>
+          <TextField label="Email" name="email" fullWidth required />
+        </Grid>
 
-          <Grid item xs={12} width={"100%"}>
-            <TextField
-              required
-              id="password"
-              name="password"
-              label="Password"
-              type="password"
-              fullWidth
-              autoComplete="new-password"
-            />
-          </Grid>
-              
+        <Grid item xs={12}>
+          <TextField
+            label="Password"
+            name="password"
+            type="password"
+            fullWidth
+            required
+          />
+        </Grid>
 
-              
+        <Grid item xs={12}>
           <Button
-            className="bg-[#9155FD] w-full"
+            fullWidth
             type="submit"
             variant="contained"
-            size="large"
-            sx={{ padding: ".8rem 0", bgcolor: "#9155FD" }}
+            sx={{
+              bgcolor: "#9155FD",
+              py: 1.3,
+              fontSize: "1rem",
+              borderRadius: "10px",
+            }}
           >
-           {auth.isLoading ? (
-  <div className="flex items-center justify-center space-x-2">
-    <div className="flex space-x-1">
-      <div className="w-2 h-2 bg-white rounded-full animate-bounce [animation-delay:-0.3s]"></div>
-      <div className="w-2 h-2 bg-white rounded-full animate-bounce [animation-delay:-0.15s]"></div>
-      <div className="w-2 h-2 bg-white rounded-full animate-bounce"></div>
-    </div>
-    <span className="text-white font-medium">Signing in...</span>
-  </div>
-) : (
-  <p>Login</p>
-)}
-          
-          
+            {auth.isLoading ? "Signing in..." : "Login"}
           </Button>
         </Grid>
-      </form>
+      </Grid>
 
-      <div className="flex justify-center flex-col items-center">
-        <div className="py-3 flex item-center">
-          <p>if you dont't have account ?</p>
-          <Button
-            onClick={() => navigate("/register")}
-            className="ml-5"
-            size="small"
-          >
-            REGISTER
-          </Button>
-        </div>
-      </div>
-    </div>
+      <p className="text-center mt-4 text-sm">
+        Don’t have an account?
+        <span
+          className="text-[#9155FD] cursor-pointer ml-1"
+          onClick={switchMode}
+        >
+          Register
+        </span>
+      </p>
+    </motion.form>
   );
 };
 

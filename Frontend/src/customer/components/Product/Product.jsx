@@ -31,7 +31,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { findProducts } from "../../../State/Product/Action";
 import { store } from "../../../State/store";
 import Loading from "../Loading/loading";
-
+import { motion, AnimatePresence } from 'framer-motion';
 const sortOptions = [
   { name: "Price: Low to High", href: "#", current: false , option:"price_low" },
   { name: "Price: High to Low", href: "#", current: false, option:"price_high" },
@@ -182,13 +182,22 @@ navigation({
 
   }
 
-  const handleRadioFilterChnage=(value, sectionId)=>{
-   const searchParams = new URLSearchParams(location.search); 
-   searchParams.set(sectionId, value.target.value);
-     const queryString = searchParams.toString();
-        navigation({search:`?${queryString}`});
-  }
+const handleRadioFilterChange = (event, sectionId) => {
+  const searchParams = new URLSearchParams(location.search);
+  const newValue = event.target.value;
+  const currentValue = searchParams.get(sectionId);
+  
+  
+  if (currentValue === newValue) {
+    searchParams.delete(sectionId);
+  } else {
 
+    searchParams.set(sectionId, newValue);
+  }
+  
+  const queryString = searchParams.toString();
+  navigation({ search: `?${queryString}` });
+};
   const handleSortFilterChange=(value, sectionId)=>{
    const searchParams = new URLSearchParams(location.search); 
    searchParams.set(sectionId, value);
@@ -378,209 +387,306 @@ navigation({
           </div>
         </Dialog>
 
-        <main className="mx-auto  px-4 sm:px-6 lg:px-20">
-          <div className="flex items-baseline justify-between border-b border-gray-200 pt-24 pb-6">
-            <h1 className="text-4xl font-bold tracking-tight text-gray-900">
-              New Arrivals
-            </h1>
+       <main className="mx-auto px-4 sm:px-6 lg:px-20">
+  {/* Enhanced Header */}
+  <motion.div
+    initial={{ opacity: 0, y: -20 }}
+    animate={{ opacity: 1, y: 0 }}
+    className="flex flex-col sm:flex-row items-start sm:items-baseline justify-between border-b-2 border-gray-200 pt-24 pb-6 gap-4"
+  >
+    <div>
+      <h1 className="text-3xl sm:text-4xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-gray-900 to-gray-700">
+        New Arrivals
+      </h1>
+      <p className="text-gray-600 mt-2 text-sm">Discover our latest collection</p>
+    </div>
 
-            <div className="flex items-center">
-              <Menu as="div" className="relative inline-block text-left">
-                <div>
-                  <MenuButton 
-                    
+    <div className="flex items-center gap-4">
+      <Menu as="div" className="relative inline-block text-left">
+        <div>
+          <MenuButton className="group inline-flex items-center justify-center gap-2 rounded-xl bg-white px-4 py-2.5 text-sm font-semibold text-gray-900 hover:bg-gray-50 border-2 border-gray-200 hover:border-gray-900 transition-all">
+            Sort
+            <ChevronDownIcon
+              aria-hidden="true"
+              className="h-5 w-5 text-gray-400 group-hover:text-gray-900"
+            />
+          </MenuButton>
+        </div>
 
-                  className="group inline-flex justify-center text-sm font-medium text-gray-700 hover:text-gray-900">
-                    Sort
-                    <ChevronDownIcon
-                      aria-hidden="true"
-                      className="-mr-1 ml-1 size-5 shrink-0 text-gray-400 group-hover:text-gray-500"
-                    />
-                  </MenuButton>
-                </div>
-
-                <MenuItems
-                  transition
-                  className="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-white cursor-pointer shadow-2xl ring-1 ring-black/5 transition focus:outline-hidden data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in"
+        <MenuItems
+          transition
+          className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-xl bg-white shadow-2xl ring-1 ring-black/5 border border-gray-200 transition focus:outline-hidden data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in"
+        >
+          <div className="py-2">
+            {sortOptions.map((option) => (
+              <MenuItem key={option.name}>
+                <a
+                  onClick={() => handleSortFilterChange(option.option, "sort")}
+                  className={classNames(
+                    option.current
+                      ? "font-semibold text-gray-900 bg-gray-50"
+                      : "text-gray-700 hover:bg-gray-50",
+                    "block px-4 py-3 text-sm cursor-pointer transition-colors rounded-lg mx-2"
+                  )}
                 >
-                  <div className="py-1">
-                    {sortOptions.map((option) => (
-                      <MenuItem key={option.name}>
-                        <a
-                          onClick={()=>handleSortFilterChange(option.option,"sort")}
-                          className={classNames(
-                            option.current
-                              ? "font-medium text-gray-900"
-                              : "text-gray-500",
-                            "block px-4 py-2  text-sm data-focus:bg-gray-100 data-focus:outline-hidden"
-                          )}
+                  {option. name}
+                </a>
+              </MenuItem>
+            ))}
+          </div>
+        </MenuItems>
+      </Menu>
+
+      {/* Mobile Filter Button */}
+      <button
+        type="button"
+        onClick={() => setMobileFiltersOpen(true)}
+        className="lg:hidden flex items-center gap-2 rounded-xl bg-gray-900 text-white px-4 py-2.5 text-sm font-semibold hover:bg-gray-800 transition-colors"
+      >
+        <FunnelIcon className="h-5 w-5" />
+        Filters
+      </button>
+    </div>
+  </motion.div>
+
+  <section aria-labelledby="products-heading" className="pt-6 pb-24">
+    <h2 id="products-heading" className="sr-only">Products</h2>
+
+    <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-5">
+      {/* Filters Sidebar */}
+      <motion.div
+        initial={{ opacity: 0, x: -20 }}
+        animate={{ opacity:  1, x: 0 }}
+        transition={{ delay: 0.2 }}
+        className="hidden lg:block"
+      >
+        <div className="sticky top-24 bg-white rounded-2xl shadow-lg border-2 border-gray-200 p-6">
+          <div className="flex justify-between items-center mb-6 pb-4 border-b-2 border-gray-200">  
+            <h2 className="text-xl font-bold text-gray-900">Filters</h2>
+            <FilterListIcon className="text-gray-700" />
+          </div>
+          
+          {/* Keep your existing filter form code here, just wrap it */}
+          <form className="space-y-2">
+            {/* Your existing filters code */}
+            {filters.map((section) => (
+              <Disclosure
+                key={section.id}
+                as="div"
+                className="border-b border-gray-200 py-4"
+              >
+                <h3 className="-my-3 flow-root">
+                  <DisclosureButton className="group flex w-full items-center justify-between bg-white py-3 text-sm hover:text-gray-900">
+                    <span className="font-semibold text-gray-900 text-base">
+                      {section.name}
+                    </span>
+                    <motion.span
+                      className="ml-6 flex items-center"
+                      whileHover={{ rotate: 90 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <PlusIcon
+                        aria-hidden="true"
+                        className="h-5 w-5 text-gray-700 group-data-open:hidden"
+                      />
+                      <MinusIcon
+                        aria-hidden="true"
+                        className="h-5 w-5 text-gray-700 hidden group-data-open:block"
+                      />
+                    </motion.span>
+                  </DisclosureButton>
+                </h3>
+                <DisclosurePanel className="pt-6">
+                  <div className="space-y-4">
+                    {section.options.map((option, optionIdx) => (
+                      <motion.div
+                        key={option.value}
+                        initial={{ opacity: 0, x:  -10 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: optionIdx * 0.05 }}
+                        className="flex items-center gap-3"
+                      >
+                        <input
+                          onChange={() => handleFilter(option.value, section.id)}
+                          defaultValue={option.value}
+                          defaultChecked={option.checked}
+                          id={`filter-${section.id}-${optionIdx}`}
+                          name={`${section.id}[]`}
+                          type="checkbox"
+                          className="h-5 w-5 rounded-md border-2 border-gray-300 text-gray-900 focus:ring-2 focus:ring-gray-900 cursor-pointer"
+                        />
+                        <label
+                          htmlFor={`filter-${section.id}-${optionIdx}`}
+                          className="text-sm text-gray-700 cursor-pointer hover:text-gray-900 font-medium"
                         >
-                          {option.name}
-                        </a>
-                      </MenuItem>
+                          {option.label}
+                        </label>
+                      </motion.div>
                     ))}
                   </div>
-                </MenuItems>
-              </Menu>
+                </DisclosurePanel>
+              </Disclosure>
+            ))}
 
-            
-            </div>
+            {/* Radio Filters */}
+           {singleFilter.map((section) => {
+  // Get current value from URL
+  const searchParams = new URLSearchParams(location.search);
+  const currentValue = searchParams.get(section.id) || '';
+
+  return (
+    <Disclosure key={section.id} as="div" className="border-b border-gray-200 py-4">
+      <h3 className="-my-3 flow-root">
+        <DisclosureButton className="group flex w-full items-center justify-between bg-white py-3 text-sm hover:text-gray-900">
+          <FormLabel 
+            sx={{color:"#111827", fontWeight:  600, fontSize: '1rem'}} 
+            id={`radio-label-${section.id}`}
+          >
+            {section.name}
+          </FormLabel>
+          <motion.span
+            className="ml-6 flex items-center"
+            whileHover={{ rotate: 90 }}
+            transition={{ duration: 0.2 }}
+          >
+            <PlusIcon
+              aria-hidden="true"
+              className="h-5 w-5 text-gray-700 group-data-open:hidden"
+            />
+            <MinusIcon
+              aria-hidden="true"
+              className="h-5 w-5 text-gray-700 hidden group-data-open:block"
+            />
+          </motion.span>
+        </DisclosureButton>
+      </h3>
+      <DisclosurePanel className="pt-6">
+        <FormControl fullWidth>
+          <RadioGroup 
+            aria-labelledby={`radio-label-${section.id}`}
+            name={`radio-group-${section.id}`}
+            value={currentValue}  // Controlled by URL param
+          >
+            {section.options.map((option, optionIdx) => (
+              <motion.div
+                key={option.value}
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: optionIdx * 0.05 }}
+                className="flex"
+              >
+                <FormControlLabel
+  value={option.value}
+  control={
+    <Radio
+      checked={currentValue === option.value}
+      onClick={() => {
+        const searchParams = new URLSearchParams(location.search);
+
+        if (currentValue === option.value) {
+          // UNCHECK → remove from URL
+          searchParams.delete(section.id);
+        } else {
+          // CHECK → set in URL
+          searchParams.set(section.id, option.value);
+        }
+
+        navigation({ search: `?${searchParams.toString()}` });
+      }}
+      sx={{
+        color: '#111827',
+        '&.Mui-checked': { color: '#111827' }
+      }}
+    />
+  }
+  label={option.label}
+  sx={{
+    '& .MuiFormControlLabel-label': {
+      fontSize: '0.875rem',
+      color: '#374151',
+      fontWeight: 500
+    }
+  }}
+/>
+              </motion.div>
+            ))}
+          </RadioGroup>
+        </FormControl>
+      </DisclosurePanel>
+    </Disclosure>
+  );
+})}
+          </form>
+        </div>
+      </motion.div>
+
+      {/* Product Grid */}
+      {products.loading ? (
+        <div className="lg:col-span-4 w-full flex justify-center items-center h-screen">
+          <Loading />
+        </div>
+      ) : (
+        <motion. div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.3 }}
+          className="lg:col-span-4 w-full"
+        >
+          <div className="flex flex-wrap justify-center sm:justify-start bg-gradient-to-br from-gray-50 to-white rounded-2xl p-4">
+            <AnimatePresence>
+              {products.products && products.products?. content?. map((product, index) => (
+                <motion. div
+                  key={product.id}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale:  0.9 }}
+                  transition={{ delay: index * 0.05 }}
+                >
+                  <ProductCard product={product} />
+                </motion.div>
+              ))}
+            </AnimatePresence>
           </div>
+        </motion.div>
+      )}
+    </div>
+  </section>
 
-          <section aria-labelledby="products-heading" className="pt-6 pb-24">
-            <h2 id="products-heading" className="sr-only">
-              Products
-            </h2>
-
-            <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-5">
-              {/* Filters */}
-              <div>
-                <div className="py-10 flex justify-between items-center">  
-                  <h1 className="text-lg opacity-50 font-bold text-left">Filters</h1>
-              <FilterListIcon /></div>
-             
-              <form className="hidden lg:block">
-                <h3 className="sr-only">Categories</h3>
-
-                {filters.map((section) => (
-                  <Disclosure
-                    key={section.id}
-                    as="div"
-                    className="border-b border-gray-200 py-6"
-                  >
-                    <h3 className="-my-3 flow-root">
-                      <DisclosureButton className="group flex w-full items-center justify-between bg-white py-3 text-sm text-gray-400 hover:text-gray-500">
-                        <span className="font-medium text-gray-900">
-                          {section.name}
-                        </span>
-                        <span className="ml-6 flex items-center">
-                          <PlusIcon
-                            aria-hidden="true"
-                            className="size-5 group-data-open:hidden"
-                          />
-                         
-                        </span>
-                      </DisclosureButton>
-                    </h3>
-                    <DisclosurePanel className="pt-6">
-                      <div className="space-y-4">
-                        {section.options.map((option, optionIdx) => (
-                          <div key={option.value} className="flex gap-3">
-                            <div className="flex h-5 shrink-0 items-center">
-                              <div className="group grid size-4 grid-cols-1">
-                                <input
-                                 onChange={()=>handleFilter(option.value, section.id)}
-                                  defaultValue={option.value}
-                                  defaultChecked={option.checked}
-                                  id={`filter-${section.id}-${optionIdx}`}
-                                  name={`${section.id}[]`}
-                                  type="checkbox"
-                                  className="col-start-1 row-start-1 appearance-none rounded-sm border border-gray-300 bg-white checked:border-indigo-600 checked:bg-indigo-600 indeterminate:border-indigo-600 indeterminate:bg-indigo-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:checked:bg-gray-100 forced-colors:appearance-auto"
-                                />
-                                <svg
-                                  fill="none"
-                                  viewBox="0 0 14 14"
-                                  className="pointer-events-none col-start-1 row-start-1 size-3.5 self-center justify-self-center stroke-white group-has-disabled:stroke-gray-950/25"
-                                >
-                                  <path
-                                    d="M3 8L6 11L11 3.5"
-                                    strokeWidth={2}
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    className="opacity-0 group-has-checked:opacity-100"
-                                  />
-                                  <path
-                                    d="M3 7H11"
-                                    strokeWidth={2}
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    className="opacity-0 group-has-indeterminate:opacity-100"
-                                  />
-                                </svg>
-                              </div>
-                            </div>
-                            <label
-                              htmlFor={`filter-${section.id}-${optionIdx}`}
-                              className="text-sm text-gray-600"
-                            >
-                              {option.label}
-                            </label>
-                          </div>
-                        ))}
-                      </div>
-                    </DisclosurePanel>
-                  </Disclosure>
-                ))}
-                
-                {singleFilter.map((section) => (
-                  <Disclosure  key={section.id}  as="div" className="border-b border-gray-200 py-6"  >
-                    
-                  <>
-                    <h3 className="-my-3 flow-root">
-                      <DisclosureButton className="group flex w-full items-center justify-between bg-white py-3 text-sm text-gray-400 hover:text-gray-500">
-                        
-                        {/* <span className="font-medium "></span> */}
-                        
-                           <FormLabel sx={{color:"black"}} className="text-gray-900" id="demo-radio-buttons-group-label">
-                               {section.name}
-                            </FormLabel>
-                     
-                        <span className="ml-6 flex items-center">
-                          <PlusIcon
-                            aria-hidden="true"
-                            className="size-5 group-data-open:hidden"
-                          />
-                          
-                        </span>
-                        
-                      </DisclosureButton>
-                    </h3>
-                    <DisclosurePanel className="pt-6">
-                      <div className="space-y-4">
-                        <FormControl>
-                         <RadioGroup aria-labelledby="demo-radio-buttons-group-label" defaultValue="female"  name="radio-buttons-group"  >
-                        {section.options.map((option, optionIdx) => (
-                        
-                        <>
-                          <FormControlLabel onChange={(e)=>handleRadioFilterChnage(e,section.id)}  value={option.value}  control={<Radio />}     label={option.label}/>
-                        </>
-                                ))}
-
-                                </RadioGroup> </FormControl>
-                      </div>
-                    </DisclosurePanel>
-                     </>
-                  </Disclosure>
-                ))}
-               
-              </form>
-</div>
-              {/* Product grid */}
-                  {products.loading?
-                  
-                <div   className="lg:col-span-4 w-full flex justify-center items-center h-screen">
-
-            <Loading/>
-            </div>
-
-
-             : <div className="lg:col-span-4 w-full">
-                <div className="flex flex-wrap justify-left bg-white py-5">
-                     {products.products&&products.products?.content?.map((product) => (
-                    <ProductCard product={product} />
-                  ))}
-                </div>
-              </div>
-              }
-            </div>
-          </section>
-
-          <section className="w-full px=[3.6rem] ">
-             <div className="px-4 py-5 flex justify-center">
-              <Pagination count={products.products?.totalPages}   page={parseInt(pageNumber)} color="secondary"  onChange={handlePaginationChange} />
-              </div>    
-          </section>
-        </main>
+  {/* Enhanced Pagination */}
+  <motion.section
+    initial={{ opacity: 0, y: 20 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ delay: 0.5 }}
+    className="w-full mb-12"
+  >
+    <div className="flex justify-center">
+      <div className="bg-white rounded-2xl shadow-lg border-2 border-gray-200 px-6 py-4">
+        <Pagination
+          count={products.products?. totalPages}
+          page={parseInt(pageNumber)}
+          onChange={handlePaginationChange}
+          size="large"
+          sx={{
+            '& .MuiPaginationItem-root':  {
+              color: '#374151',
+              fontWeight: 600,
+              '&: hover': {
+                backgroundColor: '#f3f4f6',
+              },
+            },
+            '& . Mui-selected': {
+              backgroundColor: '#111827 !important',
+              color: 'white',
+              '&:hover': {
+                backgroundColor: '#1f2937 !important',
+              },
+            },
+          }}
+        />
+      </div>
+    </div>
+  </motion.section>
+</main>   
       </div>
     </div>
   );

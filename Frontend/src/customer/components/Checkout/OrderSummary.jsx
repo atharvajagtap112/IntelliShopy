@@ -10,6 +10,12 @@ import { getOrderById } from '../../../State/Order/Action'
 import { createPayment } from '../../../State/Payment/Action'
 import { toast } from 'react-toastify'
 import Loading from '../Loading/loading'
+import { motion } from "framer-motion"
+import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
+import LocalOfferOutlinedIcon from '@mui/icons-material/LocalOfferOutlined';
+import LocalShippingOutlinedIcon from '@mui/icons-material/LocalShippingOutlined';
+import PaymentOutlinedIcon from '@mui/icons-material/PaymentOutlined';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 
 const OrderSummary = () => {
 
@@ -17,7 +23,7 @@ const OrderSummary = () => {
  const {payment}=useSelector(store=>store)
 
 const dispatch = useDispatch();
- 
+ const discount = order.order?.totalPrice - order.order?.totalDiscountedPrice;
 const navigation = useNavigate();
 const location= useLocation();
 const searchParams=new URLSearchParams(location.search);
@@ -61,67 +67,158 @@ dispatch(createPayment(orderId))
            
       </div>
         <div>
-      <div className="lg:grid grid-cols-3 space-y-5 lg:px-1 relative">
-        <div className="col-span-2">
-         {order.order?.orderItems?.map((item)=> <CardItem  item={item} isCheckout={true}/>) }
+      <div className="lg:grid grid-cols-3 gap-4 space-y-5 lg:px-1 relative">
+        <div className="col-span-2 ">
+         {order.order?.orderItems?.map((item)=> <div className='pb-5'> <CardItem  item={item} isCheckout={true}/></div>) }
         </div>
-        <div className=" px-5 sticky top-0 h-[100vh] mt-5 lg:mt-0">
-          <div className="border">
-            <p className="uppercase font-bold opacity-60 pb-4">Price details</p>
-            <hr />
-            <div className="space-y-3 font-semibold mb-10">
-              <div className="flex justify-between pt-3 text-black">
-                <span>Price</span>
-                <span>{order.order?.totalPrice}</span>
-              </div>
-            
+        <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x:  0 }}
+            transition={{ delay: 0.3 }}
+            className="lg:col-span-1"
+          >
+            <div className="lg:sticky lg:top-24">
+              <div className="bg-white rounded-2xl shadow-xl border border-gray-200 overflow-hidden">
+                
+                {/* Header */}
+                <div className="bg-gradient-to-r from-gray-900 to-gray-800 px-6 py-5">
+                  <h3 className="text-2xl font-bold text-white flex items-center gap-2">
+                    <PaymentOutlinedIcon />
+                    Price Details
+                  </h3>
+                </div>
 
-           
-              <div className="flex justify-between pt-3 text-black">
-                <span>Discount</span>
-                <span className="text-green-600">-{order.order?.totalPrice-order.order?.totalDiscountedPrice}</span>
-              </div>
-           
+                {/* Price Breakdown */}
+                <div className="p-6 space-y-4">
+                  
+                  {/* Subtotal */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.4 }}
+                    className="flex justify-between items-center text-gray-700"
+                  >
+                    <span className="flex items-center gap-2 font-medium">
+                      <ShoppingBagOutlinedIcon fontSize="small" />
+                      Price ({order.order?.totalItem || 0} items)
+                    </span>
+                    <span className="font-semibold text-lg">₹{order.order?.totalPrice || 0}</span>
+                  </motion.div>
 
-          
-              <div className="flex justify-between pt-3 text-black">
-                <span>Delivery Charges</span>
-                <span className="text-green-600">Free</span>
-              </div>
-          
+                  {/* Discount */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.5 }}
+                    className="flex justify-between items-center text-green-600"
+                  >
+                    <span className="flex items-center gap-2 font-medium">
+                      <LocalOfferOutlinedIcon fontSize="small" />
+                      Discount
+                    </span>
+                    <span className="font-semibold text-lg">-₹{discount || 0}</span>
+                  </motion.div>
 
-           
-              <div className="flex justify-between pt-3 text-black">
-                <span>Total Amount</span>
-                <span className="text-green-600">{order.order?.totalDiscountedPrice}</span>
+                  {/* Delivery Charges */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.6 }}
+                    className="flex justify-between items-center text-green-600"
+                  >
+                    <span className="flex items-center gap-2 font-medium">
+                      <LocalShippingOutlinedIcon fontSize="small" />
+                      Delivery Charges
+                    </span>
+                    <span className="font-semibold text-lg">FREE</span>
+                  </motion.div>
+
+                  {/* Divider */}
+                  <div className="border-t-2 border-dashed border-gray-300 my-4"></div>
+
+                  {/* Total Amount */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.7 }}
+                    className="flex justify-between items-center bg-gradient-to-r from-gray-50 to-gray-100 p-4 rounded-xl border-2 border-gray-900"
+                  >
+                    <span className="text-lg font-bold text-gray-900">Total Amount</span>
+                    <span className="text-2xl font-bold text-gray-900">
+                      ₹{order. order?.totalDiscountedPrice || 0}
+                    </span>
+                  </motion.div>
+
+                  {/* Savings Badge */}
+                  {discount > 0 && (
+                    <motion.div
+                      initial={{ scale: 0 }}
+                      animate={{ scale:  1 }}
+                      transition={{ delay: 0.8, type: "spring" }}
+                      className="bg-green-50 border-2 border-green-500 rounded-xl p-4 text-center"
+                    >
+                      <div className="flex items-center justify-center gap-2 text-green-700 font-bold text-lg">
+                        <CheckCircleOutlineIcon />
+                        You're saving ₹{discount}!
+                      </div>
+                      <p className="text-green-600 text-sm mt-1">on this order</p>
+                    </motion.div>
+                  )}
+
+                  {/* Checkout Button */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.9 }}
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    className="mt-6"
+                  >
+                    <Button
+                      onClick={handleCheckout}
+                      fullWidth
+                      variant="contained"
+                      disabled={payment.loading}
+                      sx={{
+                        bgcolor: 'black',
+                        color: 'white',
+                        py: 2,
+                        borderRadius: 3,
+                        textTransform: 'none',
+                        fontSize: '1.125rem',
+                        fontWeight:  700,
+                        boxShadow: '0 8px 24px rgba(0,0,0,0.3)',
+                        '&:hover':  {
+                          bgcolor: '#1a1a1a',
+                          boxShadow: '0 12px 32px rgba(0,0,0,0.4)',
+                        },
+                        '&. Mui-disabled': {
+                          bgcolor: '#6b7280',
+                          color: 'white',
+                        },
+                      }}
+                    >
+                      {payment.loading ? (
+                        <div className="flex items-center justify-center space-x-2">
+                          <div className="flex space-x-1">
+                            <div className="w-2 h-2 bg-white rounded-full animate-bounce [animation-delay:-0.3s]"></div>
+                            <div className="w-2 h-2 bg-white rounded-full animate-bounce [animation-delay:-0.15s]"></div>
+                            <div className="w-2 h-2 bg-white rounded-full animate-bounce"></div>
+                          </div>
+                          <span className="text-white font-medium">Processing payment...</span>
+                        </div>
+                      ) : (
+                        <span className="flex items-center justify-center gap-2">
+                          <PaymentOutlinedIcon />
+                          Proceed to Payment
+                        </span>
+                      )}
+                    </Button>
+                  </motion.div>
+                </div>
               </div>
             </div>
-         
-          <Button
-            variant="contained"
-            className="w-full"
-            sx={{ px: "2.5rem", py: "0.7rem", bgcolor: "#9155fd ",  alignSelf:"left"}}
-            onClick={handleCheckout}
-          > 
-
-        
-{payment.loading ? (
-  <div className="flex items-center justify-center space-x-2">
-    <div className="flex space-x-1">
-      <div className="w-2 h-2 bg-white rounded-full animate-bounce [animation-delay:-0.3s]"></div>
-      <div className="w-2 h-2 bg-white rounded-full animate-bounce [animation-delay:-0.15s]"></div>
-      <div className="w-2 h-2 bg-white rounded-full animate-bounce"></div>
-    </div>
-    <span className="text-white font-medium">Processing payment...</span>
-  </div>
-) : (
-  "Checkout"
-)}
-
-          </Button>
-           </div>
-
-        </div>
+          </motion.div>
       </div>
     </div>
     
