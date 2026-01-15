@@ -626,16 +626,16 @@ const handleRadioFilterChange = (event, sectionId) => {
           <Loading />
         </div>
       ) : (
-        <motion. div
+        <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3 }}
           className="lg:col-span-4 w-full"
         >
-          <div className="flex flex-wrap justify-center sm:justify-start bg-gradient-to-br from-gray-50 to-white rounded-2xl p-4">
+          <div className="flex flex-wrap justify-center sm:justify-start bg-gradient-to-br from-gray-50 to-white rounded-2xl ">
             <AnimatePresence>
-              {products.products && products.products?. content?. map((product, index) => (
-                <motion. div
+              {products.products && products.products?.content?.map((product, index) => (
+                <motion.div
                   key={product.id}
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
