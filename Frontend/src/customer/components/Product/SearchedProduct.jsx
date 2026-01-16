@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
   Dialog,
   DialogBackdrop,
@@ -19,18 +19,17 @@ import {
   FunnelIcon,
   MinusIcon,
   PlusIcon,
-  Squares2X2Icon,
+ 
 } from "@heroicons/react/20/solid";
 import ProductCard from "./ProductCard";
 import FilterListIcon from '@mui/icons-material/FilterList';
-import { mens_kurta } from "../../Data/Men/men_kurta";
-import { discountFilter, filters, singleFilter } from "./filterData";
+
+import { filters, singleFilter } from "./filterData";
 import { FormControl, FormControlLabel, FormLabel, Pagination, Radio, RadioGroup } from "@mui/material";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { findProducts } from "../../../State/Product/Action";
-import { store } from "../../../State/store";
-import CircularProgress from "@mui/material/CircularProgress";
+
 import Loading from "../Loading/loading"; 
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -66,7 +65,7 @@ export default function SearchedProduct() {
   const {products} = useSelector(store => store);
 
   // Function to make API call with filters
-  const fetchFilteredProducts = () => {
+  const fetchFilteredProducts = useCallback(() => {
     const [minPrice, maxPrice] = priceValue === null ? [0, 100000] : priceValue.split("-").map(Number);
 
     const data = {
@@ -85,36 +84,24 @@ export default function SearchedProduct() {
 
     console.log("🔹 Making API call with filters:", data);
     dispatch(findProducts(data));
-  };
+  }, [dispatch, param.query, colorValue, sizeValue, sortValue, priceValue, discount, pageNumber, stock]);
 
   // Only call API when there are URL parameters (manual filters applied)
-  useEffect(() => {
-    // Check if there are any filter parameters in the URL
+useEffect(() => {
     const hasFilters = colorValue || sizeValue || sortValue || priceValue || discount || pageNumber > 1 || stock;
     
     if (hasFilters) {
-      console.log("🔹 URL parameters detected, making API call");
       fetchFilteredProducts();
-    } else {
-      console.log("🔹 No URL parameters, using existing AI search results");
     }
-  }, [
-    param.query,
-    colorValue,  
-    sizeValue,
-    sortValue,
-    priceValue,
-    discount,
-    pageNumber,
-    stock     
-  ]);
-
+  }, [fetchFilteredProducts, colorValue, sizeValue, sortValue, priceValue, discount, pageNumber, stock]);
   const handlePaginationChange = (event, value) => {
     event.preventDefault();
     const searchParams = new URLSearchParams(location.search);
     searchParams.set("page", value);
     navigation({ search: `?${searchParams.toString()}` });
   };
+
+
 
   const handleFilter = (value, sectionId) => {
     const searchParams = new URLSearchParams(location.search); 
@@ -139,12 +126,6 @@ export default function SearchedProduct() {
     });
   };
 
-  const handleRadioFilterChnage = (value, sectionId) => {
-    const searchParams = new URLSearchParams(location.search); 
-    searchParams.set(sectionId, value.target.value);
-    const queryString = searchParams.toString();
-    navigation({search: `?${queryString}`});
-  };
 
   const handleSortFilterChange = (value, sectionId) => {
     const searchParams = new URLSearchParams(location.search); 
@@ -365,10 +346,10 @@ export default function SearchedProduct() {
           transition
           className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-xl bg-white shadow-2xl ring-1 ring-black/5 border border-gray-200 transition focus:outline-hidden data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in"
         >
-          <div className="py-2">
+          <div className="py-2"> 
             {sortOptions.map((option) => (
               <MenuItem key={option.name}>
-                <a
+                <button
                   onClick={() => handleSortFilterChange(option.option, "sort")}
                   className={classNames(
                     option.current
@@ -377,8 +358,8 @@ export default function SearchedProduct() {
                     "block px-4 py-3 text-sm cursor-pointer transition-colors rounded-lg mx-2"
                   )}
                 >
-                  {option. name}
-                </a>
+                  {option.name}
+                </button>
               </MenuItem>
             ))}
           </div>
@@ -574,7 +555,7 @@ export default function SearchedProduct() {
           <Loading />
         </div>
       ) : (
-        <motion. div
+        <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3 }}
@@ -582,8 +563,8 @@ export default function SearchedProduct() {
         >
           <div className="flex flex-wrap justify-center sm:justify-start bg-gradient-to-br from-gray-50 to-white rounded-2xl p-4">
             <AnimatePresence>
-              {products.products && products.products?. content?. map((product, index) => (
-                <motion. div
+              {products.products && products.products?.content?.map((product, index) => (
+                <motion.div
                   key={product.id}
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
