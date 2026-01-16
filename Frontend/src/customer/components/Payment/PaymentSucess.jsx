@@ -1,7 +1,7 @@
-import React, { use, useEffect } from 'react'
+import React, {  useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams, useSearchParams } from 'react-router-dom';
-import { store } from '../../../State/store';
+import { useParams } from 'react-router-dom';
+
 import { getOrderById } from '../../../State/Order/Action';
 import { updatePayment } from '../../../State/Payment/Action';
 import { Alert, AlertTitle, Grid } from '@mui/material';
@@ -11,7 +11,7 @@ import Loading from '../Loading/loading';
 
 const PaymentSucess = () => {
     const [paymentId, setPaymentId] = React.useState();
-    const [referenceId, setReferenceId] = React.useState();
+ 
     const [paymentStatus, setPaymentStatus] = React.useState();
     const {orderId}= useParams();   
     

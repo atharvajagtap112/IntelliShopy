@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from 'react'
+import  { useEffect, useState } from 'react'
 import AddressCard from '../AddressCard/adddressCard'
 import OrderTracker from './OrderTracker'
 import { Box, Grid } from '@mui/material'
 import { deepPurple } from '@mui/material/colors'
-import StarIcon from '@mui/icons-material/Star';
+
 
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import { useDispatch, useSelector } from 'react-redux'
-import { getOrderById, getOrders } from '../../../State/Order/Action'
-import { store } from '../../../State/store'
+import { getOrderById } from '../../../State/Order/Action'
+
 import { useNavigate, useParams } from 'react-router-dom'
 
 const OrderDetails = () => {
@@ -34,7 +34,7 @@ const OrderDetails = () => {
     console.log("order Id", param.orderId);
       
     dispatch(getOrderById(param.orderId))
-  },[param.orderId] 
+  },[param.orderId, dispatch] 
 )
 
   const [activeStep,setActiveStep] = useState(0);
@@ -45,7 +45,7 @@ const OrderDetails = () => {
     if(order?.order?.orderStatus){
       setActiveStep(steps[order?.order?.orderStatus.toUpperCase()]||0)
     }
-  },[order?.order?.orderStatus]
+  },[order?.order?.orderStatus, steps]
 )
 
 
@@ -79,7 +79,7 @@ const OrderDetails = () => {
              </div>
             </Grid>  
               
-             {order?.order?.orderStatus=="DELIVERED"&& <Grid item xs={6} >
+             {order?.order?.orderStatus==="DELIVERED"&& <Grid item xs={6} >
                 <Box sx={{color:deepPurple[500]}}
                  onClick={()=>navigation(`/add/review/${item.product.id}`)}
                 

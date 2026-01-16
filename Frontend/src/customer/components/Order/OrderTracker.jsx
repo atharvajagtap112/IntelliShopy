@@ -1,5 +1,5 @@
-import { colors, Step, StepLabel, Stepper } from '@mui/material'
-import React from 'react'
+import {  Step, StepLabel, Stepper } from '@mui/material'
+
 const steps=[
     "Placed",
     "Order Confirmed",

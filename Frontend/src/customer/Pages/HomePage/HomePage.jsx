@@ -1,16 +1,13 @@
-import React, { use, useEffect } from 'react'
+
 import MainCarousel from '../../HomeCarosal/MainCarosel'
 import HomeSectionCarosel from '../../components/HomeSectionCarosel/HomeSectionCarosel'
-import { mens_kurta } from '../../Data/Men/men_kurta'
-import { kurtaPage1 } from '../../Data/Kurta/kurta'
-import { dressPage1 } from '../../Data/dress/page1'
-import { mensShoesPage1 } from '../../Data/shoes'
-import Footer from '../../components/Footer/Footer'
-import Product from '../../components/Product/Product'
-import { findProducts, findProductsByCategories } from '../../../State/Product/Action'
+
+
+import { findProductsByCategories } from '../../../State/Product/Action'
 import { useDispatch, useSelector } from 'react-redux'
-import { store } from '../../../State/store'
+
 import Loading from '../../components/Loading/loading'
+import { useEffect } from 'react'
 
 const HomePage = () => {
 
@@ -45,7 +42,7 @@ const HomePage = () => {
           
       dispatch(findProductsByCategories(data));
     },[
-     
+      dispatch
   ])   
     
 

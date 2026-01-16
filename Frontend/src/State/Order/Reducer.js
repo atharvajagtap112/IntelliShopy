@@ -43,13 +43,7 @@ export const orderReducer=(state=initialState,action)=>{
                 orders:action.payload
             }   
 
-         case GET_ORDERS_SUCCESS:
-            return {
-                ...state,
-                loading:false,
-                error:null,
-                
-            }   
+         
 
 
         case CREATE_ORDER_FAILURE:

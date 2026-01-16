@@ -5,6 +5,9 @@ export const filters = [
         options: [
             { value: "black", label: "Black" },
             { value: "gray", label: "Gray" },
+            { value: "orange", label: "Orange" },
+            { value: "pink", label: "Pink" },
+            { value: "dark blue", label: "Dark Blue" },
             { value: "red", label: "Red" },
             { value: "white", label: "White" },
             { value: "beige", label: "Beige" },

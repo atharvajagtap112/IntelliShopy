@@ -1,4 +1,4 @@
-import RegistorForm from "../../customer/Auth/RegistorForm";
+
 
 export const REGISTOR_REQUEST='REGISTOR_REQUEST';
 export const REGISTOR_SUCCESS='REGISTOR_SUCCESS';

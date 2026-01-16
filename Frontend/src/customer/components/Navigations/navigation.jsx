@@ -8,16 +8,16 @@ import {
   CameraIcon,
 } from "@heroicons/react/24/outline";
 
-import { motion, button } from "framer-motion";
+import { motion } from "framer-motion";
 import { Avatar, Button, Link, Menu, MenuItem } from "@mui/material";
 
 import { deepPurple } from "@mui/material/colors";
 
-import TextField from "@mui/material/TextField";
+
 import { navigation } from "./navigationData";
 import { useLocation, useNavigate } from "react-router-dom";
 import AuthModel from "../../Auth/AuthModel";
-import RegistorForm from "../../Auth/RegistorForm";
+
 import { useDispatch, useSelector } from "react-redux";
 import { getUser, logout } from "../../../State/Auth/Action";
 import { getCart } from "../../../State/Cart/Action";
@@ -44,7 +44,7 @@ export default function Navigation() {
     if (jwt) {
       dispatch(getUser(jwt));
     }
-  }, [jwt, auth.jwt]);
+  }, [jwt, auth.jwt, dispatch]);
 
   useEffect(() => {
     if (auth.user) {
@@ -53,14 +53,14 @@ export default function Navigation() {
     if (location.pathname === "/login" || location.pathname === "/registor") {
       navigate(-1);
     }
-  }, [auth.user]);
+  }, [auth.user, dispatch, location.pathname, navigate]);
 
   useEffect(() => {
     if (jwt) {
       // dispatch(getUser(jwt));
       dispatch(getCart());
     }
-  }, [jwt]);
+  }, [jwt, dispatch]);
 
   const handleUserClick = (event) => {
     setAnchorEl(event.currentTarget);

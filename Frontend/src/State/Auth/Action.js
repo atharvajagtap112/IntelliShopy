@@ -3,7 +3,7 @@ import { API_BASE_URL } from "../../config/apiConfig"
 import { GET_USER_FAILURE, GET_USER_REQUEST, GET_USER_SUCCESS, LOGIN_FAILURE, LOGIN_REQUEST, lOGIN_SUCCESS, LOGOUT, REGISTOR_FAILURE, REGISTOR_REQUEST, REGISTOR_SUCCESS } from "./ActionType";
 import { toast } from "react-toastify";
 
-const token=localStorage.getItem("jwt");
+
 
 const registerRequest=()=>({type:REGISTOR_REQUEST});
 const registerSuccess=(user)=>({type:REGISTOR_SUCCESS, payload:user});

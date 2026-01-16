@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import  { useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
@@ -18,7 +18,7 @@ const ImageSearch = () => {
 
   const [image, setImage] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
-  const [color, setColor] = useState("");
+  const [color] = useState("");
   const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef(null);
 
@@ -115,7 +115,7 @@ const ImageSearch = () => {
                 onDragOver={handleDragOver}
                 onDragLeave={handleDragLeave}
                 onDrop={handleDrop}
-                onClick={() => fileInputRef.current?. click()}
+                onClick={() => fileInputRef.current?.click()}
                 className={`
                   relative border-2 border-dashed rounded-xl p-8 md:p-12
                   transition-all duration-300 cursor-pointer
@@ -195,7 +195,7 @@ const ImageSearch = () => {
 
                 <div className="p-4 bg-gray-50 border-t border-gray-200">
                   <p className="text-sm text-gray-600 truncate">
-                    <span className="font-semibold">File:</span> {image?. name}
+                    <span className="font-semibold">File:</span> {image?.name}
                   </p>
                 </div>
               </motion.div>

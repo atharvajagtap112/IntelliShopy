@@ -54,7 +54,7 @@ const AddressCard = ({ address, isSelected, onSelect, showSelectButton = false }
            
             
               <p className="text-base md:text-lg font-bold text-gray-900 break-words">
-                {address?. firstName} {address?.lastName}
+                {address?.firstName} {address?.lastName}
               </p>
             
           </motion.div>
@@ -74,7 +74,7 @@ const AddressCard = ({ address, isSelected, onSelect, showSelectButton = false }
               <div className="text-sm md:text-base text-gray-800 leading-relaxed space-y-1">
                 {address?.streetAddress && (
                   <p className="break-words overflow-wrap-anywhere">
-                    {address. streetAddress}, {address?.city}{address?.city && address?.state && ', '}{address?.state}, {address. zipCode}
+                    {address.streetAddress}, {address?.city}{address?.city && address?.state && ', '}{address?.state}, {address.zipCode}
                   </p>
                 )}
                

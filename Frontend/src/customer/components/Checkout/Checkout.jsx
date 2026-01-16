@@ -1,4 +1,4 @@
-import * as React from 'react';
+
 import Box from '@mui/material/Box';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
@@ -28,7 +28,7 @@ const CustomConnector = styled(StepConnector)(({ theme }) => ({
       backgroundImage: 'linear-gradient(to right, #000000, #333333)',
     },
   },
-  [`& .${stepConnectorClasses. line}`]: {
+  [`&.${stepConnectorClasses.line}`]: {
     height: 3,
     border:  0,
     backgroundColor: '#e0e0e0',
@@ -75,7 +75,7 @@ const CustomStepIcon = (props) => {
 
 export default function Checkout() {
   const location = useLocation();
-  const querySearch = new URLSearchParams(location. search);
+  const querySearch = new URLSearchParams(location.search);
   const step = parseInt(querySearch.get("step")) || 1;
 
   return (

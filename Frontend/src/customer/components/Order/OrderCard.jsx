@@ -1,7 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { Grid } from "@mui/material";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import LocalShippingIcon from "@mui/icons-material/LocalShipping";
+
 import PaymentIcon from "@mui/icons-material/Payment";
 
 const OrderCard = ({ order }) => {

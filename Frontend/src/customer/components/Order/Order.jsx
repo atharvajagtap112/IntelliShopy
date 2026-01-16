@@ -1,9 +1,9 @@
 import { Grid } from '@mui/material'
-import React, { useEffect } from 'react'
+import  { useEffect } from 'react'
 import OrderCard from './OrderCard'
 import { useDispatch, useSelector } from 'react-redux'
 import { getOrders } from '../../../State/Order/Action'
-import { useLocation, useNavigate, useNavigation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 const orderStatus=[
     {label:"On The Way", value:"OUT_FOR_DELIVERY"},
     {label:"Delivered", value:"DELIVERED"},
@@ -60,7 +60,7 @@ const onHandleFilter = (value) => {
       var params=[]
      params= decodeURIComponent(status).split(',')
     const data= {
-        status:  params[0]!="null"?params:["ALL"]
+        status:  params[0]!=="null"?params:["ALL"]
       }
      
       console.log("data", data);
@@ -95,7 +95,7 @@ const onHandleFilter = (value) => {
              </Grid>
              <Grid item xs={9} flex={0.9} spacing={1} margin={2} >
               <div className='space-y-5'>
-               { order.orders?.length==0?  
+               { order.orders?.length===0?  
                      
               <div className='flex items-center justify-center h-full'>
                   <h1 className='text-2xl font-bold text-gray-500'>No Orders Found</h1> </div>

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { api, API_BASE_URL } from "../../config/apiConfig";
+import { API_BASE_URL } from "../../config/apiConfig";
 import { FIND_PRODUCT_BY_ID_FAILURE, FIND_PRODUCT_BY_ID_REQUEST, FIND_PRODUCT_BY_ID_SUCCESS, FIND_PRODUCT_REQUEST, FIND_PRODUCT_SUCCESS, FIND_PRODUCTS_BY_CATEGORY_FAILURE, FIND_PRODUCTS_BY_CATEGORY_SUCCESS, FIND_PRODUCTS_BY_CATEGORYS_REQUEST, REMOVE_PRODUCT } from "./ActionType";
 
 export const findProducts=(reqData)=>async(dispatch)=>{

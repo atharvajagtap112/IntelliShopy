@@ -6,10 +6,10 @@ import { motion } from "framer-motion";
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-import { useParams } from "react-router-dom";
+
 
 const HomeSectionCarousel = ({ data, sectionName }) => {
-  const [swiperRef, setSwiperRef] = useState(null);
+  const [setSwiperRef] = useState(null);
   const uniqueId = useId().replace(/:/g, '');
   
   return (

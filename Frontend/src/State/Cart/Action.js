@@ -16,8 +16,8 @@ export const getCart=()=>async(dispatch)=>{
     catch(error){
 
           console.error("❌ Get cart error:", error);
-        console.error("Error response:", error. response?.data);
-        console.error("Error status:", error. response?.status);
+        console.error("Error response:", error.response?.data);
+        console.error("Error status:", error.response?.status);
        dispatch({
               type:GET_CART_FAILURE,
               payload:error.message
@@ -45,7 +45,7 @@ export const addItemToCart=(reqData) =>async(dispatch)=>{
     catch(error){
             console.error("❌ Add to cart error:", error);
         console.error("Error response:", error.response?.data);
-        console.error("Error status:", error. response?.status);
+        console.error("Error status:", error.response?.status);
        dispatch({
 
              

@@ -51,7 +51,7 @@ const CartCard = () => {
             Shopping Cart
           </h1>
           <p className="text-gray-600 mt-2">
-            {cart.cartItems?. length || 0} {cart.cartItems?.length === 1 ? 'item' :  'items'} in your cart
+            {cart.cartItems?.length || 0} {cart.cartItems?.length === 1 ? 'item' :  'items'} in your cart
           </p>
         </motion.div>
 
@@ -106,7 +106,7 @@ const CartCard = () => {
             {/* Cart Items */}
             <div className="lg:col-span-2 space-y-4">
               <AnimatePresence>
-                {cart?. cartItems?.map((item, index) => (
+                {cart?.cartItems?.map((item, index) => (
                   <motion.div
                     key={item.id}
                     initial={{ opacity: 0, x: -20 }}
@@ -121,7 +121,7 @@ const CartCard = () => {
             </div>
 
             {/* Price Summary Sidebar */}
-            <motion. div
+            <motion.div
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x:  0 }}
               transition={{ delay: 0.3 }}
@@ -152,7 +152,7 @@ const CartCard = () => {
                           <LocalOfferOutlinedIcon fontSize="small" />
                           Discount
                         </span>
-                        <span className="font-semibold">-₹{cart. cart?.discount}</span>
+                        <span className="font-semibold">-₹{cart.cart?.discount}</span>
                       </div>
 
                       <div className="flex justify-between items-center text-green-600">
@@ -167,7 +167,7 @@ const CartCard = () => {
                     <div className="border-t border-gray-200 pt-4">
                       <div className="flex justify-between items-center">
                         <span className="text-lg font-bold text-gray-900">Total Amount</span>
-                        <span className="text-2xl font-bold text-gray-900">₹{cart. cart?.totalDiscountPrice}</span>
+                        <span className="text-2xl font-bold text-gray-900">₹{cart.cart?.totalDiscountPrice}</span>
                       </div>
                       <p className="text-xs text-gray-500 mt-1 text-right">Inclusive of all taxes</p>
                     </div>
@@ -185,7 +185,7 @@ const CartCard = () => {
                     </motion.div>
 
                     {/* Checkout Button */}
-                    <motion. div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                    <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
                       <Button
                         onClick={handleCheckout}
                         fullWidth
@@ -223,7 +223,7 @@ const CartCard = () => {
                   </div>
                 </div>
               </div>
-            </motion. div>
+            </motion.div>
           </div>
         )}
       </div>

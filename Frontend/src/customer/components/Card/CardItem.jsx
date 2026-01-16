@@ -1,11 +1,11 @@
-import { Button, IconButton } from "@mui/material";
-import React, { useState } from "react";
-import AddIcon from '@mui/icons-material/Add';
-import RemoveIcon from '@mui/icons-material/Remove';
-import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
-import LocalOfferIcon from '@mui/icons-material/LocalOffer';
-import { useDispatch } from "react-redux";
-import { removeItemFromCart, updateItemToCart } from "../../../State/Cart/Action";
+
+  import { useState } from "react";
+  import AddIcon from '@mui/icons-material/Add';
+  import RemoveIcon from '@mui/icons-material/Remove';
+  import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+  import LocalOfferIcon from '@mui/icons-material/LocalOffer';
+  import { useDispatch } from "react-redux";
+  import { removeItemFromCart, updateItemToCart } from "../../../State/Cart/Action";
 import { motion } from "framer-motion";
 
 const CardItem = ({ item, isCheckout }) => {
@@ -23,7 +23,7 @@ const CardItem = ({ item, isCheckout }) => {
   const updateCartItem = (num) => {
     const data = {
       data: { quantity: item.quantity + num },
-      cartItemId: item?. id
+      cartItemId: item?.id
     };
     dispatch(updateItemToCart(data));
   };
@@ -31,7 +31,7 @@ const CardItem = ({ item, isCheckout }) => {
   const handleRemoveItem = () => {
     setIsRemoving(true);
     setTimeout(() => {
-      dispatch(removeItemFromCart(item. id));
+      dispatch(removeItemFromCart(item.id));
     }, 300);
   };
 
@@ -74,7 +74,7 @@ const CardItem = ({ item, isCheckout }) => {
             {/* Title and Remove Button */}
             <div className="flex justify-between items-start gap-2 mb-1">
               <h3 className="font-bold text-gray-900 text-sm lg:text-lg line-clamp-2 flex-grow">
-                {item.product. title}
+                {item.product.title}
               </h3>
               
               {! isCheckout && (
@@ -108,7 +108,7 @@ const CardItem = ({ item, isCheckout }) => {
             {/* Price Section */}
             <div className="flex items-center gap-2 mb-3 flex-wrap">
               <span className="text-lg lg:text-2xl font-bold text-gray-900">
-                ₹{item. discountedPrice}
+                ₹{item.discountedPrice}
               </span>
               <span className="text-xs lg:text-sm text-gray-400 line-through">
                 ₹{item.price}

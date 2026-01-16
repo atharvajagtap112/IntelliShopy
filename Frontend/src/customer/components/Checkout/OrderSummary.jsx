@@ -1,11 +1,11 @@
-import React, { use, useEffect } from 'react'
+import { useEffect } from 'react'
 import AddressCard from '../AddressCard/adddressCard'
 import CardItem from '../Card/CardItem'
 import { Button } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
-import { store } from '../../../State/store'
+
 import { useLocation, useNavigate } from 'react-router-dom'
-import { findProductsById } from '../../../State/Product/Action'
+
 import { getOrderById } from '../../../State/Order/Action'
 import { createPayment } from '../../../State/Payment/Action'
 import { toast } from 'react-toastify'
@@ -31,7 +31,7 @@ const searchParams=new URLSearchParams(location.search);
 
   useEffect(() => {
   dispatch(getOrderById(orderId))
-},[orderId])
+},[orderId, dispatch])
 
   
 
@@ -145,7 +145,7 @@ dispatch(createPayment(orderId))
                   >
                     <span className="text-lg font-bold text-gray-900">Total Amount</span>
                     <span className="text-2xl font-bold text-gray-900">
-                      ₹{order. order?.totalDiscountedPrice || 0}
+                      ₹{order.order?.totalDiscountedPrice || 0}
                     </span>
                   </motion.div>
 
