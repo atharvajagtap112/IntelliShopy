@@ -12,7 +12,10 @@ import Product from '../customer/components/Product/Product'
 import PaymentSucess from '../customer/components/Payment/PaymentSucess'
 import AISearch from '../customer/components/AI Search/AI_Search'
 import SearchedProduct from '../customer/components/Product/SearchedProduct'
+
 import RateAndReview from '../customer/components/Order/RateAndReview'
+import ImageSearchedProduct from '../customer/components/Product/imageSearchedProduct.'
+import ImageSearch from '../customer/components/ImageSearch/ImageSearch'
 
 const CustomerRouters = () => {
   return (
@@ -35,6 +38,8 @@ const CustomerRouters = () => {
             <Route path='/search' element={ <AISearch/>} > </Route> 
             <Route path='/search/:query' element={ <SearchedProduct/>} > </Route>  
           <Route path='/add/review/:productId' element={ <RateAndReview/>} > </Route>
+          <Route path='/imageSearch' element={ <ImageSearch/>} > </Route>
+          <Route path='/products/search/image/:query' element={ <ImageSearchedProduct/>} > </Route>
         </Routes>
           
           <div>

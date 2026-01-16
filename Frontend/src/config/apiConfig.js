@@ -12,7 +12,7 @@ export const api = axios.create({
     },
 })
 
-// Add a request interceptor to dynamically set the JWT
+
 api.interceptors.request.use(
     (config) => {
         const jwt = localStorage.getItem("jwt");

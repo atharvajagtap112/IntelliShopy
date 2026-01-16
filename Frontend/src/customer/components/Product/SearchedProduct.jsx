@@ -608,9 +608,9 @@ export default function SearchedProduct() {
     className="w-full mb-12"
   >
     <div className="flex justify-center">
-      <div className="bg-white rounded-2xl shadow-lg border-2 border-gray-200 px-6 py-4">
+      <div className="bg-white rounded-2xl shadow-lg border-2 border-gray-200 px-6 ">
         <Pagination
-          count={products.products?. totalPages}
+          count={products.products?.totalPages}
           page={parseInt(pageNumber)}
           onChange={handlePaginationChange}
           size="large"
@@ -618,7 +618,7 @@ export default function SearchedProduct() {
             '& .MuiPaginationItem-root':  {
               color: '#374151',
               fontWeight: 600,
-              '&: hover': {
+              '&:hover': {
                 backgroundColor: '#f3f4f6',
               },
             },

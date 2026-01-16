@@ -28,7 +28,7 @@ const PaymentSucess = () => {
 
    useEffect(() => {
     dispatch(getOrderById(orderId))
-       
+       console.log("orderId: ", orderId, "paymentId: ", paymentId);
     if(paymentId){
           console.log("paymentId: ", paymentId);
           dispatch(updatePayment({

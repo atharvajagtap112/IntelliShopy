@@ -5,12 +5,11 @@ import {
   MagnifyingGlassIcon,
   ShoppingBagIcon,
   XMarkIcon,
+  CameraIcon,
 } from "@heroicons/react/24/outline";
 
-
+import { motion, button } from "framer-motion";
 import { Avatar, Button, Link, Menu, MenuItem } from "@mui/material";
-
-
 
 import { deepPurple } from "@mui/material/colors";
 
@@ -28,40 +27,33 @@ function classNames(...classes) {
 }
 
 export default function Navigation() {
-  const navigate= useNavigate();
+  const navigate = useNavigate();
   const [open, setOpen] = useState(false);
-
-
 
   const [openAuthModal, setOpenAuthModal] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const openUserMenu = Boolean(anchorEl);
-   const location=useLocation();
+  const location = useLocation();
 
- const dispatch = useDispatch();
- const jwt=localStorage.getItem("jwt");
- const {auth}=useSelector(store=>store)
- const {cart}=useSelector(store=>store);
-     
- useEffect(() => {
-  if(jwt){
-    dispatch(getUser(jwt))
-  } 
-},[jwt,auth.jwt])
- 
+  const dispatch = useDispatch();
+  const jwt = localStorage.getItem("jwt");
+  const { auth } = useSelector((store) => store);
+  const { cart } = useSelector((store) => store);
 
- useEffect(()=>{
-   if(auth.user){
-    handleClose();
-   }
-   if(location.pathname ==="/login" || location.pathname ==="/registor"){
-   navigate(-1)
- }
-},[auth.user]
- )
+  useEffect(() => {
+    if (jwt) {
+      dispatch(getUser(jwt));
+    }
+  }, [jwt, auth.jwt]);
 
-
-
+  useEffect(() => {
+    if (auth.user) {
+      handleClose();
+    }
+    if (location.pathname === "/login" || location.pathname === "/registor") {
+      navigate(-1);
+    }
+  }, [auth.user]);
 
   useEffect(() => {
     if (jwt) {
@@ -82,29 +74,22 @@ export default function Navigation() {
   };
   const handleClose = () => {
     setOpenAuthModal(false);
-    
   };
 
-  const handleLogout=()=>{
-    dispatch(logout())
+  const handleLogout = () => {
+    dispatch(logout());
     localStorage.clear();
     handleCloseUserMenu();
-  }
+  };
 
   const handleCategoryClick = (category, section, item, close) => {
-    navigate(`/${category.id}/${section.id}/${item.id}?page=1`,
-
-  
-    );
+    navigate(`/${category.id}/${section.id}/${item.id}?page=1`);
     close();
   };
 
-    const handleCategoryClick1 = (category, section, item) => {
+  const handleCategoryClick1 = (category, section, item) => {
     navigate(`/${category.id}/${section.id}/${item.id}`);
-    
   };
-
-
 
   return (
     <div className="bg-white pb-10">
@@ -123,7 +108,7 @@ export default function Navigation() {
             <div className="fixed inset-0 bg-black bg-opacity-25" />
           </Transition.Child>
 
-          <div className="fixed inset-0 z-40 flex">
+          <div className="fixed inset-0 z-40 flex ">
             <Transition.Child
               as={Fragment}
               enter="transition ease-in-out duration-300 transform"
@@ -168,12 +153,10 @@ export default function Navigation() {
                   </div>
                   <Tab.Panels as={Fragment}>
                     {navigation.categories.map((category) => (
-                    
                       <Tab.Panel
                         key={category.name}
                         className="space-y-10 px-4 pb-8 pt-10"
                       >
-                      
                         {category.sections.map((section) => (
                           <div key={section.name}>
                             <p
@@ -190,17 +173,16 @@ export default function Navigation() {
                             >
                               {section.items.map((item) => (
                                 <li key={item.name} className="flow-root">
-                                  <p className="-m-2 block p-2 text-gray-500"
-                                  onClick={() =>
-                                                    handleCategoryClick1(
-                                                      category,
-                                                      section,
-                                                      item,
-                                                     
-                                                    )
-                                                  }
+                                  <p
+                                    className="-m-2 block p-2 text-gray-500"
+                                    onClick={() =>
+                                      handleCategoryClick1(
+                                        category,
+                                        section,
+                                        item
+                                      )
+                                    }
                                   >
-                                    
                                     {item.name}
                                   </p>
                                 </li>
@@ -209,8 +191,6 @@ export default function Navigation() {
                           </div>
                         ))}
                       </Tab.Panel>
-
-                      
                     ))}
                   </Tab.Panels>
                 </Tab.Group>
@@ -230,7 +210,7 @@ export default function Navigation() {
 
                 <div className="space-y-6 border-t border-gray-200 px-4 py-6">
                   <div className="flow-root">
-                   <Button
+                    <Button
                       onClick={handleOpen}
                       className="text-sm font-medium text-gray-700 hover:text-gray-800"
                     >
@@ -259,8 +239,6 @@ export default function Navigation() {
       </Transition.Root>
 
       <header className="relative bg-white">
-       
-
         <nav aria-label="Top" className="mx-auto">
           <div className="border-b border-gray-200">
             <div className="flex h-16 items-center px-11">
@@ -277,16 +255,12 @@ export default function Navigation() {
               <div className="ml-4 flex lg:ml-0">
                 <Link to="/">
                   <span className="sr-only">Your Company</span>
-                  <Button
-                  type="button"
-                  onClick={() => navigate("/")}
-                  >
-                    
-                  <img
-                    src="https://res.cloudinary.com/ddkso1wxi/image/upload/v1675919455/Logo/Copy_of_Zosh_Academy_nblljp.png"
-                    alt="Shopwithzosh"
-                    className="h-8 w-8 mr-2"
-                  />
+                  <Button type="button" onClick={() => navigate("/")}>
+                    <img
+                      src="https://res.cloudinary.com/ddkso1wxi/image/upload/v1675919455/Logo/Copy_of_Zosh_Academy_nblljp.png"
+                      alt="Shopwithzosh"
+                      className="h-8 w-8 mr-2"
+                    />
                   </Button>
                 </Link>
               </div>
@@ -320,49 +294,14 @@ export default function Navigation() {
                             leaveFrom="opacity-100"
                             leaveTo="opacity-0"
                           >
-                            <Popover.Panel className="absolute inset-x-0 top-full text-sm text-gray-500">
-                              {/* Presentational element used to render the bottom shadow, if we put the shadow on the actual panel it pokes out the top, so we use this shorter element to hide the top of the shadow */}
-                              <div
-                                className="absolute inset-0 top-1/2 bg-white shadow"
-                                aria-hidden="true"
-                              />
+                            <Popover.Panel className="absolute inset-x-0 w-full flex-row justify-start top-full text-sm text-gray-500">
+                           
+                              
 
                               <div className="relative bg-white">
-                                <div className="mx-auto max-w-7xl px-8">
-                                  <div className="grid grid-cols-2 gap-x-8 gap-y-10 py-16">
-                                    <div className="col-start-2 grid grid-cols-2 gap-x-8">
-                                      {category.featured.map((item) => (
-                                        <div
-                                          key={item.name}
-                                          className="group relative text-base sm:text-sm"
-                                        >
-                                          <div className="aspect-h-1 aspect-w-1 overflow-hidden rounded-lg bg-gray-100 group-hover:opacity-75">
-                                             <img
-                                              src={item.imageSrc}
-                                              
-                                              className="object-cover object-center"
-                                            />
-                                          </div>
-                                          <a
-                                            href={item.href}
-                                            className="mt-6 block font-medium text-gray-900"
-                                          >
-                                            <span
-                                              className="absolute inset-0 z-10"
-                                              aria-hidden="true"
-                                            />
-                                            {item.name}
-                                          </a>
-                                          <p
-                                            aria-hidden="true"
-                                            className="mt-1"
-                                          >
-                                            Shop now
-                                          </p>
-                                        </div>
-                                      ))}
-                                    </div>
-                                    <div className="row-start-1 grid grid-cols-3 gap-x-8 gap-y-10 text-sm">
+                              <div className="w-full px-11">
+                                <div className="flex flex-wrap gap-x-12 py-16">
+                                    <div className="flex gap-x-12 text-sm">
                                       {category.sections.map((section) => (
                                         <div key={section.name}>
                                           <p
@@ -425,25 +364,23 @@ export default function Navigation() {
 
               <div className="ml-auto flex items-center">
                 <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
-                  
-                  { auth.user?.firstName? ( 
+                  {auth.user?.firstName ? (
                     <div>
-                     <Avatar
+                      <Avatar
                         className="text-white"
                         onClick={handleUserClick}
                         aria-controls={open ? "basic-menu" : undefined}
                         aria-haspopup="true"
                         aria-expanded={open ? "true" : undefined}
-                     
                         sx={{
                           bgcolor: deepPurple[500],
                           color: "white",
                           cursor: "pointer",
                         }}
                       >
-                        {auth.user?.firstName[0].toUpperCase()} 
+                        {auth.user?.firstName[0].toUpperCase()}
                       </Avatar>
-                   
+
                       <Menu
                         id="basic-menu"
                         anchorEl={anchorEl}
@@ -453,50 +390,69 @@ export default function Navigation() {
                           "aria-labelledby": "basic-button",
                         }}
                       >
-                        <MenuItem onClick={() => {navigate("/account/order")}}> 
-                       
-                            My Orders
+                        <MenuItem
+                          onClick={() => {
+                            navigate("/account/order");
+                          }}
+                        >
+                          My Orders
                         </MenuItem>
                         <MenuItem onClick={handleLogout}>Logout</MenuItem>
                       </Menu>
                     </div>
-                      ): (
+                  ) : (
                     <Button
                       onClick={handleOpen}
                       className="text-sm font-medium text-gray-700 hover:text-gray-800"
                     >
                       Signin
                     </Button>
-                  ) }
+                  )}
                 </div>
 
                 {/* Search */}
-                <div className="flex items-center lg:ml-6">
-                
-                  <p 
-                  //</div>onClick={()=>navigate("/products/search")} 
-                  className="p-2 text-gray-400 hover:text-gray-500">
-                    <span className="sr-only">Search</span>
-                    
+                <div className="flex items-center lg:ml-6 gap-1">
+                  {/* AI Image Search */}
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => navigate("/imageSearch")}
+                    className="relative p-2 text-gray-400 hover:text-gray-900 transition-colors group"
+                  >
+                    <CameraIcon className="h-6 w-6" aria-hidden="true" />
+                    <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 bg-black text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+                      Image Search
+                    </span>
+                  </motion.button>
+
+                  {/* AI Text Search */}
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => navigate("/search")}
+                    className="relative p-2 text-gray-400 hover:text-gray-900 transition-colors group"
+                  >
                     <MagnifyingGlassIcon
-                    onClick={()=>navigate("/search")}
                       className="h-6 w-6"
                       aria-hidden="true"
                     />
-                  </p>
+                    <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 bg-black text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+                      Text Search
+                    </span>
+                  </motion.button>
                 </div>
 
                 {/* Cart */}
-                <div className="ml-4 flow-root lg:ml-6">
+                <div className="ml-4 flow-root lg: ml-6">
                   <Button
                     onClick={() => navigate("/cart")}
                     className="group -m-2 flex items-center p-2"
                   >
                     <ShoppingBagIcon
-                      className="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
+                      className="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-900 transition-colors"
                       aria-hidden="true"
                     />
-                    <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">
+                    <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-900">
                       {cart.cart?.totalItem}
                     </span>
                     <span className="sr-only">items in cart, view bag</span>
@@ -507,9 +463,8 @@ export default function Navigation() {
           </div>
         </nav>
       </header>
-        
-       <AuthModel handleClose={handleClose} open={openAuthModal}/> 
-     
+
+      <AuthModel handleClose={handleClose} open={openAuthModal} />
     </div>
   );
 }

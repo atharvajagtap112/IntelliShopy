@@ -32,6 +32,7 @@ export const updatePayment=(reqData)=> async(dispatch)=>{
       console.log("update payment:  "+data.message)
    }
    catch(error){
+      console.log("update payment error:  "+error.message)
      dispatch({type:UPDATE_PAYMENT_FAILURE,payload:error.message})
    }
 }
