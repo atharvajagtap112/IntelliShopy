@@ -7,6 +7,7 @@
   import { useDispatch } from "react-redux";
   import { removeItemFromCart, updateItemToCart } from "../../../State/Cart/Action";
 import { motion } from "framer-motion";
+import { IconButton } from "@mui/material";
 
 const CardItem = ({ item, isCheckout }) => {
   const [isRemoving, setIsRemoving] = useState(false);

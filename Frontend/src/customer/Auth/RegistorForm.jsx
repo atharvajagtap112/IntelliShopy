@@ -20,6 +20,26 @@ const RegisterForm = ({ switchMode }) => {
       })
     );
   };
+        
+const inputStyles = {
+  backgroundColor: "transparent",
+
+  "& input": {
+    backgroundColor: "transparent",
+    color: "inherit",
+  },
+
+  "& input:-webkit-autofill": {
+    WebkitBoxShadow: "0 0 0 1000px transparent inset",
+    WebkitTextFillColor: "inherit",
+    transition: "background-color 9999s ease-in-out 0s",
+  },
+
+  "& input:-webkit-autofill:hover, & input:-webkit-autofill:focus": {
+    WebkitBoxShadow: "0 0 0 1000px transparent inset",
+  },
+};
+
 
   return (
     <motion.form
@@ -29,15 +49,90 @@ const RegisterForm = ({ switchMode }) => {
     >
       <Grid container spacing={2}>
         <Grid item xs={6}>
-          <TextField label="First Name" name="firstName" fullWidth required />
+          <TextField label="First Name" name="firstName" fullWidth required 
+           
+            slotProps={{
+    input: {
+      sx: {
+        backgroundColor: "transparent",
+
+        "& input": {
+          backgroundColor: "transparent",
+          color: "inherit",
+        },
+
+        "& input:-webkit-autofill": {
+          WebkitBoxShadow: "0 0 0 1000px transparent inset",
+          WebkitTextFillColor: "inherit",
+          transition: "background-color 9999s ease-in-out 0s",
+        },
+
+        "& input:-webkit-autofill:hover, & input:-webkit-autofill:focus": {
+          WebkitBoxShadow: "0 0 0 1000px transparent inset",
+        },
+      },
+    }}}
+
+          />
         </Grid>
 
         <Grid item xs={6}>
-          <TextField label="Last Name" name="lastName" fullWidth required />
+          <TextField label="Last Name" name="lastName" fullWidth required 
+          
+               slotProps={{
+    input: {
+      sx: {
+        backgroundColor: "transparent",
+
+        "& input": {
+          backgroundColor: "transparent",
+          color: "inherit",
+        },
+
+        "& input:-webkit-autofill": {
+          WebkitBoxShadow: "0 0 0 1000px transparent inset",
+          WebkitTextFillColor: "inherit",
+          transition: "background-color 9999s ease-in-out 0s",
+        },
+
+        "& input:-webkit-autofill:hover, & input:-webkit-autofill:focus": {
+          WebkitBoxShadow: "0 0 0 1000px transparent inset",
+        },
+      },
+    }}}
+
+          
+          
+          />
         </Grid>
 
         <Grid item xs={12}>
-          <TextField label="Email" name="email" fullWidth required />
+          <TextField label="Email" name="email" fullWidth required 
+          
+               slotProps={{
+    input: {
+      sx: {
+        backgroundColor: "transparent",
+
+        "& input": {
+          backgroundColor: "transparent",
+          color: "inherit",
+        },
+
+        "& input:-webkit-autofill": {
+          WebkitBoxShadow: "0 0 0 1000px transparent inset",
+          WebkitTextFillColor: "inherit",
+          transition: "background-color 9999s ease-in-out 0s",
+        },
+
+        "& input:-webkit-autofill:hover, & input:-webkit-autofill:focus": {
+          WebkitBoxShadow: "0 0 0 1000px transparent inset",
+        },
+      },
+    }}}
+
+          
+          />
         </Grid>
 
         <Grid item xs={12}>
@@ -47,6 +142,32 @@ const RegisterForm = ({ switchMode }) => {
             type="password"
             fullWidth
             required
+
+
+     slotProps={{
+    input: {
+      sx: {
+        backgroundColor: "transparent",
+
+        "& input": {
+          backgroundColor: "transparent",
+          color: "inherit",
+        },
+
+        "& input:-webkit-autofill": {
+          WebkitBoxShadow: "0 0 0 1000px transparent inset",
+          WebkitTextFillColor: "inherit",
+          transition: "background-color 9999s ease-in-out 0s",
+        },
+
+        "& input:-webkit-autofill:hover, & input:-webkit-autofill:focus": {
+          WebkitBoxShadow: "0 0 0 1000px transparent inset",
+        },
+      },
+    }}}
+
+
+
           />
         </Grid>
 

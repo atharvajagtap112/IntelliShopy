@@ -406,7 +406,7 @@ useEffect(() => {
               >
                 <h3 className="-my-3 flow-root">
                   <DisclosureButton className="group flex w-full items-center justify-between bg-white py-3 text-sm hover:text-gray-900">
-                    <span className="font-semibold text-gray-900 text-base">
+                    <span className="font-bold text-gray-900 text-base">
                       {section.name}
                     </span>
                     <motion.span

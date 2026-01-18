@@ -1,6 +1,7 @@
 
 
 
+import { Route, Routes } from 'react-router-dom';
 import CustomerRouters from './Routers/CustomerRouters';
 import ScrollToTop from './customer/components/ScrollToTop';
 import { ToastContainer } from 'react-toastify';

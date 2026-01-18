@@ -85,25 +85,12 @@ const AISearch = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
-      {/* Header */}
-      <div className="bg-white shadow-sm border-b">
-        <div className="max-w-6xl mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-2">
-              <span className="text-2xl">🛒</span>
-              <h1 className="text-2xl font-bold text-gray-800">IntelliShop</h1>
-            </div>
-            <div className="flex items-center space-x-2 text-sm text-gray-600">
-              <span className="text-lg">✨</span>
-              <span>AI-Powered Search</span>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div className="h-screen bg-gradient-to-br from-slate-50 to-slate-100">
+    
+    
 
       {/* Main Search Section */}
-      <div className="max-w-4xl mx-auto px-4 py-12">
+      <div className="max-w-4xl mx-auto px-4 py-4 ">
         <div className="text-center mb-8">
           <h2 className="text-4xl font-bold text-gray-800 mb-4">
             Find anything with <span className="text-blue-600">AI</span>

@@ -17,10 +17,10 @@ const HomeSectionCard = ({ product, index }) => {
       onClick={() => navigate(`/product/${product.id}`)}
       className="relative cursor-pointer group h-[24rem] sm:h-[26rem] md:h-[28rem] w-full"
     >
-      {/* Card Container - Using flex column with fixed structure */}
-      <div className="relative  h-full w-[18rem] bg-white/80 backdrop-blur-sm rounded-2xl md:rounded-3xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-500 border border-white/50 flex flex-col">
+     
+      <div className="relative  h-full w-full bg-white/80 backdrop-blur-sm rounded-2xl md:rounded-3xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-500 border border-white/50 flex flex-col">
         
-        {/* Gradient Overlay on Hover */}
+      
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: isHovered ? 0.08 : 0 }}
@@ -84,7 +84,7 @@ const HomeSectionCard = ({ product, index }) => {
                 </span>
               </div>
             ) : (
-              <div className="h-[2rem]"></div> // Placeholder if no price
+              <div className="h-[2rem]"></div> 
             )}
           </div>
 

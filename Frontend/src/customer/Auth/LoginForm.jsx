@@ -18,7 +18,24 @@ const LoginForm = ({ switchMode }) => {
       })
     );
   };
+   const inputStyles = {
+  backgroundColor: "transparent",
 
+  "& input": {
+    backgroundColor: "transparent",
+    color: "inherit",
+  },
+
+  "& input:-webkit-autofill": {
+    WebkitBoxShadow: "0 0 0 1000px transparent inset",
+    WebkitTextFillColor: "inherit",
+    transition: "background-color 9999s ease-in-out 0s",
+  },
+
+  "& input:-webkit-autofill:hover, & input:-webkit-autofill:focus": {
+    WebkitBoxShadow: "0 0 0 1000px transparent inset",
+  },
+};
   return (
     <motion.form
       onSubmit={handleSubmit}
@@ -27,7 +44,9 @@ const LoginForm = ({ switchMode }) => {
     >
       <Grid container spacing={3}>
         <Grid item xs={12}>
-          <TextField label="Email" name="email" fullWidth required />
+          <TextField label="Email" name="email" fullWidth required  InputProps={{
+    sx: inputStyles,
+  }} />
         </Grid>
 
         <Grid item xs={12}>
@@ -37,6 +56,9 @@ const LoginForm = ({ switchMode }) => {
             type="password"
             fullWidth
             required
+             InputProps={{
+    sx: inputStyles,
+  }}
           />
         </Grid>
 

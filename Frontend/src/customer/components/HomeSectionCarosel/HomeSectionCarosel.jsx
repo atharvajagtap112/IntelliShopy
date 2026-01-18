@@ -75,7 +75,7 @@ const HomeSectionCarousel = ({ data, sectionName }) => {
               },
               1536: { 
                 slidesPerView: 6, 
-                spaceBetween: 24 
+                spaceBetween: 22 
               },
             }}
             className="! pb-10 md:!pb-12 pt-12"
