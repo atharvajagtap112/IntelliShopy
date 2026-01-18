@@ -275,83 +275,89 @@ sequenceDiagram
 ### Home Page
 *Browse our curated collection of products with an intuitive interface*
 
-![Home Page](docs/screenshots/home-page.png)
 
----
+
+---<img width="1919" height="1079" alt="Screenshot 2026-01-18 182925" src="https://github.com/user-attachments/assets/cef525c9-2550-4c5e-8370-1407c6d5e07a" />
+
+<img width="1919" height="1079" alt="Screenshot 2026-01-18 182952" src="https://github.com/user-attachments/assets/af3fa1b1-4128-4d4f-9d1e-df4d84e25065" />
+<img width="1918" height="916" alt="Screenshot 2026-01-18 183020" src="https://github.com/user-attachments/assets/2a9c809e-fc7f-4992-8883-ccafc1b20f9a" />
+
 
 ### AI-Powered Text Search
 *Experience intelligent product discovery with natural language search*
 
-![AI Search](docs/screenshots/ai-search.png)
+
+<img width="1919" height="1079" alt="Screenshot 2026-01-18 184233" src="https://github.com/user-attachments/assets/d54f3f28-80b2-43c4-9e94-df588947809b" />
+
+
 
 **Text Search Results**  
-*Get relevant products instantly with AI-powered recommendations*
 
-![Search Results](docs/screenshots/search-results.png)
-
+<img width="1919" height="1078" alt="Screenshot 2026-01-18 184304" src="https://github.com/user-attachments/assets/f2595254-5054-45f9-8627-d2f6455445f5" />
 ---
 
 ### 🆕 AI-Powered Image Search
 *Revolutionary visual search - upload any product image to find similar items*
 
-![Image Search Upload](docs/screenshots/image-search-upload.png)
 
 **Image Search Interface**  
 *Drag and drop or click to upload product images for visual similarity search*
 
-![Image Search Interface](docs/screenshots/image-search-interface.png)
+
+<img width="1919" height="1079" alt="Screenshot 2026-01-18 183103" src="https://github.com/user-attachments/assets/7d48219c-3adf-42d0-89b2-ebaf4ec7fbba" />
 
 **Image Search Results**  
 *CLIP AI finds visually similar products based on style, color, and patterns*
 
-![Image Search Results](docs/screenshots/image-search-results.png)
 
-**Image Search in Action**  
-*Real-time visual matching with confidence scores and category filtering*
+<img width="1894" height="996" alt="Screenshot 2026-01-18 183351" src="https://github.com/user-attachments/assets/448a5433-aeb4-41ad-b4e7-975cd8f3d759" />
 
-![Image Search Demo](docs/screenshots/image-search-demo.png)
 
 ---
 
 ### User Authentication
 *Secure signup and login with JWT authentication*
 
-![Signup Page](docs/screenshots/signup-page.png)
+
+<img width="1906" height="999" alt="Screenshot 2026-01-18 190809" src="https://github.com/user-attachments/assets/68301871-fde5-4aa0-809f-ba6a1825cb55" />
+<img width="1905" height="997" alt="Screenshot 2026-01-18 191144" src="https://github.com/user-attachments/assets/21b158d2-9bd6-46d0-8c02-60c1c964b699" />
 
 ---
 
 ### Shopping Cart
 *Manage your items with real-time price calculations*
 
-![Shopping Cart](docs/screenshots/cart-page.png)
+<img width="1919" height="1079" alt="Screenshot 2026-01-18 185032" src="https://github.com/user-attachments/assets/8bf07a12-5b92-46bf-8df9-dbea291ecdac" />
+
 
 ---
 
 ### Checkout & Payment
 *Seamless checkout experience with Razorpay integration*
 
-![Checkout](docs/screenshots/checkout-page. png)
-
 ---
+<img width="1919" height="1079" alt="Screenshot 2026-01-18 185214" src="https://github.com/user-attachments/assets/83b76d94-cf0c-45f7-84c4-79294d92b273" />
+<img width="1919" height="1079" alt="Screenshot 2026-01-18 185226" src="https://github.com/user-attachments/assets/b6db1f1c-dbdc-44fc-be2a-112e7e89ae29" />
+<img width="1919" height="1079" alt="Screenshot 2026-01-18 185237" src="https://github.com/user-attachments/assets/6de177f3-cc17-4023-89ea-23f80cc18d07" />
+<img width="1919" height="1079" alt="Screenshot 2026-01-18 185253" src="https://github.com/user-attachments/assets/8d443265-cd3a-4ddc-a1b0-6017088b175a" />
+<img width="1919" height="1079" alt="Screenshot 2026-01-18 185331" src="https://github.com/user-attachments/assets/51b3b690-d994-46e5-845e-4c382fea86c0" />
+
 
 ### Order Management
 *Track your orders from placement to delivery*
 
-![Orders Page](docs/screenshots/orders-page.png)
+
+<img width="1919" height="1079" alt="Screenshot 2026-01-18 185404" src="https://github.com/user-attachments/assets/30244829-febe-4e0a-a969-275cb2fdec4a" />
 
 ---
 
 ### Email Notifications
 *Professional order confirmation emails with order details*
 
-![Order Confirmation Email](docs/screenshots/order-email.png)
 
----
 
-### Admin Dashboard
-*Manage products, orders, and users efficiently*
+---<img width="1919" height="1072" alt="Screenshot 2025-12-21 225731" src="https://github.com/user-attachments/assets/453e2bb9-c7f5-48e4-b7c8-75c94403c69b" />
 
-![Admin Dashboard](docs/screenshots/admin-dashboard.png)
 
 ---
 
