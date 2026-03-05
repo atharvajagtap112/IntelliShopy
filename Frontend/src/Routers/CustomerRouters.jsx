@@ -16,6 +16,7 @@ import SearchedProduct from '../customer/components/Product/SearchedProduct'
 import RateAndReview from '../customer/components/Order/RateAndReview'
 import ImageSearchedProduct from '../customer/components/Product/imageSearchedProduct.'
 import ImageSearch from '../customer/components/ImageSearch/ImageSearch'
+import OAuthCallback from '../customer/Auth/OAuthCallback'
 
 const CustomerRouters = () => {
   return (
@@ -40,6 +41,7 @@ const CustomerRouters = () => {
           <Route path='/add/review/:productId' element={ <RateAndReview/>} > </Route>
           <Route path='/imageSearch' element={ <ImageSearch/>} > </Route>
           <Route path='/products/search/image/:query' element={ <ImageSearchedProduct/>} > </Route>
+          <Route path="/oauth/callback" element={<OAuthCallback />} />
         </Routes>
           
           <div>

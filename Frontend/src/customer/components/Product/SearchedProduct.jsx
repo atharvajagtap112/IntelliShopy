@@ -561,7 +561,7 @@ useEffect(() => {
           transition={{ delay: 0.3 }}
           className="lg:col-span-4 w-full"
         >
-          <div className="flex flex-wrap justify-center sm:justify-start bg-gradient-to-br from-gray-50 to-white rounded-2xl p-4">
+          <div className="flex flex-wrap justify-center sm:justify-start bg-gradient-to-br from-gray-50 to-white rounded-2xl ">
             <AnimatePresence>
               {products.products && products.products?.content?.map((product, index) => (
                 <motion.div
