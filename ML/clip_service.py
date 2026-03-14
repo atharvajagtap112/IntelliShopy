@@ -48,6 +48,10 @@ def image_to_embedding(image_bytes):
     embedding = embedding / embedding.norm(dim=-1, keepdim=True)
     return embedding.cpu().numpy().astype("float32")
 
+@app.get("/health")
+async def health_check():
+    return {"status": "awake"}
+
 # --------------------
 # Search API
 # --------------------
