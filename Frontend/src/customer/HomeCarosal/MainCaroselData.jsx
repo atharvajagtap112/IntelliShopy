@@ -1,6 +1,6 @@
 export const mainCarouselData = [
   {
-    image: "https://rangita.com/cdn/shop/articles/mothers_day_blog_banner_607bbee6-4a2f-4c3a-89d7-817ef3d82af3.png?v=1746784378&width=1780",
+    image: "https://www.nalli.com/cdn/shop/files/sheer_collection_22_May.png?v=1779475999&width=1500",
     path: "/women/clothing/women_dress"
   },
   {
