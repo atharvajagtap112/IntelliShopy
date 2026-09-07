@@ -29,11 +29,12 @@ public class GeminiWebSocketHandler extends TextWebSocketHandler {
 
 
 
-    // gemini-2.0-flash was retired by Google and began returning 404, which this
-    // handler surfaced to the client as {"error":"API call failed"}.
-    // "gemini-flash-latest" is an alias that tracks the current flash model, so
-    // this will not break again the next time a specific version is sunset.
-    private final String GEMINI_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=";
+    // gemini-2.0-flash was retired by Google and returned 404.
+    // Measured over repeated calls: gemini-2.5-flash answered 4/4, while the
+    // "gemini-flash-latest" alias answered 2/4 (the rest 503 "high demand") -
+    // the alias tracks the newest model and so carries the heaviest load.
+    // Pin the stable one and let the retry below absorb the occasional 503.
+    private final String GEMINI_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=";
 
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws IOException {

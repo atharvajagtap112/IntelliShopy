@@ -11,6 +11,41 @@ import {
   SparklesIcon
 } from "@heroicons/react/24/outline";
 
+
+// A phone photo is routinely 3-8MB, which HTTP 413s at whichever layer caps first
+// (Spring's 1MB default, Render's proxy, or the Hugging Face Space). CLIP embeds a
+// small square anyway, so downscaling to 1024px costs no search quality and makes
+// the upload survive every one of those caps - and finish far faster on mobile data.
+const MAX_EDGE = 1024;
+
+const compressImage = (file) =>
+  new Promise((resolve) => {
+    if (!file.type.startsWith("image/")) return resolve(file);
+    const url = URL.createObjectURL(file);
+    const img = new Image();
+    img.onload = () => {
+      URL.revokeObjectURL(url);
+      const scale = Math.min(1, MAX_EDGE / Math.max(img.width, img.height));
+      // Already small enough - don't re-encode and lose quality for nothing.
+      if (scale === 1 && file.size <= 1_000_000) return resolve(file);
+
+      const canvas = document.createElement("canvas");
+      canvas.width = Math.round(img.width * scale);
+      canvas.height = Math.round(img.height * scale);
+      canvas.getContext("2d").drawImage(img, 0, 0, canvas.width, canvas.height);
+      canvas.toBlob(
+        (blob) => {
+          if (!blob) return resolve(file);   // canvas failed - send the original
+          resolve(new File([blob], "search.jpg", { type: "image/jpeg" }));
+        },
+        "image/jpeg",
+        0.85
+      );
+    };
+    img.onerror = () => { URL.revokeObjectURL(url); resolve(file); };
+    img.src = url;
+  });
+
 const ImageSearch = () => {
   const dispatch = useDispatch();
   const { loading, error, products } = useSelector((state) => state.imageSearch);
@@ -68,7 +103,8 @@ const ImageSearch = () => {
     if (!image) return;
 
     try {
-     await dispatch(searchByImage({ image, color })).unwrap();
+      const upload = await compressImage(image);
+      await dispatch(searchByImage({ image: upload, color })).unwrap();
       const category = products[0]?.category?.name || "all";
       navigate(`/products/search/image/${category}`);
     } catch (err) {

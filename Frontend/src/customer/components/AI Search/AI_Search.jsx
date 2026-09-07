@@ -9,6 +9,7 @@ const AISearch = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [searchResults, setSearchResults] = useState([]);
   const [showResults, setShowResults] = useState(false);
+  const [serverError, setServerError] = useState('');
   // The socket lives in a ref, not state: handleSearch closed over a stale
   // `socket` value, so after any reconnect it was calling send() on a dead
   // socket - that is the "already in CLOSING or CLOSED state" error.
@@ -35,15 +36,34 @@ const AISearch = () => {
       setIsLoading(false);
       try {
         const data = JSON.parse(event.data);
-        if (data.category === "") {
+
+        // The old guard only caught category === "". Anything else falsy - a
+        // missing key, null, or the backend's {"error": "..."} payload, which
+        // carries no category at all - fell through to the else branch and
+        // navigated to the literal URL /search/undefined.
+        const category =
+          typeof data.category === "string" ? data.category.trim() : "";
+
+        if (data.error) {
+          setServerError(String(data.error));
           setSearchResults([]);
           setShowResults(true);
-        } else {
-          dispatch(findProducts(data));
-          navigation(`/search/${data.category}`);
+          return;
         }
+
+        if (!category) {
+          setServerError("");
+          setSearchResults([]);
+          setShowResults(true);
+          return;
+        }
+
+        setServerError("");
+        dispatch(findProducts(data));
+        navigation(`/search/${encodeURIComponent(category)}`);
       } catch (error) {
         console.error("Error parsing WebSocket response:", error);
+        setServerError("");
         setSearchResults([]);
         setShowResults(true);
       }
@@ -100,6 +120,7 @@ const AISearch = () => {
     setUserInput('');
     setShowResults(false);
     setSearchResults([]);
+    setServerError('');
     // Clearing must also cancel the in-flight search, or the button stays
     // stuck on "Searching..." with nothing coming back.
     setIsLoading(false);
@@ -227,9 +248,13 @@ const AISearch = () => {
                 <div className="inline-flex items-center justify-center w-16 h-16 bg-accent-500/15 rounded-full mb-4">
                   <span className="text-3xl">⚠️</span>
                 </div>
-                <h3 className="text-xl font-semibold text-zinc-200 mb-2">No products found</h3>
+                <h3 className="text-xl font-semibold text-zinc-200 mb-2">
+                  {serverError ? "Search is unavailable" : "No products found"}
+                </h3>
                 <p className="text-zinc-400 mb-6 max-w-md mx-auto">
-                  We couldn't find any products matching your search. Try different keywords or browse our categories.
+                  {serverError
+                    ? serverError
+                    : "We couldn't find any products matching your search. Try different keywords or browse our categories."}
                 </p>
                 <div className="flex justify-center space-x-4">
                   <button
