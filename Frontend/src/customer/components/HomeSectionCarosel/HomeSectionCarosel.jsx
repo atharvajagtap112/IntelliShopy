@@ -1,7 +1,7 @@
 import React, { useState, useId } from "react";
 import HomeSectionCard from "../HomeSectionCard/HomeSectionCard";
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination, Autoplay } from 'swiper/modules';
+import { Navigation, Pagination } from 'swiper/modules';
 import { motion } from "framer-motion";
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -13,30 +13,36 @@ const HomeSectionCarousel = ({ data, sectionName }) => {
   const uniqueId = useId().replace(/:/g, '');
   
   return (
-    <div className="relative  overflow-hidden">
-      {/* Subtle Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-purple-50/20 via-pink-50/20 to-blue-50/20" />
+    <div className="relative overflow-hidden">
 
       {/* Full width container with minimal padding */}
       <div className="relative w-full px-3 sm:px-4 md:px-6 lg:px-8">
         {/* Section Header */}
         <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration:  0.6 }}
-          className="mb-6 md:mb-8 px-2"
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="mb-6 md:mb-8 px-2 flex items-end justify-between gap-4 border-b border-white/10 pb-4"
         >
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-gray-900 via-gray-700 to-gray-600 mb-2">
-            {sectionName}
-          </h2>
-          <div className="h-1 w-20 md:w-32 bg-gradient-to-r from-gray-900 via-gray-700 to-gray-600 rounded-full" />
+          <div>
+            <span className="text-[11px] font-semibold uppercase tracking-[0.22em] text-accent-600">
+              Shop the edit
+            </span>
+            <h2 className="mt-2 text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tighter leading-none capitalize text-white">
+              {sectionName?.replace(/_/g, " ")}
+            </h2>
+          </div>
+          <span className="hidden sm:block shrink-0 text-sm text-zinc-500">
+            {data?.length ?? 0} pieces
+          </span>
         </motion.div>
 
         {/* Carousel Container - Full Width */}
-        <div className="relative group">
+        <div className="relative group/rail">
           <Swiper
             onSwiper={setSwiperRef}
-            modules={[Navigation, Pagination, Autoplay]}
+            modules={[Navigation, Pagination]}
             spaceBetween={12}
             slidesPerView={1.5}
             navigation={{
@@ -46,11 +52,6 @@ const HomeSectionCarousel = ({ data, sectionName }) => {
             pagination={{
               clickable: true,
               dynamicBullets: true,
-            }}
-            autoplay={{
-              delay: 4000,
-              disableOnInteraction: false,
-              pauseOnMouseEnter: true,
             }}
             breakpoints={{
               480: { 
@@ -78,7 +79,7 @@ const HomeSectionCarousel = ({ data, sectionName }) => {
                 spaceBetween: 22 
               },
             }}
-            className="! pb-10 md:!pb-12 pt-12"
+            className="!pb-10 md:!pb-12 pt-12"
           >
             {data?.slice(0, 10).map((item, index) => {
            
@@ -94,10 +95,10 @@ const HomeSectionCarousel = ({ data, sectionName }) => {
           <motion.button
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
-            className={`custom-prev-${uniqueId} hidden md:flex absolute -left-4 lg:-left-6 top-[40%] -translate-y-1/2 z-10 w-12 h-12 lg:w-14 lg:h-14 bg-white/95 backdrop-blur-md rounded-full shadow-xl items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-white border border-gray-100`}
+            className={`custom-prev-${uniqueId} hidden md:flex absolute -left-4 lg:-left-6 top-[40%] -translate-y-1/2 z-10 w-12 h-12 lg:w-14 lg:h-14 bg-white/10 border-white/20 text-white hover:bg-white hover:text-zinc-950 backdrop-blur-md rounded-full shadow-xl items-center justify-center opacity-0 group-hover/rail:opacity-100 transition-all duration-300 border`}
           >
             <svg
-              className="w-6 h-6 text-gray-800"
+              className="w-6 h-6 text-current"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -109,10 +110,10 @@ const HomeSectionCarousel = ({ data, sectionName }) => {
           <motion.button
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
-            className={`custom-next-${uniqueId} hidden md:flex absolute -right-4 lg:-right-6 top-[40%] -translate-y-1/2 z-10 w-12 h-12 lg:w-14 lg:h-14 bg-white/95 backdrop-blur-md rounded-full shadow-xl items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-white border border-gray-100`}
+            className={`custom-next-${uniqueId} hidden md:flex absolute -right-4 lg:-right-6 top-[40%] -translate-y-1/2 z-10 w-12 h-12 lg:w-14 lg:h-14 bg-white/10 border-white/20 text-white hover:bg-white hover:text-zinc-950 backdrop-blur-md rounded-full shadow-xl items-center justify-center opacity-0 group-hover/rail:opacity-100 transition-all duration-300 border`}
           >
             <svg
-              className="w-6 h-6 text-gray-800"
+              className="w-6 h-6 text-current"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -125,18 +126,18 @@ const HomeSectionCarousel = ({ data, sectionName }) => {
           <div className="flex md:hidden justify-center gap-4 mt-4">
             <motion.button
               whileTap={{ scale: 0.9 }}
-              className={`custom-prev-${uniqueId} w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center border border-gray-100`}
+              className={`custom-prev-${uniqueId} w-10 h-10 bg-white/10 border border-white/20 text-white rounded-full flex items-center justify-center`}
             >
-              <svg className="w-5 h-5 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-5 h-5 text-current" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
               </svg>
             </motion.button>
 
             <motion.button
               whileTap={{ scale: 0.9 }}
-              className={`custom-next-${uniqueId} w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center border border-gray-100`}
+              className={`custom-next-${uniqueId} w-10 h-10 bg-white/10 border border-white/20 text-white rounded-full flex items-center justify-center`}
             >
-              <svg className="w-5 h-5 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-5 h-5 text-current" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
               </svg>
             </motion.button>
@@ -144,18 +145,6 @@ const HomeSectionCarousel = ({ data, sectionName }) => {
         </div>
       </div>
 
-      <style jsx>{`
-        .swiper-pagination-bullet {
-          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-          width: 8px;
-          height: 8px;
-          opacity: 0.5;
-        }
-        . swiper-pagination-bullet-active {
-          opacity: 1;
-          transform: scale(1.2);
-        }
-      `}</style>
     </div>
   );
 };

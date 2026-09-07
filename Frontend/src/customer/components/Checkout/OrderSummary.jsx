@@ -54,7 +54,7 @@ dispatch(createPayment(orderId))
     order.loading? 
   <div   className="lg:col-span-4 w-full flex justify-center items-center h-screen">
       
-                  <Loading/>
+                  <Loading variant="summary" />
                   </div>
     
     :
@@ -78,10 +78,10 @@ dispatch(createPayment(orderId))
             className="lg:col-span-1"
           >
             <div className="lg:sticky lg:top-24">
-              <div className="bg-white rounded-2xl shadow-xl border border-gray-200 overflow-hidden">
+              <div className="bg-zinc-900 rounded-2xl shadow-xl border border-white/10 overflow-hidden">
                 
                 {/* Header */}
-                <div className="bg-gradient-to-r from-gray-900 to-gray-800 px-6 py-5">
+                <div className="bg-white/[0.07] border-b border-white/10 px-6 py-5">
                   <h3 className="text-2xl font-bold text-white flex items-center gap-2">
                     <PaymentOutlinedIcon />
                     Price Details
@@ -96,7 +96,7 @@ dispatch(createPayment(orderId))
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.4 }}
-                    className="flex justify-between items-center text-gray-700"
+                    className="flex justify-between items-center text-zinc-300"
                   >
                     <span className="flex items-center gap-2 font-medium">
                       <ShoppingBagOutlinedIcon fontSize="small" />
@@ -110,7 +110,7 @@ dispatch(createPayment(orderId))
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.5 }}
-                    className="flex justify-between items-center text-green-600"
+                    className="flex justify-between items-center text-accent-400"
                   >
                     <span className="flex items-center gap-2 font-medium">
                       <LocalOfferOutlinedIcon fontSize="small" />
@@ -124,7 +124,7 @@ dispatch(createPayment(orderId))
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.6 }}
-                    className="flex justify-between items-center text-green-600"
+                    className="flex justify-between items-center text-accent-400"
                   >
                     <span className="flex items-center gap-2 font-medium">
                       <LocalShippingOutlinedIcon fontSize="small" />
@@ -134,17 +134,17 @@ dispatch(createPayment(orderId))
                   </motion.div>
 
                   {/* Divider */}
-                  <div className="border-t-2 border-dashed border-gray-300 my-4"></div>
+                  <div className="border-t-2 border-dashed border-white/15 my-4"></div>
 
                   {/* Total Amount */}
                   <motion.div
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.7 }}
-                    className="flex justify-between items-center bg-gradient-to-r from-gray-50 to-gray-100 p-4 rounded-xl border-2 border-gray-900"
+                    className="flex justify-between items-center bg-white/5 p-4 rounded-xl border border-white/15"
                   >
-                    <span className="text-lg font-bold text-gray-900">Total Amount</span>
-                    <span className="text-2xl font-bold text-gray-900">
+                    <span className="text-lg font-bold text-white">Total Amount</span>
+                    <span className="text-2xl font-bold text-white">
                       ₹{order.order?.totalDiscountedPrice || 0}
                     </span>
                   </motion.div>
@@ -155,13 +155,13 @@ dispatch(createPayment(orderId))
                       initial={{ scale: 0 }}
                       animate={{ scale:  1 }}
                       transition={{ delay: 0.8, type: "spring" }}
-                      className="bg-green-50 border-2 border-green-500 rounded-xl p-4 text-center"
+                      className="bg-accent-500/10 border border-accent-500/40 rounded-xl p-4 text-center"
                     >
-                      <div className="flex items-center justify-center gap-2 text-green-700 font-bold text-lg">
+                      <div className="flex items-center justify-center gap-2 text-accent-300 font-bold text-lg">
                         <CheckCircleOutlineIcon />
                         You're saving ₹{discount}!
                       </div>
-                      <p className="text-green-600 text-sm mt-1">on this order</p>
+                      <p className="text-accent-400 text-sm mt-1">on this order</p>
                     </motion.div>
                   )}
 
@@ -201,9 +201,9 @@ dispatch(createPayment(orderId))
                       {payment.loading ? (
                         <div className="flex items-center justify-center space-x-2">
                           <div className="flex space-x-1">
-                            <div className="w-2 h-2 bg-white rounded-full animate-bounce [animation-delay:-0.3s]"></div>
-                            <div className="w-2 h-2 bg-white rounded-full animate-bounce [animation-delay:-0.15s]"></div>
-                            <div className="w-2 h-2 bg-white rounded-full animate-bounce"></div>
+                            <div className="w-2 h-2 bg-zinc-900 rounded-full animate-bounce [animation-delay:-0.3s]"></div>
+                            <div className="w-2 h-2 bg-zinc-900 rounded-full animate-bounce [animation-delay:-0.15s]"></div>
+                            <div className="w-2 h-2 bg-zinc-900 rounded-full animate-bounce"></div>
                           </div>
                           <span className="text-white font-medium">Processing payment...</span>
                         </div>

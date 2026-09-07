@@ -6,13 +6,23 @@ WORKDIR /app
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
-    heyatharva/image-search \
     libglib2.0-0 \
+    libgl1 \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy requirements and install
+# Install CPU-only PyTorch + torchvision from PyTorch's dedicated index.
+# This avoids the huge default CUDA wheels from PyPI (~500MB+) and keeps the
+# image small. Long timeout + retries so slow/interrupted downloads recover.
+# Upgrade pip first: the base image's pip is too old and discards valid wheels
+# (typing_extensions/Jinja2 name normalization), then fails on sdist build deps
+# that the PyTorch index doesn't carry.
+RUN pip install --no-cache-dir --upgrade pip \
+    && pip install --no-cache-dir --default-timeout=1000 --retries 10 \
+    torch torchvision --index-url https://download.pytorch.org/whl/cpu
+
+# Copy requirements and install the rest (open-clip, faiss, fastapi, ...)
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir --default-timeout=1000 --retries 10 -r requirements.txt
 
 # Copy your application code and FAISS data
 COPY . .

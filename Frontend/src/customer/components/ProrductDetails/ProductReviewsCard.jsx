@@ -18,7 +18,7 @@ const ProductReviewsCard = ({ item, index = 0 }) => {
             animate={{ scale: 1, rotate: 0 }}
             transition={{ delay: index * 0.1 + star * 0.05, type: 'spring' }}
             className={`w-4 h-4 md:w-5 md:h-5 ${
-              star <= value ? 'text-yellow-400 fill-yellow-400' : 'text-gray-300 fill-gray-300'
+              star <= value ? 'text-yellow-400 fill-yellow-400' : 'text-zinc-400 fill-white/15'
             }`}
             viewBox="0 0 20 20"
           >
@@ -34,7 +34,7 @@ const ProductReviewsCard = ({ item, index = 0 }) => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay: index * 0.1 }}
-      className="bg-white border border-gray-200 rounded-2xl p-4 md:p-6 shadow-sm hover:shadow-lg transition-all duration-300 group"
+      className="bg-zinc-900 border border-white/10 rounded-2xl p-4 md:p-6 shadow-sm hover:shadow-lg transition-all duration-300 group"
     >
       <div className="flex gap-3 md:gap-4">
         {/* Avatar */}
@@ -63,16 +63,16 @@ const ProductReviewsCard = ({ item, index = 0 }) => {
           {/* User Info & Rating */}
           <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-3">
             <div>
-              <h4 className="text-base md:text-lg font-bold text-gray-900 truncate">
+              <h4 className="text-base md:text-lg font-bold text-white truncate">
                 {item?.user.firstName} {item?.user.lastName}
               </h4>
-              <p className="text-xs md:text-sm text-gray-500">
+              <p className="text-xs md:text-sm text-zinc-500">
                 {dayjs(item?.createdAt).format('MMMM D, YYYY')}
               </p>
             </div>
             <div className="flex items-center gap-2">
               <StarRating value={item?.rating} />
-              <span className="text-sm font-semibold text-gray-700">
+              <span className="text-sm font-semibold text-zinc-300">
                 {item?.rating}.0
               </span>
             </div>
@@ -81,7 +81,7 @@ const ProductReviewsCard = ({ item, index = 0 }) => {
           {/* Review Text */}
           <div className="relative">
             <p
-              className={`text-sm md:text-base text-gray-700 leading-relaxed ${
+              className={`text-sm md:text-base text-zinc-300 leading-relaxed ${
                 !isExpanded && isLongReview ? 'line-clamp-3' : ''
               }`}
             >
@@ -92,7 +92,7 @@ const ProductReviewsCard = ({ item, index = 0 }) => {
             {isLongReview && (
               <button
                 onClick={() => setIsExpanded(!isExpanded)}
-                className="mt-2 text-sm font-semibold text-gray-900 hover:text-gray-600 transition-colors flex items-center gap-1"
+                className="mt-2 text-sm font-semibold text-white hover:text-zinc-400 transition-colors flex items-center gap-1"
               >
                 {isExpanded ? 'Show Less' : 'Read More'}
                 <svg
@@ -119,7 +119,7 @@ const ProductReviewsCard = ({ item, index = 0 }) => {
       </div>
 
       {/* Decorative element */}
-      <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-gray-50 to-transparent rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity" />
+      <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-white/[0.04] to-transparent rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity" />
     </motion.div>
   );
 };

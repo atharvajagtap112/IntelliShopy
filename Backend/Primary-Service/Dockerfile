@@ -1,19 +1,20 @@
-# Stage 1: Build the application using Maven and JDK 1.8
-FROM maven:3.9.6-eclipse-temurin-21 AS build
+# syntax=docker/dockerfile:1
+# Stage 1: Build the application using Maven and Temurin 21
+FROM maven:3.9.9-eclipse-temurin-21 AS build
 
 # Set working directory inside the container
 WORKDIR /app
 
-# Copy pom.xml and download dependencies
+# Copy pom.xml and download dependencies (shared Maven cache across services/rebuilds)
 COPY pom.xml .
-RUN mvn dependency:go-offline
+RUN --mount=type=cache,target=/root/.m2 mvn -B dependency:go-offline
 
 # Copy the entire project and build the JAR
 COPY . .
-RUN mvn clean package -DskipTests
+RUN --mount=type=cache,target=/root/.m2 mvn -B clean package -DskipTests
 
 # Stage 2: Create a lightweight image for running the app
-FROM eclipse-temurin:17-jdk
+FROM eclipse-temurin:17-jre
 
 # Set working directory
 WORKDIR /app

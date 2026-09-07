@@ -82,7 +82,7 @@ const ImageSearch = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="bg-white rounded-2xl border-2 border-gray-200 p-6 md:p-8"
+        className="bg-zinc-900 rounded-2xl border-2 border-white/10 p-6 md:p-8"
       >
         {/* Header */}
         <div className="text-center mb-8">
@@ -90,14 +90,14 @@ const ImageSearch = () => {
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
             transition={{ delay: 0.2, type: "spring", stiffness:  200 }}
-            className="inline-flex items-center justify-center w-16 h-16 bg-black rounded-full mb-4"
+            className="inline-flex items-center justify-center w-16 h-16 bg-white rounded-full mb-4"
           >
             <SparklesIcon className="w-8 h-8 text-white" />
           </motion.div>
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-2">
             Search by Image
           </h2>
-          <p className="text-gray-600 text-sm md:text-base">
+          <p className="text-zinc-400 text-sm md:text-base">
             Upload an image to find similar products instantly
           </p>
         </div>
@@ -121,8 +121,8 @@ const ImageSearch = () => {
                   transition-all duration-300 cursor-pointer
                   ${
                     isDragging
-                      ? "border-black bg-gray-50 scale-105"
-                      : "border-gray-300 hover:border-gray-400 hover:bg-gray-50"
+                      ? "border-black bg-white/5 scale-105"
+                      : "border-white/15 hover:border-white/40 hover:bg-white/5"
                   }
                 `}
               >
@@ -137,22 +137,22 @@ const ImageSearch = () => {
                 <div className="flex flex-col items-center text-center space-y-4">
                   <motion.div
                     animate={isDragging ? { scale: 1.1 } : { scale: 1 }}
-                    className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center"
+                    className="w-20 h-20 bg-white/10 rounded-full flex items-center justify-center"
                   >
                     {isDragging ? (
-                      <CloudArrowUpIcon className="w-10 h-10 text-gray-900" />
+                      <CloudArrowUpIcon className="w-10 h-10 text-white" />
                     ) : (
-                      <PhotoIcon className="w-10 h-10 text-gray-400" />
+                      <PhotoIcon className="w-10 h-10 text-zinc-500" />
                     )}
                   </motion.div>
 
                   <div>
-                    <p className="text-lg font-semibold text-gray-900 mb-1">
+                    <p className="text-lg font-semibold text-white mb-1">
                       {isDragging
                         ? "Drop your image here"
                         :  "Drop an image or click to browse"}
                     </p>
-                    <p className="text-sm text-gray-500">
+                    <p className="text-sm text-zinc-500">
                       Supports JPG, PNG, WEBP (Max 10MB)
                     </p>
                   </div>
@@ -160,7 +160,7 @@ const ImageSearch = () => {
                   <motion.div
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className="px-6 py-3 bg-black text-white rounded-lg font-semibold hover:bg-gray-800 transition-colors"
+                    className="px-6 py-3 bg-white text-zinc-950 rounded-lg font-semibold hover:bg-zinc-200 transition-colors"
                   >
                     Choose File
                   </motion.div>
@@ -173,9 +173,9 @@ const ImageSearch = () => {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale:  0.95 }}
                 transition={{ duration: 0.3 }}
-                className="relative border-2 border-gray-200 rounded-xl overflow-hidden"
+                className="relative border-2 border-white/10 rounded-xl overflow-hidden"
               >
-                <div className="relative aspect-video bg-gray-100">
+                <div className="relative aspect-video bg-white/10">
                   <img
                     src={imagePreview}
                     alt="Preview"
@@ -188,13 +188,13 @@ const ImageSearch = () => {
                   whileTap={{ scale: 0.9 }}
                   onClick={removeImage}
                   type="button"
-                  className="absolute top-4 right-4 w-10 h-10 bg-white hover:bg-gray-100 rounded-full flex items-center justify-center shadow-lg border border-gray-200 transition-colors"
+                  className="absolute top-4 right-4 w-10 h-10 bg-zinc-900 hover:bg-white/10 rounded-full flex items-center justify-center shadow-lg border border-white/10 transition-colors"
                 >
-                  <XMarkIcon className="w-5 h-5 text-gray-900" />
+                  <XMarkIcon className="w-5 h-5 text-white" />
                 </motion.button>
 
-                <div className="p-4 bg-gray-50 border-t border-gray-200">
-                  <p className="text-sm text-gray-600 truncate">
+                <div className="p-4 bg-white/5 border-t border-white/10">
+                  <p className="text-sm text-zinc-400 truncate">
                     <span className="font-semibold">File:</span> {image?.name}
                   </p>
                 </div>
@@ -210,7 +210,7 @@ const ImageSearch = () => {
             transition={{ delay: 0.3 }}
             className="space-y-2"
           >
-            <label className="block text-sm font-semibold text-gray-900">
+            <label className="block text-sm font-semibold text-white">
               Color Filter (Optional)
             </label>
             <div className="relative">
@@ -219,13 +219,13 @@ const ImageSearch = () => {
                 placeholder="e.g., yellow, blue, red"
                 value={color}
                 onChange={(e) => setColor(e.target.value)}
-                className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-black focus:outline-none transition-colors text-gray-900 placeholder-gray-400"
+                className="w-full px-4 py-3 border-2 border-white/10 rounded-xl focus:border-black focus:outline-none transition-colors text-white placeholder-gray-400"
               />
               <div className="absolute right-4 top-1/2 -translate-y-1/2">
-                <div className="w-6 h-6 rounded-full border-2 border-gray-300 bg-gradient-to-r from-red-500 via-yellow-500 to-blue-500" />
+                <div className="w-6 h-6 rounded-full border-2 border-white/15 bg-accent-600" />
               </div>
             </div>
-            <p className="text-xs text-gray-500">
+            <p className="text-xs text-zinc-500">
               Narrow your search by specifying a color
             </p>
           </motion.div>
@@ -256,8 +256,8 @@ const ImageSearch = () => {
               transition-all duration-300
               ${
                 image && !loading
-                  ? "bg-black text-white hover:bg-gray-800 shadow-lg hover:shadow-xl"
-                  : "bg-gray-200 text-gray-400 cursor-not-allowed"
+                  ? "bg-white text-zinc-950 hover:bg-zinc-200 shadow-lg hover:shadow-xl"
+                  : "bg-white/10 text-zinc-500 cursor-not-allowed"
               }
             `}
           >

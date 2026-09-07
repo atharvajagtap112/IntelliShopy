@@ -47,13 +47,13 @@ const CardItem = ({ item, isCheckout }) => {
       }}
       exit={{ opacity: 0, x:  100, scale: 0.8 }}
       transition={{ duration: 0.3 }}
-      className="bg-white rounded-xl lg:rounded-2xl shadow-md hover:shadow-lg border border-gray-100 overflow-hidden transition-all duration-300"
+      className="bg-zinc-950 rounded-xl lg:rounded-2xl shadow-md hover:shadow-lg border border-white/10 overflow-hidden transition-all duration-300"
     >
       <div className="p-3 lg:p-6">
         <div className="flex gap-3 lg:gap-6">
           
           {/* Product Image */}
-          <div className="relative  w-20 h-20 sm:w-24 sm:h-24 lg:w-32 lg:h-32 rounded-lg lg:rounded-xl overflow-hidden bg-gray-100 shadow-sm">
+          <div className="relative  w-20 h-20 sm:w-24 sm:h-24 lg:w-32 lg:h-32 rounded-lg lg:rounded-xl overflow-hidden bg-white/10 shadow-sm">
             <img
               className="w-full h-full object-cover object-top"
               src={item.product.imageUrl}
@@ -62,7 +62,7 @@ const CardItem = ({ item, isCheckout }) => {
             
             {/* Discount Badge */}
             {findDiscount(item.product.price, item.product.discountPrice) > 0 && (
-              <div className="absolute top-1 left-1 bg-black text-white text-[10px] lg:text-xs font-bold px-1.5 py-0.5 lg:px-2 lg:py-1 rounded-md shadow-lg flex items-center gap-0.5">
+              <div className="absolute top-1 left-1 bg-white text-zinc-950 text-[10px] lg:text-xs font-bold px-1.5 py-0.5 lg:px-2 lg:py-1 rounded-md shadow-lg flex items-center gap-0.5">
                 <LocalOfferIcon sx={{ fontSize: { xs: 10, lg: 12 } }} />
                 {findDiscount(item.product.price, item.product.discountPrice)}%
               </div>
@@ -74,7 +74,7 @@ const CardItem = ({ item, isCheckout }) => {
             
             {/* Title and Remove Button */}
             <div className="flex justify-between items-start gap-2 mb-1">
-              <h3 className="font-bold text-gray-900 text-sm lg:text-lg line-clamp-2 flex-grow">
+              <h3 className="font-bold text-white text-sm lg:text-lg line-clamp-2 flex-grow">
                 {item.product.title}
               </h3>
               
@@ -100,21 +100,21 @@ const CardItem = ({ item, isCheckout }) => {
             </div>
 
             {/* Brand and Size */}
-            <div className="flex flex-wrap gap-2 lg:gap-3 text-xs lg:text-sm text-gray-600 mb-2">
+            <div className="flex flex-wrap gap-2 lg:gap-3 text-xs lg:text-sm text-zinc-400 mb-2">
               <span className="font-medium">{item.product.brand}</span>
-              <span className="text-gray-400">•</span>
-              <span>Size: <span className="font-semibold text-gray-800">{item.size}</span></span>
+              <span className="text-zinc-500">•</span>
+              <span>Size: <span className="font-semibold text-zinc-200">{item.size}</span></span>
             </div>
 
             {/* Price Section */}
             <div className="flex items-center gap-2 mb-3 flex-wrap">
-              <span className="text-lg lg:text-2xl font-bold text-gray-900">
+              <span className="text-lg lg:text-2xl font-bold text-white">
                 ₹{item.discountedPrice}
               </span>
-              <span className="text-xs lg:text-sm text-gray-400 line-through">
+              <span className="text-xs lg:text-sm text-zinc-500 line-through">
                 ₹{item.price}
               </span>
-              <span className="text-[10px] lg:text-xs font-bold text-green-600 bg-green-50 px-1.5 py-0.5 lg:px-2 lg:py-1 rounded">
+              <span className="text-[10px] lg:text-xs font-bold text-accent-400 bg-accent-500/10 px-1.5 py-0.5 lg:px-2 lg:py-1 rounded">
                 {findDiscount(item.product.price, item.product.discountPrice)}% OFF
               </span>
             </div>
@@ -122,13 +122,13 @@ const CardItem = ({ item, isCheckout }) => {
             {/* Quantity Controls */}
             {!isCheckout && (
               <div className="flex items-center gap-2 mt-auto">
-                <span className="text-xs lg:text-sm text-gray-600 font-medium">Qty:</span>
-                <div className="flex items-center bg-gray-100 rounded-lg border border-gray-200">
+                <span className="text-xs lg:text-sm text-zinc-400 font-medium">Qty:</span>
+                <div className="flex items-center bg-white/10 rounded-lg border border-white/10">
                   <motion.button
                     whileTap={{ scale: 0.9 }}
                     onClick={() => updateCartItem(-1)}
                     disabled={item.quantity <= 1}
-                    className={`p-1.5 lg:p-2 ${item.quantity <= 1 ? 'opacity-40' : 'hover:bg-gray-200'} transition-colors rounded-l-lg`}
+                    className={`p-1.5 lg:p-2 ${item.quantity <= 1 ? 'opacity-40' : 'hover:bg-white/10'} transition-colors rounded-l-lg`}
                   >
                     <RemoveIcon sx={{ fontSize: { xs:  16, lg: 20 } }} />
                   </motion.button>
@@ -137,7 +137,7 @@ const CardItem = ({ item, isCheckout }) => {
                     key={item.quantity}
                     initial={{ scale:  1.3 }}
                     animate={{ scale: 1 }}
-                    className="px-3 lg:px-4 py-1 font-bold text-gray-900 text-sm lg:text-base min-w-[32px] lg:min-w-[40px] text-center"
+                    className="px-3 lg:px-4 py-1 font-bold text-white text-sm lg:text-base min-w-[32px] lg:min-w-[40px] text-center"
                   >
                     {item.quantity}
                   </motion.span>
@@ -145,7 +145,7 @@ const CardItem = ({ item, isCheckout }) => {
                   <motion. button
                     whileTap={{ scale: 0.9 }}
                     onClick={() => updateCartItem(1)}
-                    className="p-1.5 lg:p-2 hover:bg-gray-200 transition-colors rounded-r-lg"
+                    className="p-1.5 lg:p-2 hover:bg-white/10 transition-colors rounded-r-lg"
                   >
                     <AddIcon sx={{ fontSize: { xs: 16, lg: 20 } }} />
                   </motion.button>
@@ -158,7 +158,7 @@ const CardItem = ({ item, isCheckout }) => {
 
       {/* Bottom Border Animation */}
       <motion.div
-        className="h-0.5 lg:h-1 bg-gradient-to-r from-gray-900 via-gray-700 to-gray-900"
+        className="h-0.5 lg:h-1 bg-accent-600"
         initial={{ scaleX:  0 }}
         whileInView={{ scaleX: 1 }}
         viewport={{ once:  true }}

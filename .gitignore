@@ -14,3 +14,9 @@ build/
 .idea/
 .vscode/
 *.iml
+
+# Secrets / env
+.env
+*.env
+
+INTERVIEW_PREP.md

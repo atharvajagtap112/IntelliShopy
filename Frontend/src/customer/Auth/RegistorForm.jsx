@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
 import { register } from "../../State/Auth/Action";
 import GoogleIcon from "@mui/icons-material/Google";
-import { API_BASE_URL } from "../../config/apiConfig";
+import { OAUTH_BASE_URL } from "../../config/apiConfig";
 
 const RegisterForm = ({ switchMode }) => {
   const dispatch = useDispatch();
@@ -24,7 +24,7 @@ const RegisterForm = ({ switchMode }) => {
   };
 
   const handleGoogleSignUp = () => {
-    window.location.href = `${API_BASE_URL}/oauth2/authorization/google`;
+    window.location.href = `${OAUTH_BASE_URL}/oauth2/authorization/google`;
   };
 
   const inputStyles = {
@@ -51,7 +51,7 @@ const RegisterForm = ({ switchMode }) => {
     >
       <Grid container spacing={2}>
         {/* Google Sign-Up Button - First */}
-        <Grid item xs={12}>
+        <Grid size={{ xs: 12 }}>
           <Button
             fullWidth
             variant="outlined"
@@ -68,8 +68,8 @@ const RegisterForm = ({ switchMode }) => {
               textTransform: "none",
               fontWeight: 500,
               "&:hover": {
-                borderColor: "#9155FD",
-                bgcolor: "rgba(145, 85, 253, 0.08)",
+                borderColor: "#e11d54",
+                bgcolor: "rgba(225,29,84, 0.08)",
               },
             }}
           >
@@ -78,7 +78,7 @@ const RegisterForm = ({ switchMode }) => {
         </Grid>
 
         {/* Custom Divider */}
-        <Grid item xs={12}>
+        <Grid size={{ xs: 12 }}>
           <Box sx={{ 
             display: 'flex', 
             alignItems: 'center', 
@@ -106,7 +106,7 @@ const RegisterForm = ({ switchMode }) => {
           </Box>
         </Grid>
 
-        <Grid item xs={6}>
+        <Grid size={{ xs: 6 }}>
           <TextField 
             label="First Name" 
             name="firstName" 
@@ -120,7 +120,7 @@ const RegisterForm = ({ switchMode }) => {
           />
         </Grid>
 
-        <Grid item xs={6}>
+        <Grid size={{ xs: 6 }}>
           <TextField 
             label="Last Name" 
             name="lastName" 
@@ -134,7 +134,7 @@ const RegisterForm = ({ switchMode }) => {
           />
         </Grid>
 
-        <Grid item xs={12}>
+        <Grid size={{ xs: 12 }}>
           <TextField 
             label="Email" 
             name="email" 
@@ -148,7 +148,7 @@ const RegisterForm = ({ switchMode }) => {
           />
         </Grid>
 
-        <Grid item xs={12}>
+        <Grid size={{ xs: 12 }}>
           <TextField
             label="Password"
             name="password"
@@ -163,23 +163,22 @@ const RegisterForm = ({ switchMode }) => {
           />
         </Grid>
 
-        <Grid item xs={12}>
+        <Grid size={{ xs: 12 }}>
           <Button
             fullWidth
             type="submit"
             variant="contained"
             sx={{
-              bgcolor: "#9155FD",
-              py: 1.2,
+              bgcolor: "#ffffff",
+              color: "#09090b",
+              py: 1.3,
               fontSize: "0.95rem",
-              borderRadius: "10px",
+              borderRadius: "999px",
               fontWeight: 600,
               textTransform: "none",
-              boxShadow: "0 4px 14px rgba(145, 85, 253, 0.4)",
-              "&:hover": {
-                bgcolor: "#7c3aed",
-                boxShadow: "0 6px 20px rgba(145, 85, 253, 0.5)",
-              },
+              boxShadow: "none",
+              "&:hover": { bgcolor: "#e4e4e7", boxShadow: "none" },
+              "&:active": { transform: "scale(0.985)" },
             }}
           >
             {auth.isLoading ? "Creating account..." : "Create Account"}
@@ -190,7 +189,7 @@ const RegisterForm = ({ switchMode }) => {
       <p className="text-center mt-4 text-sm opacity-90">
         Already have an account?{" "}
         <span
-          className="text-[#9155FD] cursor-pointer ml-1 font-semibold hover:underline"
+          className="text-[#e11d54] cursor-pointer ml-1 font-semibold hover:underline"
           onClick={switchMode}
         >
           Sign In

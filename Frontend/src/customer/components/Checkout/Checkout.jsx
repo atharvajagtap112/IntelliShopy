@@ -60,13 +60,13 @@ const CustomStepIcon = (props) => {
         <motion.div
           animate={{ scale: [1, 1.1, 1] }}
           transition={{ repeat: Infinity, duration: 2 }}
-          className="w-12 h-12 rounded-full bg-gradient-to-br from-gray-800 to-black flex items-center justify-center shadow-xl border-4 border-gray-300"
+          className="w-12 h-12 rounded-full bg-accent-600 flex items-center justify-center shadow-xl ring-4 ring-accent-500/25"
         >
           <span className="text-white font-bold text-lg">{props.icon}</span>
         </motion. div>
       ) : (
-        <div className="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center border-2 border-gray-300">
-          <span className="text-gray-600 font-semibold text-lg">{props.icon}</span>
+        <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center border-2 border-white/15">
+          <span className="text-zinc-400 font-semibold text-lg">{props.icon}</span>
         </div>
       )}
     </motion.div>
@@ -79,7 +79,7 @@ export default function Checkout() {
   const step = parseInt(querySearch.get("step")) || 1;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100 py-6 md:py-12">
+    <div className="min-h-screen bg-zinc-950 py-6 md:py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header */}
@@ -88,10 +88,10 @@ export default function Checkout() {
           animate={{ opacity: 1, y: 0 }}
           className="mb-8 md:mb-12"
         >
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
+          <h1 className="text-3xl md:text-4xl font-bold text-white mb-2">
             Checkout
           </h1>
-          <p className="text-gray-600 text-sm md:text-base">
+          <p className="text-zinc-400 text-sm md:text-base">
             Complete your order in a few simple steps
           </p>
         </motion.div>
@@ -103,7 +103,7 @@ export default function Checkout() {
           transition={{ delay: 0.2 }}
           className="mb-8 md:mb-12"
         >
-          <Box className="bg-white rounded-2xl shadow-lg p-6 md:p-8 border border-gray-200">
+          <Box className="bg-zinc-900 rounded-2xl shadow-lg p-6 md:p-8 border border-white/10">
             <Stepper 
               activeStep={step - 1} 
               alternativeLabel

@@ -30,14 +30,14 @@ const CartCard = () => {
 
   if (cart.loading) {
     return (
-      <div className="min-h-screen flex justify-center items-center bg-gradient-to-br from-gray-50 to-gray-100">
-        <Loading />
+      <div className="min-h-screen flex justify-center items-center bg-zinc-950">
+        <Loading variant="rows" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100 py-5 md:py-10 ">
+    <div className="min-h-screen bg-zinc-950 py-5 md:py-10 ">
       <div className="max-w-7xl mx-auto px-4 ">
         
         {/* Header */}
@@ -46,11 +46,11 @@ const CartCard = () => {
           animate={{ opacity: 1, y: 0 }}
           className="mb-8"
         >
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 flex items-center gap-3">
+          <h1 className="text-3xl md:text-4xl font-bold text-white flex items-center gap-3">
             <ShoppingBagOutlinedIcon className="text-4xl" />
             Shopping Cart
           </h1>
-          <p className="text-gray-600 mt-2">
+          <p className="text-zinc-400 mt-2">
             {cart.cartItems?.length || 0} {cart.cartItems?.length === 1 ? 'item' :  'items'} in your cart
           </p>
         </motion.div>
@@ -72,10 +72,10 @@ const CartCard = () => {
                 ease: "easeInOut"
               }}
             >
-              <ShoppingBagOutlinedIcon style={{ fontSize: 120 }} className="text-gray-300 mb-6" />
+              <ShoppingBagOutlinedIcon style={{ fontSize: 120 }} className="text-zinc-700 mb-6" />
             </motion.div>
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-3">Your Cart is Empty</h2>
-            <p className="text-gray-600 mb-8">Looks like you haven't added anything yet</p>
+            <h2 className="text-2xl md:text-3xl font-bold text-zinc-200 mb-3">Your Cart is Empty</h2>
+            <p className="text-zinc-400 mb-8">Looks like you haven't added anything yet</p>
             <Button
               onClick={() => navigation('/')}
               variant="contained"
@@ -128,10 +128,10 @@ const CartCard = () => {
               className="lg:col-span-1 mt-8 lg:mt-0"
             >
               <div className="sticky top-8">
-                <div className="bg-white rounded-2xl shadow-xl border border-gray-200 overflow-hidden">
+                <div className="bg-zinc-950 rounded-2xl shadow-xl border border-white/10 overflow-hidden">
                   
                   {/* Header */}
-                  <div className="bg-gradient-to-r from-gray-900 to-gray-800 px-6 py-4">
+                  <div className="bg-white/[0.07] border-b border-white/10 px-6 py-4">
                     <h3 className="text-xl font-bold text-white">Order Summary</h3>
                   </div>
 
@@ -139,7 +139,7 @@ const CartCard = () => {
                     
                     {/* Price Details */}
                     <div className="space-y-3">
-                      <div className="flex justify-between items-center text-gray-700">
+                      <div className="flex justify-between items-center text-zinc-300">
                         <span className="flex items-center gap-2">
                           <ShoppingBagOutlinedIcon fontSize="small" />
                           Subtotal
@@ -147,7 +147,7 @@ const CartCard = () => {
                         <span className="font-semibold">₹{cart.cart?.totalPrice}</span>
                       </div>
 
-                      <div className="flex justify-between items-center text-green-600">
+                      <div className="flex justify-between items-center text-accent-400">
                         <span className="flex items-center gap-2">
                           <LocalOfferOutlinedIcon fontSize="small" />
                           Discount
@@ -155,7 +155,7 @@ const CartCard = () => {
                         <span className="font-semibold">-₹{cart.cart?.discount}</span>
                       </div>
 
-                      <div className="flex justify-between items-center text-green-600">
+                      <div className="flex justify-between items-center text-accent-400">
                         <span className="flex items-center gap-2">
                           <LocalShippingOutlinedIcon fontSize="small" />
                           Delivery
@@ -164,12 +164,12 @@ const CartCard = () => {
                       </div>
                     </div>
 
-                    <div className="border-t border-gray-200 pt-4">
+                    <div className="border-t border-white/10 pt-4">
                       <div className="flex justify-between items-center">
-                        <span className="text-lg font-bold text-gray-900">Total Amount</span>
-                        <span className="text-2xl font-bold text-gray-900">₹{cart.cart?.totalDiscountPrice}</span>
+                        <span className="text-lg font-bold text-white">Total Amount</span>
+                        <span className="text-2xl font-bold text-white">₹{cart.cart?.totalDiscountPrice}</span>
                       </div>
-                      <p className="text-xs text-gray-500 mt-1 text-right">Inclusive of all taxes</p>
+                      <p className="text-xs text-zinc-500 mt-1 text-right">Inclusive of all taxes</p>
                     </div>
 
                     {/* Savings Badge */}
@@ -177,9 +177,9 @@ const CartCard = () => {
                       initial={{ scale: 0 }}
                       animate={{ scale:  1 }}
                       transition={{ delay: 0.5, type: "spring" }}
-                      className="bg-green-50 border border-green-200 rounded-lg p-3 text-center"
+                      className="bg-accent-500/10 border border-accent-500/30 rounded-lg p-3 text-center"
                     >
-                      <p className="text-green-700 font-semibold">
+                      <p className="text-accent-300 font-semibold">
                         You're saving ₹{cart.cart?.discount}!  🎉
                       </p>
                     </motion.div>
@@ -191,18 +191,15 @@ const CartCard = () => {
                         fullWidth
                         variant="contained"
                         sx={{
-                          bgcolor: 'black',
-                          color: 'white',
+                          bgcolor: '#ffffff',
+                          color: '#09090b',
                           py: 1.5,
-                          borderRadius: 2,
+                          borderRadius: 999,
                           textTransform: 'none',
-                          fontSize: '1.1rem',
+                          fontSize: '1.05rem',
                           fontWeight: 700,
-                          boxShadow: '0 4px 14px rgba(0,0,0,0.3)',
-                          '&:hover': {
-                            bgcolor: '#1a1a1a',
-                            boxShadow: '0 6px 20px rgba(0,0,0,0.4)',
-                          },
+                          boxShadow: 'none',
+                          '&:hover': { bgcolor: '#e4e4e7', boxShadow: 'none' },
                         }}
                       >
                         Proceed to Checkout
@@ -210,13 +207,13 @@ const CartCard = () => {
                     </motion.div>
 
                     {/* Trust Indicators */}
-                    <div className="pt-4 space-y-2 text-xs text-gray-600">
+                    <div className="pt-4 space-y-2 text-xs text-zinc-400">
                       <p className="flex items-center gap-2">
-                        <span className="w-2 h-2 bg-green-500 rounded-full"></span>
+                        <span className="w-2 h-2 bg-accent-500/100 rounded-full"></span>
                         100% Secure Payments
                       </p>
                       <p className="flex items-center gap-2">
-                        <span className="w-2 h-2 bg-green-500 rounded-full"></span>
+                        <span className="w-2 h-2 bg-accent-500/100 rounded-full"></span>
                         Easy Returns & Refunds
                       </p>
                     </div>

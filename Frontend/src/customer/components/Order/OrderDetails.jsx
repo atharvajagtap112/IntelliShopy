@@ -62,8 +62,8 @@ const OrderDetails = () => {
     <div className='space-y-5'    >
       {
         order?.order?.orderItems?.map((item)=>
-        <Grid item container  className='shadow-xl rounded-md p-5 border'  sx={{alignItems:"center", justifyContent:"space-between"}} >
-          <Grid item xs={6}>
+        <Grid container  className='shadow-xl rounded-md p-5 border'  sx={{alignItems:"center", justifyContent:"space-between"}} >
+          <Grid size={{ xs: 6 }}>
              <div className='flex item-center space-x-4'>
               <img className='w-[5rem] h-[5rem] object-cover object-top'
               src={item.product.imageUrl}
@@ -79,7 +79,7 @@ const OrderDetails = () => {
              </div>
             </Grid>  
               
-             {order?.order?.orderStatus==="DELIVERED"&& <Grid item xs={6} >
+             {order?.order?.orderStatus==="DELIVERED"&& <Grid size={{ xs: 6 }} >
                 <Box sx={{color:deepPurple[500]}}
                  onClick={()=>navigation(`/add/review/${item.product.id}`)}
                 

@@ -206,7 +206,7 @@ const handleRadioFilterChange = (event, sectionId) => {
   }
     
   return (
-    <div className="bg-white">
+    <div className="bg-zinc-950">
       <div>
         {/* Mobile filter dialog */}
         <Dialog
@@ -222,14 +222,14 @@ const handleRadioFilterChange = (event, sectionId) => {
           <div className="fixed inset-0 z-40 flex">
             <DialogPanel
               transition
-              className="relative ml-auto flex size-full max-w-xs transform flex-col overflow-y-auto bg-white py-4 pb-12 shadow-xl transition duration-300 ease-in-out data-closed:translate-x-full"
+              className="relative ml-auto flex size-full max-w-xs transform flex-col overflow-y-auto bg-zinc-950 py-4 pb-12 shadow-2xl transition duration-300 ease-in-out data-closed:translate-x-full"
             >
               <div className="flex items-center justify-between px-4">
-                <h2 className="text-lg font-medium text-gray-900">Filters</h2>
+                <h2 className="text-lg font-medium text-white">Filters</h2>
                 <button
                   type="button"
                   onClick={() => setMobileFiltersOpen(false)}
-                  className="-mr-2 flex size-10 items-center justify-center rounded-md bg-white p-2 text-gray-400"
+                  className="-mr-2 flex size-10 items-center justify-center rounded-md p-2 text-zinc-400 hover:text-white"
                 >
                   <span className="sr-only">Close menu</span>
                   <XMarkIcon aria-hidden="true" className="size-6" />
@@ -237,18 +237,18 @@ const handleRadioFilterChange = (event, sectionId) => {
               </div>
 
               {/* Filters */}
-              <form className="mt-4 border-t border-gray-200">
+              <form className="mt-4 border-t border-white/10">
                 <h3 className="sr-only">Categories</h3>
 
                 {filters.map((section) => (
                   <Disclosure
                     key={section.id}
                     as="div"
-                    className="border-t border-gray-200 px-4 py-6"
+                    className="border-t border-white/10 px-4 py-6"
                   >
                     <h3 className="-mx-2 -my-3 flow-root">
-                      <DisclosureButton className="group flex w-full items-center justify-between bg-white px-2 py-3 text-gray-400 hover:text-gray-500">
-                        <span className="font-medium text-gray-900">
+                      <DisclosureButton className="group flex w-full items-center justify-between px-2 py-3 text-sm font-medium text-white transition-colors hover:text-accent-400">
+                        <span className="font-medium text-white">
                           {section.name}
                         </span>
                         <span className="ml-6 flex items-center">
@@ -274,7 +274,7 @@ const handleRadioFilterChange = (event, sectionId) => {
                                   id={`filter-mobile-${section.id}-${optionIdx}`}
                                   name={`${section.id}[]`}
                                   type="checkbox"
-                                  className="col-start-1 row-start-1 appearance-none rounded-sm border border-gray-300 bg-white checked:border-indigo-600 checked:bg-indigo-600 indeterminate:border-indigo-600 indeterminate:bg-indigo-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:checked:bg-gray-100 forced-colors:appearance-auto"
+                                  className="col-start-1 row-start-1 appearance-none rounded border border-white/25 bg-white/5 checked:border-accent-600 checked:bg-accent-600 indeterminate:border-accent-600 indeterminate:bg-accent-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-500 disabled:border-white/15 disabled:bg-white/10 disabled:checked:bg-white/10 forced-colors:appearance-auto"
                                 />
                                 <svg
                                   fill="none"
@@ -300,7 +300,7 @@ const handleRadioFilterChange = (event, sectionId) => {
                             </div>
                             <label
                               htmlFor={`filter-mobile-${section.id}-${optionIdx}`}
-                              className="min-w-0 flex-1 text-gray-500"
+                              className="min-w-0 flex-1 text-zinc-500"
                             >
                               {option.label}
                             </label>
@@ -315,11 +315,11 @@ const handleRadioFilterChange = (event, sectionId) => {
                   <Disclosure
                     key={section.id}
                     as="div"
-                    className="border-t border-gray-200 px-4 py-6"
+                    className="border-t border-white/10 px-4 py-6"
                   >
                     <h3 className="-mx-2 -my-3 flow-root">
-                      <DisclosureButton className="group flex w-full items-center justify-between bg-white px-2 py-3 text-gray-400 hover:text-gray-500">
-                        <span className="font-medium text-gray-900">
+                      <DisclosureButton className="group flex w-full items-center justify-between px-2 py-3 text-sm font-medium text-white transition-colors hover:text-accent-400">
+                        <span className="font-medium text-white">
                           {section.name}
                         </span>
                         <span className="ml-6 flex items-center">
@@ -346,7 +346,7 @@ const handleRadioFilterChange = (event, sectionId) => {
                                   id={`filter-mobile-${section.id}-${optionIdx}`}
                                   name={`${section.id}[]`}
                                   type="checkbox"
-                                  className="col-start-1 row-start-1 appearance-none rounded-sm border border-gray-300 bg-white checked:border-indigo-600 checked:bg-indigo-600 indeterminate:border-indigo-600 indeterminate:bg-indigo-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:checked:bg-gray-100 forced-colors:appearance-auto"
+                                  className="col-start-1 row-start-1 appearance-none rounded border border-white/25 bg-white/5 checked:border-accent-600 checked:bg-accent-600 indeterminate:border-accent-600 indeterminate:bg-accent-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-500 disabled:border-white/15 disabled:bg-white/10 disabled:checked:bg-white/10 forced-colors:appearance-auto"
                                 />
                                 <svg
                                   fill="none"
@@ -372,7 +372,7 @@ const handleRadioFilterChange = (event, sectionId) => {
                             </div>
                             <label
                               htmlFor={`filter-mobile-${section.id}-${optionIdx}`}
-                              className="min-w-0 flex-1 text-gray-500"
+                              className="min-w-0 flex-1 text-zinc-500"
                             >
                               {option.label}
                             </label>
@@ -392,30 +392,35 @@ const handleRadioFilterChange = (event, sectionId) => {
   <motion.div
     initial={{ opacity: 0, y: -20 }}
     animate={{ opacity: 1, y: 0 }}
-    className="flex flex-col sm:flex-row items-start sm:items-baseline justify-between border-b-2 border-gray-200 pt-24 pb-6 gap-4"
+    className="flex flex-col sm:flex-row items-start sm:items-baseline justify-between border-b border-white/10 pt-12 pb-6 gap-4"
   >
     <div>
-      <h1 className="text-3xl sm:text-4xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-gray-900 to-gray-700">
-        New Arrivals
+      <span className="text-[11px] font-semibold uppercase tracking-[0.22em] text-accent-500">
+        {param.levelTwo?.replace(/_/g, " ")}
+      </span>
+      <h1 className="mt-2 text-4xl sm:text-5xl font-semibold tracking-tighter capitalize text-white">
+        {param.levelThree?.replace(/_/g, " ")}
       </h1>
-      <p className="text-gray-600 mt-2 text-sm">Discover our latest collection</p>
+      <p className="mt-2 text-sm text-zinc-500">
+        {products.products?.content?.length ?? 0} pieces in this edit
+      </p>
     </div>
 
     <div className="flex items-center gap-4">
       <Menu as="div" className="relative inline-block text-left">
         <div>
-          <MenuButton className="group inline-flex items-center justify-center gap-2 rounded-xl bg-white px-4 py-2.5 text-sm font-semibold text-gray-900 hover:bg-gray-50 border-2 border-gray-200 hover:border-gray-900 transition-all">
+          <MenuButton className="group inline-flex items-center justify-center gap-2 rounded-full border border-white/15 bg-white/5 px-5 py-2.5 text-sm font-semibold text-white transition-all hover:border-white/40 hover:bg-white/10">
             Sort
             <ChevronDownIcon
               aria-hidden="true"
-              className="h-5 w-5 text-gray-400 group-hover:text-gray-900"
+              className="h-5 w-5 text-zinc-500 group-hover:text-white"
             />
           </MenuButton>
         </div>
 
         <MenuItems
           transition
-          className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-xl bg-white shadow-2xl ring-1 ring-black/5 border border-gray-200 transition focus:outline-hidden data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in"
+          className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-2xl bg-zinc-900 shadow-2xl ring-1 ring-white/10 border border-white/10 transition focus:outline-hidden data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in"
         >
           <div className="py-2">
             {sortOptions.map((option) => (
@@ -424,8 +429,8 @@ const handleRadioFilterChange = (event, sectionId) => {
                   onClick={() => handleSortFilterChange(option.option, "sort")}
                   className={classNames(
                     option.current
-                      ? "font-semibold text-gray-900 bg-gray-50"
-                      : "text-gray-700 hover:bg-gray-50",
+                      ? "font-semibold text-white bg-white/5"
+                      : "text-zinc-300 hover:bg-white/5",
                     "block px-4 py-3 text-sm cursor-pointer transition-colors rounded-lg mx-2"
                   )}
                 >
@@ -441,7 +446,7 @@ const handleRadioFilterChange = (event, sectionId) => {
       <button
         type="button"
         onClick={() => setMobileFiltersOpen(true)}
-        className="lg:hidden flex items-center gap-2 rounded-xl bg-gray-900 text-white px-4 py-2.5 text-sm font-semibold hover:bg-gray-800 transition-colors"
+        className="lg:hidden flex items-center gap-2 rounded-xl bg-zinc-800 text-white px-4 py-2.5 text-sm font-semibold hover:bg-zinc-700 transition-colors"
       >
         <FunnelIcon className="h-5 w-5" />
         Filters
@@ -460,10 +465,10 @@ const handleRadioFilterChange = (event, sectionId) => {
         transition={{ delay: 0.2 }}
         className="hidden lg:block"
       >
-        <div className="sticky top-24 bg-white rounded-2xl shadow-lg border-2 border-gray-200 p-6">
-          <div className="flex justify-between items-center mb-6 pb-4 border-b-2 border-gray-200">  
-            <h2 className="text-xl font-bold text-gray-900">Filters</h2>
-            <FilterListIcon className="text-gray-700" />
+        <div className="sticky top-24 rounded-2xl border border-white/10 bg-white/5 p-6">
+          <div className="flex justify-between items-center mb-6 pb-4 border-b-2 border-white/10">  
+            <h2 className="text-xl font-bold text-white">Filters</h2>
+            <FilterListIcon className="text-zinc-300" />
           </div>
           
           {/* Keep your existing filter form code here, just wrap it */}
@@ -473,11 +478,11 @@ const handleRadioFilterChange = (event, sectionId) => {
               <Disclosure
                 key={section.id}
                 as="div"
-                className="border-b border-gray-200 py-4"
+                className="border-b border-white/10 py-4"
               >
                 <h3 className="-my-3 flow-root">
-                  <DisclosureButton className="group flex w-full items-center justify-between bg-white py-3 text-sm hover:text-gray-900">
-                    <span className="font-bold text-gray-900 text-base">
+                  <DisclosureButton className="group flex w-full items-center justify-between py-3 text-sm font-medium text-white transition-colors hover:text-accent-400">
+                    <span className="font-bold text-white text-base">
                       {section.name}
                     </span>
                     <motion.span
@@ -487,11 +492,11 @@ const handleRadioFilterChange = (event, sectionId) => {
                     >
                       <PlusIcon
                         aria-hidden="true"
-                        className="h-5 w-5 text-gray-700 group-data-open:hidden"
+                        className="h-5 w-5 text-zinc-300 group-data-open:hidden"
                       />
                       <MinusIcon
                         aria-hidden="true"
-                        className="h-5 w-5 text-gray-700 hidden group-data-open:block"
+                        className="h-5 w-5 text-zinc-300 hidden group-data-open:block"
                       />
                     </motion.span>
                   </DisclosureButton>
@@ -513,11 +518,11 @@ const handleRadioFilterChange = (event, sectionId) => {
                           id={`filter-${section.id}-${optionIdx}`}
                           name={`${section.id}[]`}
                           type="checkbox"
-                          className="h-5 w-5 rounded-md border-2 border-gray-300 text-gray-900 focus:ring-2 focus:ring-gray-900 cursor-pointer"
+                          className="h-5 w-5 rounded-md border-2 border-white/15 text-white focus:ring-2 focus:ring-gray-900 cursor-pointer"
                         />
                         <label
                           htmlFor={`filter-${section.id}-${optionIdx}`}
-                          className="text-sm text-gray-700 cursor-pointer hover:text-gray-900 font-medium"
+                          className="text-sm text-zinc-300 cursor-pointer hover:text-white font-medium"
                         >
                           {option.label}
                         </label>
@@ -535,11 +540,11 @@ const handleRadioFilterChange = (event, sectionId) => {
   const currentValue = searchParams.get(section.id) || '';
 
   return (
-    <Disclosure key={section.id} as="div" className="border-b border-gray-200 py-4">
+    <Disclosure key={section.id} as="div" className="border-b border-white/10 py-4">
       <h3 className="-my-3 flow-root">
-        <DisclosureButton className="group flex w-full items-center justify-between bg-white py-3 text-sm hover:text-gray-900">
+        <DisclosureButton className="group flex w-full items-center justify-between py-3 text-sm font-medium text-white transition-colors hover:text-accent-400">
           <FormLabel 
-            sx={{color:"#111827", fontWeight:  600, fontSize: '1rem'}} 
+            sx={{ color: "#fafafa", fontWeight: 600, fontSize: "0.95rem" }} 
             id={`radio-label-${section.id}`}
           >
             {section.name}
@@ -551,11 +556,11 @@ const handleRadioFilterChange = (event, sectionId) => {
           >
             <PlusIcon
               aria-hidden="true"
-              className="h-5 w-5 text-gray-700 group-data-open:hidden"
+              className="h-5 w-5 text-zinc-300 group-data-open:hidden"
             />
             <MinusIcon
               aria-hidden="true"
-              className="h-5 w-5 text-gray-700 hidden group-data-open:block"
+              className="h-5 w-5 text-zinc-300 hidden group-data-open:block"
             />
           </motion.span>
         </DisclosureButton>
@@ -603,7 +608,7 @@ const handleRadioFilterChange = (event, sectionId) => {
   sx={{
     '& .MuiFormControlLabel-label': {
       fontSize: '0.875rem',
-      color: '#374151',
+      color: '#a1a1aa',
       fontWeight: 500
     }
   }}
@@ -632,20 +637,12 @@ const handleRadioFilterChange = (event, sectionId) => {
           transition={{ delay: 0.3 }}
           className="lg:col-span-4 w-full"
         >
-          <div className="flex flex-wrap justify-center sm:justify-start bg-gradient-to-br from-gray-50 to-white rounded-2xl ">
-            <AnimatePresence>
-              {products.products && products.products?.content?.map((product, index) => (
-                <motion.div
-                  key={product.id}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale:  0.9 }}
-                  transition={{ delay: index * 0.05 }}
-                >
-                  <ProductCard product={product} />
-                </motion.div>
-              ))}
-            </AnimatePresence>
+          {/* A real grid. The old flex-wrap held fixed 15rem cards, which capped
+              the row at three and left a dead gutter on wide screens. */}
+          <div className="grid grid-cols-2 gap-x-5 gap-y-10 sm:grid-cols-3 xl:grid-cols-4">
+            {products.products?.content?.map((product, index) => (
+              <ProductCard key={product.id} product={product} index={index} />
+            ))}
           </div>
         </motion.div>
       )}
@@ -660,7 +657,7 @@ const handleRadioFilterChange = (event, sectionId) => {
     className="w-full mb-12"
   >
     <div className="flex justify-center">
-      <div className="bg-white rounded-2xl shadow-lg border-2 border-gray-200 px-6 py-4">
+      <div className="rounded-2xl border border-white/10 bg-white/5 px-6 py-4">
         <Pagination
           count={products.products?. totalPages}
           page={parseInt(pageNumber)}
@@ -668,17 +665,17 @@ const handleRadioFilterChange = (event, sectionId) => {
           size="large"
           sx={{
             '& .MuiPaginationItem-root':  {
-              color: '#374151',
+              color: '#a1a1aa',
               fontWeight: 600,
               '&: hover': {
-                backgroundColor: '#f3f4f6',
+                backgroundColor: 'rgba(255,255,255,0.10)',
               },
             },
             '& . Mui-selected': {
-              backgroundColor: '#111827 !important',
+              backgroundColor: '#ffffff !important',
               color: 'white',
               '&:hover': {
-                backgroundColor: '#1f2937 !important',
+                backgroundColor: '#e4e4e7 !important',
               },
             },
           }}

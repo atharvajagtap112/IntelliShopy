@@ -1,10 +1,12 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Geist', ui-sans-serif, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* Dark editorial canvas, site-wide. Interior pages inherit this rather than
+     each painting their own background. */
+  background-color: #09090b;
+  color: #fafafa;
 }
 
 code {
@@ -28,8 +30,15 @@ html {
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: #18181b;
   border-radius: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: #3f3f46;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #52525b;
 }
 
 
@@ -42,4 +51,121 @@ html {
 .swiper-button-disabled {
   opacity: 0.3 !important;
   cursor: not-allowed !important;
+}
+/* Hero progress bar — doubles as the carousel's autoplay clock (see MainCarosel.jsx) */
+@keyframes hero-progress {
+  from { width: 0; }
+  to   { width: 100%; }
+}
+.hero-progress { animation: hero-progress 6s linear forwards; }
+
+@media (prefers-reduced-motion: reduce) {
+  /* No animationend fires, so the hero stops auto-advancing. Arrows and dots still work. */
+  .hero-progress { animation: none; width: 100%; }
+  html { scroll-behavior: auto; }
+}
+
+/* Swiper pagination (moved out of a Next-only <style jsx> block in HomeSectionCarosel).
+   Swiper ships an iOS-blue theme colour; override it or it breaks the palette lock. */
+.swiper {
+  --swiper-theme-color: #18181b;
+  --swiper-pagination-color: #18181b;
+  --swiper-pagination-bullet-inactive-color: #18181b;
+}
+.swiper-pagination-bullet {
+  background: #ffffff;
+  width: 7px;
+  height: 7px;
+  opacity: 0.28;
+}
+.swiper-pagination-bullet-active {
+  background: #ffffff;
+  opacity: 1;
+}
+
+/* Shared film-grain layer. Stops large flat fills reading as dead space; used by
+   the hero and the homepage canvas. Decorative only, so it never takes pointers. */
+.grain-layer {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  pointer-events: none;
+}
+
+/* Default selection blue clashes on a dark canvas and reads as a stray highlight.
+   Tie it to the accent instead. */
+::selection {
+  background: rgba(225, 29, 84, 0.35);
+  color: #ffffff;
+}
+::-moz-selection {
+  background: rgba(225, 29, 84, 0.35);
+  color: #ffffff;
+}
+
+/* Chrome paints autofilled inputs with its own light-blue fill and ignores
+   background-color outright. A large inset box-shadow is the only way to cover
+   it, and -webkit-text-fill-color the only way to recolour the text.
+
+   The colour below is the FIELD'S OWN painted colour (rgba(255,255,255,0.05)
+   composited over the zinc-900 card = #242426), so an autofilled field is
+   indistinguishable from an empty one - no blue, and no black block either.
+   !important is needed because MUI injects its styles at runtime, after this
+   sheet. The absurd transition delay stops the blue flashing back on blur. */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus,
+input:autofill,
+textarea:autofill,
+select:autofill {
+  -webkit-text-fill-color: #fafafa !important;
+  -webkit-box-shadow: 0 0 0 1000px #242426 inset !important;
+  box-shadow: 0 0 0 1000px #242426 inset !important;
+  background-color: #242426 !important;
+  background-image: none !important;
+  caret-color: #fafafa !important;
+  border-radius: inherit;
+  transition: background-color 100000s ease-in-out 0s !important;
+}
+
+/* Skeleton shimmer: a light sweep across the placeholder rather than a whole-block
+   opacity pulse, which reads as a flicker on a dark canvas. */
+@keyframes shimmer-sweep {
+  100% { transform: translateX(100%); }
+}
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.06),
+    transparent
+  );
+  transform: translateX(-100%);
+  animation: shimmer-sweep 1.6s infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .shimmer { animation: none; }
+}
+
+/* Safety net: Chrome paints spelling/grammar-error runs on their own path, which
+   can escape -webkit-text-fill-color and render dark on a dark field. Address
+   forms disable spellcheck outright; this keeps any other field legible. */
+::spelling-error,
+::grammar-error {
+  color: inherit;
+  -webkit-text-fill-color: inherit;
+}
+
+/* Native checkboxes/radios/range render as stark white on a dark canvas.
+   accent-color themes the browser's own control in one line - far less code
+   than rebuilding each control as a styled span. */
+input[type="checkbox"],
+input[type="radio"],
+input[type="range"] {
+  accent-color: #e11d54;
 }

@@ -14,11 +14,11 @@ const style = {
   maxWidth: "95vw",
   maxHeight: "95vh",
   overflowY: "auto",
-  bgcolor: "rgba(255,255,255,0.15)",
-  backdropFilter: "blur(12px)",
+  bgcolor: "#18181b",
+  backdropFilter: "blur(4px)",
   borderRadius: "16px",
-  border: "1px solid rgba(255, 255, 255, 0.1)",
-  boxShadow: "0 8px 32px rgba(0, 0, 0, 0.3)",
+  border: "1px solid rgba(255,255,255,0.10)",
+  boxShadow: "0 24px 70px rgba(0,0,0,0.65)",
   p: 4,
 };
 

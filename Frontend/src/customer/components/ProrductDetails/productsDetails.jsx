@@ -107,14 +107,14 @@ export default function ProductDetails() {
 
   if (products.loading) {
     return (
-      <div className="w-full flex justify-center items-center h-screen bg-white">
+      <div className="w-full flex justify-center items-center h-screen bg-zinc-950">
         <Loading />
       </div>
     );
   }
 
   return (
-    <div className="bg-white min-h-screen">
+    <div className="bg-zinc-950 min-h-screen">
       {/* Product Details Section */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
         <motion.section
@@ -131,7 +131,7 @@ export default function ProductDetails() {
             className="relative"
           >
             <div className="sticky top-24">
-              <div className="relative aspect-[3/4] rounded-2xl overflow-hidden bg-gray-50 border border-gray-200">
+              <div className="relative aspect-[3/4] rounded-2xl overflow-hidden bg-white/5 border border-white/10">
                 <motion.img
                   whileHover={{ scale: 1.03 }}
                   transition={{ duration: 0.4 }}
@@ -155,18 +155,18 @@ export default function ProductDetails() {
               <motion.p
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                className="text-sm font-semibold text-gray-600 uppercase tracking-wider"
+                className="text-sm font-semibold text-zinc-400 uppercase tracking-wider"
               >
                 {products.product?.brand}
               </motion.p>
-              <h1 className="text-3xl md:text-4xl font-bold text-gray-900 leading-tight">
+              <h1 className="text-3xl md:text-4xl font-bold text-white leading-tight">
                 {products.product?.title}
               </h1>
             </div>
 
             {/* Rating */}
             <div className="flex items-center gap-4 py-2">
-              <div className="flex items-center gap-2 bg-gray-50 px-4 py-2 rounded-lg border border-gray-200">
+              <div className="flex items-center gap-2 bg-white/5 px-4 py-2 rounded-lg border border-white/10">
                 <Rating
                   value={Number(averageRating)}
                   readOnly
@@ -178,24 +178,24 @@ export default function ProductDetails() {
                     },
                   }}
                 />
-                <span className="text-sm font-semibold text-gray-900">
+                <span className="text-sm font-semibold text-white">
                   {averageRating}
                 </span>
               </div>
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-zinc-400">
                 ({products?.product?.reviews?.length} reviews)
               </p>
             </div>
 
             {/* Price Section */}
-            <div className="flex items-baseline gap-4 py-4 border-y border-gray-200">
-              <span className="text-4xl md:text-5xl font-bold text-gray-900">
+            <div className="flex items-baseline gap-4 py-4 border-y border-white/10">
+              <span className="text-4xl md:text-5xl font-bold text-white">
                 ₹{products.product?.discountPrice}
               </span>
-              <span className="text-2xl text-gray-400 line-through">
+              <span className="text-2xl text-zinc-500 line-through">
                 ₹{products.product?.price}
               </span>
-              <span className="px-3 py-1 bg-black text-white font-bold text-sm rounded-md">
+              <span className="px-3 py-1 bg-white text-zinc-950 font-bold text-sm rounded-md">
                 {getDiscountPercent(
                   products.product?.price,
                   products.product?.discountPrice
@@ -207,10 +207,10 @@ export default function ProductDetails() {
             {/* Size Selection */}
             <div className="space-y-4">
               <div className="flex items-center justify-between">
-                <h3 className="text-lg font-semibold text-gray-900">
+                <h3 className="text-lg font-semibold text-white">
                   Select Size
                 </h3>
-                <button className="text-sm text-gray-900 hover:text-gray-700 font-medium underline">
+                <button className="text-sm text-white hover:text-zinc-300 font-medium underline">
                   Size Guide
                 </button>
               </div>
@@ -227,8 +227,8 @@ export default function ProductDetails() {
                     className={({ checked }) =>
                       classNames(
                         checked
-                          ? "bg-black text-white border-black"
-                          : "bg-white text-gray-900 border-gray-300 hover:border-gray-900",
+                          ? "bg-white text-zinc-950 border-black"
+                          : "bg-zinc-950 text-white border-white/15 hover:border-white/20",
                         "relative flex items-center justify-center rounded-lg border-2 py-4 text-sm font-semibold uppercase cursor-pointer transition-all duration-200 focus:outline-none"
                       )
                     }
@@ -253,22 +253,22 @@ export default function ProductDetails() {
                   py: 2,
                   fontSize: "1.125rem",
                   fontWeight:  "600",
-                  borderRadius:  "0.75rem",
-                  background: "#000",
-                  color: "#fff",
+                  borderRadius: "999px",
+                  background: "#ffffff",
+                  color: "#09090b",
                   textTransform: "none",
-                  "&:hover": {
-                    background: "#1a1a1a",
-                  },
+                  boxShadow: "none",
+                  "&:hover": { background: "#e4e4e7", boxShadow: "none" },
+                  "&:active": { transform: "scale(0.99)" },
                   "&:disabled": {
-                    background: "#666",
-                    opacity: 0.6,
+                    background: "rgba(255,255,255,0.12)",
+                    color: "rgba(255,255,255,0.45)",
                   },
                 }}
               >
                 {isAddingToCart ? (
                   <div className="flex items-center gap-2">
-                    <CircularProgress size={20} sx={{ color: "white" }} />
+                    <CircularProgress size={20} sx={{ color: "#09090b" }} />
                     <span>Adding to Cart...</span>
                   </div>
                 ) : (
@@ -278,11 +278,11 @@ export default function ProductDetails() {
             </motion.div>
 
             {/* Product Description */}
-            <div className="pt-6 space-y-4 border-t border-gray-200">
-              <h3 className="text-xl font-semibold text-gray-900">
+            <div className="pt-6 space-y-4 border-t border-white/10">
+              <h3 className="text-xl font-semibold text-white">
                 Product Details
               </h3>
-              <p className="text-gray-600 leading-relaxed">
+              <p className="text-zinc-400 leading-relaxed">
                 {products.product?.description}
               </p>
             </div>
@@ -297,10 +297,10 @@ export default function ProductDetails() {
             transition={{ duration: 0.6, delay: 0.4 }}
             className="mt-16 md:mt-24"
           >
-            <h2 className="text-3xl font-bold text-gray-900 mb-8">
+            <h2 className="text-3xl font-bold text-white mb-8">
               Customer Reviews
             </h2>
-            <div className="bg-white rounded-2xl border border-gray-200 p-6 md:p-8">
+            <div className="bg-zinc-950 rounded-2xl border border-white/10 p-6 md:p-8">
             
               
                   <ProductRatingCard item={products.product?.reviews} />
@@ -317,7 +317,7 @@ export default function ProductDetails() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity:  1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.6 }}
-          className="mt-16 md:mt-24 bg-gray-50 py-12 md:py-16"
+          className="mt-16 md:mt-24 bg-white/5 py-12 md:py-16"
         >
           <div className="max-w-8xl mx-auto">
             <HomeSectionCarousel

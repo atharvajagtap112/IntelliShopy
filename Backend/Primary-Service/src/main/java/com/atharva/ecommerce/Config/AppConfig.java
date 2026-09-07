@@ -21,7 +21,11 @@ import java.util.List;
 @Configuration
 public class AppConfig {
 
+    private final OAuth2LoginSuccessHandler oAuth2LoginSuccessHandler;
 
+    public AppConfig(OAuth2LoginSuccessHandler oAuth2LoginSuccessHandler) {
+        this.oAuth2LoginSuccessHandler = oAuth2LoginSuccessHandler;
+    }
 
 
     @Bean
@@ -34,23 +38,25 @@ public class AppConfig {
                 .addFilterBefore(new JwtValidator(), BasicAuthenticationFilter.class)
                 .csrf(csrf-> {
                             try {
-                                csrf.disable();
-//                                .cors(configurationSource->configurationSource.configurationSource(new CorsConfigurationSource() {
-//                                            @Override
-//                                            public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
-//                                                CorsConfiguration cfg = new CorsConfiguration();
-//                                                cfg.setAllowedOrigins(List.of(
-//                                                        "http://localhost:3000",
-//                                                        "https://intellishopy.vercel.app"
-//                                                        ));
-//                                                cfg.setAllowedMethods(Collections.singletonList("*"));
-//                                                cfg.setAllowCredentials(true);
-//                                                cfg.setAllowedHeaders(Collections.singletonList("*"));
-//                                                cfg.setExposedHeaders(Collections.singletonList("Authorization"));
-//                                                cfg.setMaxAge(3600L);
-//                                                return cfg;
-//                                            }
-//                                        }));
+                                csrf.disable()
+                                .cors(configurationSource->configurationSource.configurationSource(new CorsConfigurationSource() {
+                                            @Override
+                                            public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
+                                                CorsConfiguration cfg = new CorsConfiguration();
+                                                cfg.setAllowedOrigins(List.of(
+                                                        "http://localhost:3000",
+                                                        "https://intellishopy.vercel.app"
+                                                        ));
+                                                cfg.setAllowedMethods(Collections.singletonList("*"));
+                                                cfg.setAllowCredentials(true);
+                                                cfg.setAllowedHeaders(Collections.singletonList("*"));
+                                                cfg.setExposedHeaders(Collections.singletonList("Authorization"));
+                                                cfg.setMaxAge(3600L);
+                                                return cfg;
+                                            }
+                                        }))
+                                        .oauth2Login(oauth->
+                                                oauth.successHandler(oAuth2LoginSuccessHandler));
                             } catch (Exception e) {
                                 throw new RuntimeException(e);
                             }
@@ -58,7 +64,7 @@ public class AppConfig {
                 ).httpBasic(Customizer.withDefaults())
                 .formLogin(Customizer.withDefaults());
 
-     return http.build();     
+     return http.build();
     }
 
     @Bean

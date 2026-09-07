@@ -199,7 +199,7 @@ const filteredAndSortedProducts = useMemo(() => {
   };
 
   return (
-    <div className="bg-white">
+    <div className="bg-zinc-900">
       <div>
         {/* Mobile filter dialog */}
         <Dialog
@@ -209,20 +209,20 @@ const filteredAndSortedProducts = useMemo(() => {
         >
           <DialogBackdrop
             transition
-            className="fixed inset-0 bg-black/25 transition-opacity duration-300 ease-linear data-closed:opacity-0"
+            className="fixed inset-0 bg-zinc-950/70 transition-opacity duration-300 ease-linear data-closed:opacity-0"
           />
 
           <div className="fixed inset-0 z-40 flex">
             <DialogPanel
               transition
-              className="relative ml-auto flex size-full max-w-xs transform flex-col overflow-y-auto bg-white py-4 pb-12 shadow-xl transition duration-300 ease-in-out data-closed:translate-x-full"
+              className="relative ml-auto flex size-full max-w-xs transform flex-col overflow-y-auto bg-zinc-900 py-4 pb-12 shadow-xl transition duration-300 ease-in-out data-closed:translate-x-full"
             >
               <div className="flex items-center justify-between px-4">
-                <h2 className="text-lg font-medium text-gray-900">Filters</h2>
+                <h2 className="text-lg font-medium text-white">Filters</h2>
                 <button
                   type="button"
                   onClick={() => setMobileFiltersOpen(false)}
-                  className="-mr-2 flex size-10 items-center justify-center rounded-md bg-white p-2 text-gray-400"
+                  className="-mr-2 flex size-10 items-center justify-center rounded-md bg-zinc-900 p-2 text-zinc-500"
                 >
                   <span className="sr-only">Close menu</span>
                   <XMarkIcon aria-hidden="true" className="size-6" />
@@ -230,18 +230,18 @@ const filteredAndSortedProducts = useMemo(() => {
               </div>
 
               {/* Filters */}
-              <form className="mt-4 border-t border-gray-200">
+              <form className="mt-4 border-t border-white/10">
                 <h3 className="sr-only">Categories</h3>
 
                 {filters.map((section) => (
                   <Disclosure
                     key={section.id}
                     as="div"
-                    className="border-t border-gray-200 px-4 py-6"
+                    className="border-t border-white/10 px-4 py-6"
                   >
                     <h3 className="-mx-2 -my-3 flow-root">
-                      <DisclosureButton className="group flex w-full items-center justify-between bg-white px-2 py-3 text-gray-400 hover:text-gray-500">
-                        <span className="font-medium text-gray-900">
+                      <DisclosureButton className="group flex w-full items-center justify-between bg-zinc-900 px-2 py-3 text-zinc-500 hover:text-zinc-500">
+                        <span className="font-medium text-white">
                           {section.name}
                         </span>
                         <span className="ml-6 flex items-center">
@@ -268,7 +268,7 @@ const filteredAndSortedProducts = useMemo(() => {
                                   id={`filter-mobile-${section.id}-${optionIdx}`}
                                   name={`${section.id}[]`}
                                   type="checkbox"
-                                  className="col-start-1 row-start-1 appearance-none rounded-sm border border-gray-300 bg-white checked:border-indigo-600 checked:bg-indigo-600 indeterminate:border-indigo-600 indeterminate:bg-indigo-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:checked:bg-gray-100 forced-colors:appearance-auto"
+                                  className="col-start-1 row-start-1 appearance-none rounded-sm border border-white/15 bg-zinc-900 checked:border-accent-600 checked:bg-accent-600 indeterminate:border-accent-600 indeterminate:bg-accent-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-500 disabled:border-white/15 disabled:bg-white/10 disabled:checked:bg-white/10 forced-colors:appearance-auto"
                                 />
                                 <svg
                                   fill="none"
@@ -294,7 +294,7 @@ const filteredAndSortedProducts = useMemo(() => {
                             </div>
                             <label
                               htmlFor={`filter-mobile-${section.id}-${optionIdx}`}
-                              className="min-w-0 flex-1 text-gray-500"
+                              className="min-w-0 flex-1 text-zinc-500"
                             >
                               {option.label}
                             </label>
@@ -309,11 +309,11 @@ const filteredAndSortedProducts = useMemo(() => {
                   <Disclosure
                     key={section.id}
                     as="div"
-                    className="border-t border-gray-200 px-4 py-6"
+                    className="border-t border-white/10 px-4 py-6"
                   >
                     <h3 className="-mx-2 -my-3 flow-root">
-                      <DisclosureButton className="group flex w-full items-center justify-between bg-white px-2 py-3 text-gray-400 hover:text-gray-500">
-                        <span className="font-medium text-gray-900">
+                      <DisclosureButton className="group flex w-full items-center justify-between bg-zinc-900 px-2 py-3 text-zinc-500 hover:text-zinc-500">
+                        <span className="font-medium text-white">
                           {section.name}
                         </span>
                         <span className="ml-6 flex items-center">
@@ -340,7 +340,7 @@ const filteredAndSortedProducts = useMemo(() => {
                                   id={`filter-mobile-${section.id}-${optionIdx}`}
                                   name={`${section.id}[]`}
                                   type="checkbox"
-                                  className="col-start-1 row-start-1 appearance-none rounded-sm border border-gray-300 bg-white checked:border-indigo-600 checked:bg-indigo-600 indeterminate:border-indigo-600 indeterminate:bg-indigo-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:checked:bg-gray-100 forced-colors:appearance-auto"
+                                  className="col-start-1 row-start-1 appearance-none rounded-sm border border-white/15 bg-zinc-900 checked:border-accent-600 checked:bg-accent-600 indeterminate:border-accent-600 indeterminate:bg-accent-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-500 disabled:border-white/15 disabled:bg-white/10 disabled:checked:bg-white/10 forced-colors:appearance-auto"
                                 />
                                 <svg
                                   fill="none"
@@ -366,7 +366,7 @@ const filteredAndSortedProducts = useMemo(() => {
                             </div>
                             <label
                               htmlFor={`filter-mobile-${section.id}-${optionIdx}`}
-                              className="min-w-0 flex-1 text-gray-500"
+                              className="min-w-0 flex-1 text-zinc-500"
                             >
                               {option.label}
                             </label>
@@ -386,13 +386,13 @@ const filteredAndSortedProducts = useMemo(() => {
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="flex flex-col sm:flex-row items-start sm:items-baseline justify-between border-b-2 border-gray-200 pt-24 pb-6 gap-4"
+            className="flex flex-col sm:flex-row items-start sm:items-baseline justify-between border-b-2 border-white/10 pt-24 pb-6 gap-4"
           >
             <div>
-              <h1 className="text-3xl sm:text-4xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-gray-900 to-gray-700">
+              <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-white">
                 New Arrivals
               </h1>
-              <p className="text-gray-600 mt-2 text-sm">
+              <p className="text-zinc-400 mt-2 text-sm">
                 Discover our latest collection ({filteredAndSortedProducts.length} products)
               </p>
             </div>
@@ -400,18 +400,18 @@ const filteredAndSortedProducts = useMemo(() => {
             <div className="flex items-center gap-4">
               <Menu as="div" className="relative inline-block text-left">
                 <div>
-                  <MenuButton className="group inline-flex items-center justify-center gap-2 rounded-xl bg-white px-4 py-2.5 text-sm font-semibold text-gray-900 hover:bg-gray-50 border-2 border-gray-200 hover:border-gray-900 transition-all">
+                  <MenuButton className="group inline-flex items-center justify-center gap-2 rounded-xl bg-zinc-900 px-4 py-2.5 text-sm font-semibold text-white hover:bg-white/5 border-2 border-white/10 hover:border-white/20 transition-all">
                     Sort
                     <ChevronDownIcon
                       aria-hidden="true"
-                      className="h-5 w-5 text-gray-400 group-hover:text-gray-900"
+                      className="h-5 w-5 text-zinc-500 group-hover:text-white"
                     />
                   </MenuButton>
                 </div>
 
                 <MenuItems
                   transition
-                  className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-xl bg-white shadow-2xl ring-1 ring-black/5 border border-gray-200 transition focus:outline-hidden data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in"
+                  className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-xl bg-zinc-900 shadow-2xl ring-1 ring-black/5 border border-white/10 transition focus:outline-hidden data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in"
                 >
                   <div className="py-2">
                     {sortOptions.map((option) => (
@@ -420,8 +420,8 @@ const filteredAndSortedProducts = useMemo(() => {
                           onClick={() => handleSortFilterChange(option.option, "sort")}
                           className={classNames(
                             sortValue === option.option
-                              ? "font-semibold text-gray-900 bg-gray-50"
-                              : "text-gray-700 hover:bg-gray-50",
+                              ? "font-semibold text-white bg-white/5"
+                              : "text-zinc-300 hover:bg-white/5",
                             "block px-4 py-3 text-sm cursor-pointer transition-colors rounded-lg mx-2"
                           )}
                         >
@@ -437,7 +437,7 @@ const filteredAndSortedProducts = useMemo(() => {
               <button
                 type="button"
                 onClick={() => setMobileFiltersOpen(true)}
-                className="lg:hidden flex items-center gap-2 rounded-xl bg-gray-900 text-white px-4 py-2.5 text-sm font-semibold hover:bg-gray-800 transition-colors"
+                className="lg:hidden flex items-center gap-2 rounded-xl bg-zinc-800 text-white px-4 py-2.5 text-sm font-semibold hover:bg-zinc-200 transition-colors"
               >
                 <FunnelIcon className="h-5 w-5" />
                 Filters
@@ -456,10 +456,10 @@ const filteredAndSortedProducts = useMemo(() => {
                 transition={{ delay: 0.2 }}
                 className="hidden lg:block"
               >
-                <div className="sticky top-24 bg-white rounded-2xl shadow-lg border-2 border-gray-200 p-6">
-                  <div className="flex justify-between items-center mb-6 pb-4 border-b-2 border-gray-200">  
-                    <h2 className="text-xl font-bold text-gray-900">Filters</h2>
-                    <FilterListIcon className="text-gray-700" />
+                <div className="sticky top-24 bg-zinc-900 rounded-2xl shadow-lg border-2 border-white/10 p-6">
+                  <div className="flex justify-between items-center mb-6 pb-4 border-b-2 border-white/10">  
+                    <h2 className="text-xl font-bold text-white">Filters</h2>
+                    <FilterListIcon className="text-zinc-300" />
                   </div>
                   
                   <form className="space-y-2">
@@ -467,11 +467,11 @@ const filteredAndSortedProducts = useMemo(() => {
                       <Disclosure
                         key={section.id}
                         as="div"
-                        className="border-b border-gray-200 py-4"
+                        className="border-b border-white/10 py-4"
                       >
                         <h3 className="-my-3 flow-root">
-                          <DisclosureButton className="group flex w-full items-center justify-between bg-white py-3 text-sm hover:text-gray-900">
-                            <span className="font-bold text-gray-900 text-base">
+                          <DisclosureButton className="group flex w-full items-center justify-between bg-zinc-900 py-3 text-sm hover:text-white">
+                            <span className="font-bold text-white text-base">
                               {section.name}
                             </span>
                             <motion.span
@@ -481,11 +481,11 @@ const filteredAndSortedProducts = useMemo(() => {
                             >
                               <PlusIcon
                                 aria-hidden="true"
-                                className="h-5 w-5 text-gray-700 group-data-open:hidden"
+                                className="h-5 w-5 text-zinc-300 group-data-open:hidden"
                               />
                               <MinusIcon
                                 aria-hidden="true"
-                                className="h-5 w-5 text-gray-700 hidden group-data-open:block"
+                                className="h-5 w-5 text-zinc-300 hidden group-data-open:block"
                               />
                             </motion.span>
                           </DisclosureButton>
@@ -507,11 +507,11 @@ const filteredAndSortedProducts = useMemo(() => {
                                   id={`filter-${section.id}-${optionIdx}`}
                                   name={`${section.id}[]`}
                                   type="checkbox"
-                                  className="h-5 w-5 rounded-md border-2 border-gray-300 text-gray-900 focus:ring-2 focus:ring-gray-900 cursor-pointer"
+                                  className="h-5 w-5 rounded-md border-2 border-white/15 text-white focus:ring-2 focus:ring-gray-900 cursor-pointer"
                                 />
                                 <label
                                   htmlFor={`filter-${section.id}-${optionIdx}`}
-                                  className="text-sm text-gray-700 cursor-pointer hover:text-gray-900 font-medium"
+                                  className="text-sm text-zinc-300 cursor-pointer hover:text-white font-medium"
                                 >
                                   {option.label}
                                 </label>
@@ -528,11 +528,11 @@ const filteredAndSortedProducts = useMemo(() => {
                       const currentValue = searchParams.get(section.id) || '';
 
                       return (
-                        <Disclosure key={section.id} as="div" className="border-b border-gray-200 py-4">
+                        <Disclosure key={section.id} as="div" className="border-b border-white/10 py-4">
                           <h3 className="-my-3 flow-root">
-                            <DisclosureButton className="group flex w-full items-center justify-between bg-white py-3 text-sm hover:text-gray-900">
+                            <DisclosureButton className="group flex w-full items-center justify-between bg-zinc-900 py-3 text-sm hover:text-white">
                               <FormLabel 
-                                sx={{ color: "#111827", fontWeight: 600, fontSize: '1rem' }} 
+                                sx={{ color: "#fafafa", fontWeight: 600, fontSize: '1rem' }} 
                                 id={`radio-label-${section.id}`}
                               >
                                 {section.name}
@@ -544,11 +544,11 @@ const filteredAndSortedProducts = useMemo(() => {
                               >
                                 <PlusIcon
                                   aria-hidden="true"
-                                  className="h-5 w-5 text-gray-700 group-data-open:hidden"
+                                  className="h-5 w-5 text-zinc-300 group-data-open:hidden"
                                 />
                                 <MinusIcon
                                   aria-hidden="true"
-                                  className="h-5 w-5 text-gray-700 hidden group-data-open:block"
+                                  className="h-5 w-5 text-zinc-300 hidden group-data-open:block"
                                 />
                               </motion.span>
                             </DisclosureButton>
@@ -595,7 +595,7 @@ const filteredAndSortedProducts = useMemo(() => {
                                       sx={{
                                         '& .MuiFormControlLabel-label': {
                                           fontSize: '0.875rem',
-                                          color: '#374151',
+                                          color: '#a1a1aa',
                                           fontWeight: 500
                                         }
                                       }}
@@ -624,25 +624,17 @@ const filteredAndSortedProducts = useMemo(() => {
                   transition={{ delay: 0.3 }}
                   className="lg:col-span-4 w-full"
                 >
-                  <div className="flex flex-wrap justify-center sm:justify-start bg-gradient-to-br from-gray-50 to-white rounded-2xl">
+                  <div>
                     {paginatedProducts.length === 0 ? (
                       <div className="w-full text-center py-16">
-                        <p className="text-gray-500 text-lg">No products found matching your filters</p>
+                        <p className="text-zinc-500 text-lg">No products found matching your filters</p>
                       </div>
                     ) : (
-                      <AnimatePresence>
+                      <div className="grid grid-cols-2 gap-x-5 gap-y-10 sm:grid-cols-3 xl:grid-cols-4">
                         {paginatedProducts.map((product, index) => (
-                          <motion.div
-                            key={product.id}
-                            initial={{ opacity: 0, scale: 0.9 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            exit={{ opacity: 0, scale: 0.9 }}
-                            transition={{ delay: index * 0.05 }}
-                          >
-                            <ProductCard product={product} />
-                          </motion.div>
+                          <ProductCard key={product.id} product={product} index={index} />
                         ))}
-                      </AnimatePresence>
+                      </div>
                     )}
                   </div>
                 </motion.div>
@@ -659,7 +651,7 @@ const filteredAndSortedProducts = useMemo(() => {
               className="w-full mb-12"
             >
               <div className="flex justify-center">
-                <div className="bg-white rounded-2xl shadow-lg border-2 border-gray-200 px-6 py-4">
+                <div className="bg-zinc-900 rounded-2xl shadow-lg border-2 border-white/10 px-6 py-4">
                   <Pagination
                     count={totalPages}
                     page={currentPageNumber}
@@ -667,17 +659,17 @@ const filteredAndSortedProducts = useMemo(() => {
                     size="large"
                     sx={{
                       '& .MuiPaginationItem-root': {
-                        color: '#374151',
+                        color: '#a1a1aa',
                         fontWeight: 600,
                         '&:hover': {
-                          backgroundColor: '#f3f4f6',
+                          backgroundColor: 'rgba(255,255,255,0.10)',
                         },
                       },
                       '& .Mui-selected': {
-                        backgroundColor: '#111827 !important',
+                        backgroundColor: '#ffffff !important',
                         color: 'white',
                         '&:hover': {
-                          backgroundColor: '#1f2937 !important',
+                          backgroundColor: '#e4e4e7 !important',
                         },
                       },
                     }}

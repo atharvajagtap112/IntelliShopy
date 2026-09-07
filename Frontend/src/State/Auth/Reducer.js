@@ -26,8 +26,12 @@ export const authReaducer=(state=initialState,action)=>{
         case LOGIN_FAILURE:
              return {...state,user:null,isLoading:false,error:action.payload,jwt:null};
         case GET_USER_FAILURE:
-              localStorage.removeItem("jwt");
-            return {...state,user:null,isLoading:false,error:action.payload,jwt:null};          
+            // Reducers must stay pure - the localStorage write lived here and
+            // fired on every failure. Clearing tokens is now the action's job,
+            // and only for a real 401/403. A transient error keeps the session.
+            return action.isAuthFailure
+                ? { ...state, user: null, isLoading: false, error: action.payload, jwt: null }
+                : { ...state, isLoading: false, error: action.payload };
 
         case LOGOUT :
             return{...initialState}   

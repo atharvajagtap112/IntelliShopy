@@ -4,9 +4,9 @@ import { motion } from 'framer-motion';
 import ProductReviewsCard from './ProductReviewsCard';
 
 // 📊 Progress Bar Component
-const ProgressBar = ({ value, color = 'bg-gray-900' }) => {
+const ProgressBar = ({ value, color = 'bg-accent-500' }) => {
   return (
-    <div className="w-full bg-gray-100 rounded-full h-2.5 overflow-hidden">
+    <div className="w-full bg-white/10 rounded-full h-2.5 overflow-hidden">
       <motion.div
         initial={{ width: 0 }}
         animate={{ width: `${value}%` }}
@@ -14,7 +14,7 @@ const ProgressBar = ({ value, color = 'bg-gray-900' }) => {
         className={`h-full rounded-full ${color} relative overflow-hidden`}
       >
         <motion.div
-          className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-30"
+          className="absolute inset-0 bg-gradient-to-r from-transparent via-white/60 to-transparent opacity-30"
           animate={{ x: ['-100%', '200%'] }}
           transition={{ duration: 1.5, repeat: Infinity, ease: 'linear' }}
         />
@@ -46,11 +46,11 @@ const ProductReviewsSection = ({ item }) => {
 
   // Rating breakdown data
   const ratingData = [
-    { label: 'Excellent', stars: 5, value: starCount[0], color:  'bg-gray-900' },
-    { label: 'Very Good', stars:  4, value: starCount[1], color: 'bg-gray-700' },
-    { label: 'Good', stars: 3, value: starCount[2], color: 'bg-gray-600' },
-    { label: 'Average', stars: 2, value: starCount[3], color: 'bg-gray-500' },
-    { label: 'Poor', stars: 1, value: starCount[4], color: 'bg-gray-400' },
+    { label: 'Excellent', stars: 5, value: starCount[0], color: 'bg-accent-500' },
+    { label: 'Very Good', stars:  4, value: starCount[1], color: 'bg-accent-400' },
+    { label: 'Good', stars: 3, value: starCount[2], color: 'bg-zinc-400' },
+    { label: 'Average', stars: 2, value: starCount[3], color: 'bg-zinc-500' },
+    { label: 'Poor', stars: 1, value: starCount[4], color: 'bg-zinc-600' },
   ].map((entry) => ({
     ...entry,
     percent: totalReviews === 0 ? 0 : ((entry.value / totalReviews) * 100).toFixed(0),
@@ -61,7 +61,7 @@ const ProductReviewsSection = ({ item }) => {
     filter === 'all' ? reviews : reviews.filter((r) => r.rating === parseInt(filter));
 
   return (
-    <section className="w-full bg-white py-8 md:py-12">
+    <section className="w-full bg-zinc-950 py-8 md:py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
 
@@ -74,7 +74,7 @@ const ProductReviewsSection = ({ item }) => {
             className="lg:col-span-5"
           >
             {/* Overall Rating Card */}
-            <div className="bg-gradient-to-br from-gray-50 to-white border-2 border-gray-900 rounded-3xl p-6 md:p-8 shadow-lg mb-6">
+            <div className="rounded-3xl border border-white/10 bg-white/5 p-6 md:p-8 mb-6">
               <div className="text-center mb-6">
                 <motion.div
                   initial={{ scale: 0 }}
@@ -82,7 +82,7 @@ const ProductReviewsSection = ({ item }) => {
                   transition={{ type: 'spring', stiffness: 200, delay: 0.2 }}
                   className="inline-block"
                 >
-                  <div className="text-6xl md:text-7xl font-black text-gray-900 mb-2">
+                  <div className="text-6xl md:text-7xl font-black text-white mb-2">
                     {averageRating}
                   </div>
                 </motion.div>
@@ -96,7 +96,7 @@ const ProductReviewsSection = ({ item }) => {
                     '& .MuiRating-iconEmpty': { color: '#d1d5db' },
                   }}
                 />
-                <p className="text-gray-600 font-medium mt-2 text-sm md:text-base">
+                <p className="text-zinc-400 font-medium mt-2 text-sm md:text-base">
                   Based on {totalReviews} review{totalReviews !== 1 && 's'}
                 </p>
               </div>
@@ -114,8 +114,8 @@ const ProductReviewsSection = ({ item }) => {
                     }
                     className={`w-full flex items-center gap-3 p-3 rounded-xl transition-all duration-300 ${
                       filter === rating.stars.toString()
-                        ? 'bg-gray-900 text-white shadow-lg scale-105'
-                        : 'bg-white hover:bg-gray-50 border border-gray-200'
+                        ? 'bg-white text-zinc-950 shadow-lg scale-105'
+                        : 'bg-zinc-900 hover:bg-white/5 border border-white/10'
                     }`}
                   >
                     <div className="w-16 md:w-20 text-left">
@@ -163,10 +163,10 @@ const ProductReviewsSection = ({ item }) => {
                   <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    className="text-center py-12 bg-gray-50 rounded-2xl border-2 border-dashed border-gray-300"
+                    className="text-center py-12 bg-white/5 rounded-2xl border-2 border-dashed border-white/15"
                   >
                     <div className="text-6xl mb-4">📝</div>
-                    <p className="text-lg text-gray-600 font-medium">
+                    <p className="text-lg text-zinc-400 font-medium">
                       No reviews yet for this rating
                     </p>
                   </motion.div>

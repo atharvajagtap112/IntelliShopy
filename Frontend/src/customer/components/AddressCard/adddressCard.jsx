@@ -13,8 +13,8 @@ const AddressCard = ({ address, isSelected, onSelect, showSelectButton = false }
       transition={{ duration: 0.3 }}
       className="w-full"
     >
-      <div className={`bg-white rounded-2xl shadow-lg border-2 overflow-hidden transition-all duration-300 ${
-        isSelected ?  'border-gray-900 shadow-xl' : 'border-gray-200'
+      <div className={`bg-zinc-900 rounded-2xl shadow-lg border-2 overflow-hidden transition-all duration-300 ${
+        isSelected ?  'border-white shadow-xl' : 'border-white/10'
       }`}>
         
         {/* Selected Badge */}
@@ -24,14 +24,14 @@ const AddressCard = ({ address, isSelected, onSelect, showSelectButton = false }
             animate={{ scale: 1, rotate: 0 }}
             className="absolute top-3 right-3 z-10"
           >
-            <div className="bg-gray-900 text-white rounded-full p-1 shadow-lg">
+            <div className="bg-white text-zinc-950 rounded-full p-1 shadow-lg">
               <CheckCircleIcon sx={{ fontSize: 20 }} />
             </div>
           </motion.div>
         )}
 
         {/* Header */}
-        <div className="bg-gradient-to-r from-gray-900 to-gray-800 px-4 md:px-6 py-3 md:py-4">
+        <div className="bg-white/[0.07] border-b border-white/10 px-4 md:px-6 py-3 md:py-4">
           <div className="flex items-center gap-2 text-white">
             <LocationOnOutlinedIcon sx={{ fontSize: { xs: 20, md: 24 } }} />
             <h3 className="font-bold text-base md:text-lg">Delivery Address</h3>
@@ -48,12 +48,12 @@ const AddressCard = ({ address, isSelected, onSelect, showSelectButton = false }
             transition={{ delay: 0.1 }}
             className="flex items-center gap-2 md:gap-3"
           >
-            <div className="flex-shrink-0 mt-0.5 bg-gray-100 rounded-full p-1. 5 md:p-2">
-              <PersonOutlineIcon className="text-gray-700" sx={{ fontSize: { xs: 18, md: 20 } }} />
+            <div className="flex-shrink-0 mt-0.5 bg-white/10 rounded-full p-1. 5 md:p-2">
+              <PersonOutlineIcon className="text-zinc-300" sx={{ fontSize: { xs: 18, md: 20 } }} />
             </div>
            
             
-              <p className="text-base md:text-lg font-bold text-gray-900 break-words">
+              <p className="text-base md:text-lg font-bold text-white break-words">
                 {address?.firstName} {address?.lastName}
               </p>
             
@@ -66,12 +66,12 @@ const AddressCard = ({ address, isSelected, onSelect, showSelectButton = false }
             transition={{ delay: 0.2 }}
             className="flex items-start gap-2 md:gap-3"
           >
-            <div className="flex-shrink-0 mt-0.5 bg-gray-100 rounded-full p-1.5 md:p-2">
-              <LocationOnOutlinedIcon className="text-gray-700" sx={{ fontSize: { xs: 18, md: 20 } }} />
+            <div className="flex-shrink-0 mt-0.5 bg-white/10 rounded-full p-1.5 md:p-2">
+              <LocationOnOutlinedIcon className="text-zinc-300" sx={{ fontSize: { xs: 18, md: 20 } }} />
             </div>
            
              
-              <div className="text-sm md:text-base text-gray-800 leading-relaxed space-y-1">
+              <div className="text-sm md:text-base text-zinc-200 leading-relaxed space-y-1">
                 {address?.streetAddress && (
                   <p className="break-words overflow-wrap-anywhere">
                     {address.streetAddress}, {address?.city}{address?.city && address?.state && ', '}{address?.state}, {address.zipCode}
@@ -90,11 +90,11 @@ const AddressCard = ({ address, isSelected, onSelect, showSelectButton = false }
             transition={{ delay: 0.3 }}
             className="flex items-center gap-2 md:gap-3"
           >
-            <div className="flex-shrink-0 mt-0.5 bg-gray-100 rounded-full p-1.5 md:p-2">
-              <PhoneOutlinedIcon className="text-gray-700" sx={{ fontSize: { xs: 18, md: 20 } }} />
+            <div className="flex-shrink-0 mt-0.5 bg-white/10 rounded-full p-1.5 md:p-2">
+              <PhoneOutlinedIcon className="text-zinc-300" sx={{ fontSize: { xs: 18, md: 20 } }} />
             </div>
            
-              <p className="text-sm md:text-base font-semibold text-gray-900 break-all">
+              <p className="text-sm md:text-base font-semibold text-white break-all">
                 +91 {address?.mobile}
               </p>
             
@@ -111,8 +111,8 @@ const AddressCard = ({ address, isSelected, onSelect, showSelectButton = false }
               onClick={onSelect}
               className={`w-full py-2. 5 md:py-3 rounded-xl font-bold text-sm md:text-base transition-all duration-300 ${
                 isSelected
-                  ? 'bg-gray-900 text-white shadow-lg'
-                  :  'bg-gray-100 text-gray-900 hover: bg-gray-200'
+                  ? 'bg-white text-zinc-950 shadow-lg'
+                  :  'bg-white/10 text-white hover: bg-white/10'
               }`}
             >
               {isSelected ? (
@@ -129,7 +129,7 @@ const AddressCard = ({ address, isSelected, onSelect, showSelectButton = false }
 
         {/* Bottom Accent Line */}
         <motion.div
-          className="h-1 bg-gradient-to-r from-gray-900 via-gray-700 to-gray-900"
+          className="h-1 bg-accent-600"
           initial={{ scaleX:  0 }}
           animate={{ scaleX: 1 }}
           transition={{ delay: 0.5, duration: 0.5 }}

@@ -185,23 +185,26 @@ const DeliveryAddressForm = () => {
 
   const textFieldStyles = {
     '& .MuiOutlinedInput-root': {
-      backgroundColor: '#fafafa',
-      borderRadius:  '12px',
+      backgroundColor: 'rgba(255,255,255,0.05)',
+      color: '#fafafa',
+      borderRadius: '12px',
       transition: 'all 0.3s ease',
+      '& input': { color: '#fafafa' },
+      '& .MuiSelect-select': { color: '#fafafa' },
+      '& .MuiSelect-icon': { color: '#a1a1aa' },
+      '& textarea': { color: '#fafafa' },
       '& fieldset': {
-        borderColor: '#e5e7eb',
-        borderWidth: '2px',
+        borderColor: 'rgba(255,255,255,0.14)',
+        borderWidth: '1px',
       },
-      '&:hover':  {
-        backgroundColor: '#ffffff',
-        '& fieldset': {
-          borderColor:  '#000',
-        },
+      '&:hover': {
+        backgroundColor: 'rgba(255,255,255,0.08)',
+        '& fieldset': { borderColor: 'rgba(255,255,255,0.30)' },
       },
       '&.Mui-focused': {
-        backgroundColor: '#ffffff',
+        backgroundColor: 'rgba(255,255,255,0.08)',
         '& fieldset': {
-          borderColor: '#000',
+          borderColor: '#e11d54',
           borderWidth: '2px',
         },
       },
@@ -212,10 +215,10 @@ const DeliveryAddressForm = () => {
       },
     },
     '& .MuiInputLabel-root': {
-      color:  '#6b7280',
+      color: '#a1a1aa',
       fontWeight: 500,
       '&.Mui-focused': {
-        color: '#000',
+        color: '#fb7191',
         fontWeight: 600,
       },
       '&.Mui-error': {
@@ -230,10 +233,10 @@ const DeliveryAddressForm = () => {
       animate={{ opacity:  1, y: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <div className="bg-white rounded-2xl shadow-xl border border-gray-200 overflow-hidden">
+      <div className="bg-zinc-900 rounded-2xl shadow-xl border border-white/10 overflow-hidden">
         
         {/* Header */}
-        <div className="bg-gradient-to-r from-gray-900 to-gray-800 px-6 md:px-8 py-6">
+        <div className="bg-white/[0.07] border-b border-white/10 px-6 md:px-8 py-6">
           <div className="flex items-center gap-3">
             <motion.div
               animate={{ rotate: [0, 10, -10, 0] }}
@@ -245,7 +248,7 @@ const DeliveryAddressForm = () => {
               <h2 className="text-2xl md: text-3xl font-bold text-white">
                 Delivery Address
               </h2>
-              <p className="text-gray-300 text-sm mt-1">
+              <p className="text-zinc-400 text-sm mt-1">
                 Where should we deliver your order?
               </p>
             </div>
@@ -254,23 +257,23 @@ const DeliveryAddressForm = () => {
 
         {/* Form */}
         <div className="p-6 md:p-8">
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} spellCheck={false}>
             <Grid container spacing={3}>
               
               {/* Name Section */}
-              <Grid item xs={12}>
+              <Grid size={{ xs: 12 }}>
                 <motion. div
                   initial={{ opacity:  0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.1 }}
-                  className="flex items-center gap-2 mb-3"
+                  className="flex items-center gap-2"
                 >
-                  <PersonOutlineIcon className="text-gray-700" />
-                  <h3 className="text-lg font-bold text-gray-900">Personal Information</h3>
+                  <PersonOutlineIcon className="text-zinc-300" />
+                  <h3 className="text-lg font-bold text-white">Personal Information</h3>
                 </motion.div>
               </Grid>
 
-              <Grid item xs={12} sm={6}>
+              <Grid size={{ xs: 12, sm: 6 }}>
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -292,7 +295,7 @@ const DeliveryAddressForm = () => {
                 </motion. div>
               </Grid>
 
-              <Grid item xs={12} sm={6}>
+              <Grid size={{ xs: 12, sm: 6 }}>
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -315,19 +318,19 @@ const DeliveryAddressForm = () => {
               </Grid>
 
               {/* Address Section */}
-              <Grid item xs={12}>
+              <Grid size={{ xs: 12 }}>
                 <motion.div
                   initial={{ opacity: 0, x:  -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.4 }}
-                  className="flex items-center gap-2 mb-3 mt-4"
+                  className="flex items-center gap-2 mt-8"
                 >
-                  <HomeOutlinedIcon className="text-gray-700" />
-                  <h3 className="text-lg font-bold text-gray-900">Address Details</h3>
+                  <HomeOutlinedIcon className="text-zinc-300" />
+                  <h3 className="text-lg font-bold text-white">Address Details</h3>
                 </motion.div>
               </Grid>
 
-              <Grid item xs={12}>
+              <Grid size={{ xs: 12 }}>
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -352,7 +355,7 @@ const DeliveryAddressForm = () => {
               </Grid>
 
               {/* State Dropdown */}
-              <Grid item xs={12} sm={6}>
+              <Grid size={{ xs: 12, sm: 6 }}>
                 <motion. div
                   initial={{ opacity:  0, y: 20 }}
                   animate={{ opacity:  1, y: 0 }}
@@ -373,17 +376,28 @@ const DeliveryAddressForm = () => {
                       MenuProps: {
                         PaperProps: {
                           sx: {
-                            maxHeight:  300,
+                            maxHeight: 300,
                             borderRadius: 2,
                             mt: 1,
-                            boxShadow: '0 8px 24px rgba(0,0,0,0.12)',
+                            bgcolor: '#18181b',
+                            backgroundImage: 'none',
+                            border: '1px solid rgba(255,255,255,0.10)',
+                            boxShadow: '0 18px 50px rgba(0,0,0,0.6)',
+                            '& .MuiMenuItem-root': {
+                              color: '#e4e4e7',
+                              '&:hover': { backgroundColor: 'rgba(255,255,255,0.08)' },
+                              '&.Mui-selected': {
+                                backgroundColor: 'rgba(225,29,84,0.20)',
+                                '&:hover': { backgroundColor: 'rgba(225,29,84,0.28)' },
+                              },
+                            },
                           }
                         }
                       }
                     }}
                   >
                     <MenuItem value="">
-                      <em className="flex items-center gap-2 text-gray-500">
+                      <em className="flex items-center gap-2 text-zinc-500">
                         <PublicIcon fontSize="small" />
                         Select State
                       </em>
@@ -394,13 +408,13 @@ const DeliveryAddressForm = () => {
                         value={state.isoCode}
                         sx={{
                           '&:hover': {
-                            backgroundColor: '#f3f4f6',
+                            backgroundColor: 'rgba(255,255,255,0.06)',
                           },
                           '&. Mui-selected': {
-                            backgroundColor: '#e5e7eb',
+                            backgroundColor: 'rgba(255,255,255,0.12)',
                             fontWeight: 600,
                             '&:hover': {
-                              backgroundColor: '#d1d5db',
+                              backgroundColor: 'rgba(255,255,255,0.18)',
                             },
                           },
                         }}
@@ -419,7 +433,7 @@ const DeliveryAddressForm = () => {
               </Grid>
 
               {/* City Dropdown */}
-              <Grid item xs={12} sm={6}>
+              <Grid size={{ xs: 12, sm: 6 }}>
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -451,7 +465,7 @@ const DeliveryAddressForm = () => {
                     }}
                   >
                     <MenuItem value="">
-                      <em className="text-gray-500">
+                      <em className="text-zinc-500">
                         {selectedStateCode ? 'Select City' : 'First select a state'}
                       </em>
                     </MenuItem>
@@ -462,13 +476,13 @@ const DeliveryAddressForm = () => {
                           value={city.name}
                           sx={{
                             '&:hover':  {
-                              backgroundColor: '#f3f4f6',
+                              backgroundColor: 'rgba(255,255,255,0.06)',
                             },
                             '&. Mui-selected': {
-                              backgroundColor: '#e5e7eb',
+                              backgroundColor: 'rgba(255,255,255,0.12)',
                               fontWeight:  600,
                               '&:hover': {
-                                backgroundColor: '#d1d5db',
+                                backgroundColor: 'rgba(255,255,255,0.18)',
                               },
                             },
                           }}
@@ -481,7 +495,7 @@ const DeliveryAddressForm = () => {
                       ))
                     ) : selectedStateCode ? (
                       <MenuItem disabled>
-                        <em className="text-gray-400">No cities found for this state</em>
+                        <em className="text-zinc-500">No cities found for this state</em>
                       </MenuItem>
                     ) : null}
                   </TextField>
@@ -495,19 +509,19 @@ const DeliveryAddressForm = () => {
               </Grid>
 
               {/* Contact Section */}
-              <Grid item xs={12}>
+              <Grid size={{ xs: 12 }}>
                 <motion. div
                   initial={{ opacity:  0, x: -20 }}
                   animate={{ opacity:  1, x: 0 }}
                   transition={{ delay:  0.8 }}
-                  className="flex items-center gap-2 mb-3 mt-4"
+                  className="flex items-center gap-2 mt-8"
                 >
-                  <PhoneOutlinedIcon className="text-gray-700" />
-                  <h3 className="text-lg font-bold text-gray-900">Contact Information</h3>
+                  <PhoneOutlinedIcon className="text-zinc-300" />
+                  <h3 className="text-lg font-bold text-white">Contact Information</h3>
                 </motion.div>
               </Grid>
 
-              <Grid item xs={12} sm={6}>
+              <Grid size={{ xs: 12, sm: 6 }}>
                 <motion. div
                   initial={{ opacity:  0, y: 20 }}
                   animate={{ opacity:  1, y: 0 }}
@@ -534,7 +548,7 @@ const DeliveryAddressForm = () => {
                 </motion.div>
               </Grid>
 
-              <Grid item xs={12} sm={6}>
+              <Grid size={{ xs: 12, sm: 6 }}>
                 <motion.div
                   initial={{ opacity: 0, y:  20 }}
                   animate={{ opacity: 1, y:  0 }}
@@ -562,7 +576,7 @@ const DeliveryAddressForm = () => {
               </Grid>
 
               {/* Submit Button */}
-              <Grid item xs={12}>
+              <Grid size={{ xs: 12 }}>
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -598,9 +612,9 @@ const DeliveryAddressForm = () => {
                     {order.loading ?  (
                       <div className="flex items-center justify-center space-x-2">
                         <div className="flex space-x-1">
-                          <div className="w-2 h-2 bg-white rounded-full animate-bounce [animation-delay:-0.3s]"></div>
-                          <div className="w-2 h-2 bg-white rounded-full animate-bounce [animation-delay:-0.15s]"></div>
-                          <div className="w-2 h-2 bg-white rounded-full animate-bounce"></div>
+                          <div className="w-2 h-2 bg-zinc-900 rounded-full animate-bounce [animation-delay:-0.3s]"></div>
+                          <div className="w-2 h-2 bg-zinc-900 rounded-full animate-bounce [animation-delay:-0.15s]"></div>
+                          <div className="w-2 h-2 bg-zinc-900 rounded-full animate-bounce"></div>
                         </div>
                         <span className="text-white font-medium">Processing...</span>
                       </div>
@@ -622,19 +636,19 @@ const DeliveryAddressForm = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.2 }}
-          className="bg-gray-50 px-6 md:px-8 py-4 border-t border-gray-200"
+          className="bg-white/5 px-6 md:px-8 py-4 border-t border-white/10"
         >
-          <div className="flex flex-wrap justify-center gap-6 text-xs md:text-sm text-gray-600">
+          <div className="flex flex-wrap justify-center gap-6 text-xs md:text-sm text-zinc-400">
             <div className="flex items-center gap-2">
-              <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+              <span className="w-2 h-2 bg-accent-500/100 rounded-full animate-pulse"></span>
               Secure Checkout
             </div>
             <div className="flex items-center gap-2">
-              <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+              <span className="w-2 h-2 bg-accent-500/100 rounded-full animate-pulse"></span>
               Fast Delivery
             </div>
             <div className="flex items-center gap-2">
-              <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+              <span className="w-2 h-2 bg-accent-500/100 rounded-full animate-pulse"></span>
               Easy Returns
             </div>
           </div>

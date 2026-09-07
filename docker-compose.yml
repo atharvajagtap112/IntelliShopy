@@ -1,0 +1,192 @@
+# One command to run the whole stack:
+#   docker compose up --build
+#
+# Services & host ports:
+#   Frontend .............. http://localhost:3000
+#   Api-Gateway ........... http://localhost:3333
+#   Primary-Service ....... http://localhost:5454
+#   Email-Service ......... http://localhost:8081
+#   Admin-Server .......... http://localhost:1111
+#   Eureka registry ....... http://localhost:8761
+#   ML (image search) ..... http://localhost:7860
+#   Kafka (host access) ... localhost:29092   (in-cluster: kafka:9092)
+#
+# NOTE: MySQL is NOT containerized — the backend uses your existing local
+# MySQL (which already has the product data) via host.docker.internal.
+# Make sure your local MySQL server is running before `docker compose up`.
+
+services:
+  # ---------------- Infrastructure ----------------
+  kafka:
+    image: apache/kafka:3.9.0
+    container_name: intellishopy-kafka
+    ports:
+      - "29092:29092"   # host access; services inside the network use kafka:9092
+    environment:
+      KAFKA_NODE_ID: 1
+      KAFKA_PROCESS_ROLES: broker,controller
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@kafka:9093
+      # Empty host (://:PORT) means "bind all interfaces" — do NOT use 0.0.0.0 here,
+      # Kafka rejects it as a nonroutable meta-address.
+      KAFKA_LISTENERS: PLAINTEXT://:9092,CONTROLLER://:9093,PLAINTEXT_HOST://:29092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:29092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+    healthcheck:
+      test: ["CMD-SHELL", "/opt/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --list || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 15
+    networks:
+      - intellishopy
+    restart: unless-stopped
+
+  # ---------------- Eureka service registry ----------------
+  service-registry:
+    build:
+      context: ./Backend/Service-Registory
+    container_name: intellishopy-eureka
+    ports:
+      - "8761:8761"
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:8761/actuator/health || wget -qO- http://localhost:8761 || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 15
+    networks:
+      - intellishopy
+    restart: unless-stopped
+
+  # ---------------- Admin server ----------------
+  admin-server:
+    build:
+      context: ./Backend/Admin-Server
+    container_name: intellishopy-admin
+    ports:
+      - "1111:1111"
+    networks:
+      - intellishopy
+    restart: unless-stopped
+
+  # ---------------- Primary (ecommerce) service ----------------
+  primary-service:
+    build:
+      context: ./Backend/Primary-Service
+    container_name: intellishopy-primary
+    ports:
+      - "5454:5454"
+    environment:
+      # Eureka & Admin (override the hard-coded localhost values)
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://service-registry:8761/eureka
+      SPRING_BOOT_ADMIN_CLIENT_URL: http://admin-server:1111/
+      # Database — your existing local MySQL (has the product data)
+      DB_HOST: host.docker.internal
+      DB_PORT: "3306"
+      DB_NAME: ${DB_NAME}
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+      # Kafka
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+      # Redis (Upstash cloud)
+      SPRING_DATA_REDIS_URL: ${REDIS_URL}
+      # App secrets
+      API_KEY: ${API_KEY}
+      RAZERPAY_KEY: ${RAZERPAY_KEY}
+      RAZERPAY_SECRET_KEY: ${RAZERPAY_SECRET_KEY}
+      MAIL_PASSWORD: ${MAIL_PASSWORD}
+      # Google OAuth2
+      CLIENT_ID: ${CLIENT_ID}
+      CLIENT_SECRET: ${CLIENT_SECRET}
+      FRONTEND_URL: ${FRONTEND_URL}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    depends_on:
+      kafka:
+        condition: service_healthy
+      service-registry:
+        condition: service_started
+    networks:
+      - intellishopy
+    restart: unless-stopped
+
+  # ---------------- Email service ----------------
+  email-service:
+    build:
+      context: ./Backend/Email-Service
+    container_name: intellishopy-email
+    ports:
+      - "8081:8081"
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://service-registry:8761/eureka
+      SPRING_BOOT_ADMIN_CLIENT_URL: http://admin-server:1111/
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+      MAIL_PASSWORD: ${MAIL_PASSWORD}
+    depends_on:
+      kafka:
+        condition: service_healthy
+      service-registry:
+        condition: service_started
+    networks:
+      - intellishopy
+    restart: unless-stopped
+
+  # ---------------- API gateway ----------------
+  api-gateway:
+    build:
+      context: ./Backend/Api-Gateway
+    container_name: intellishopy-gateway
+    ports:
+      - "3333:3333"
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://service-registry:8761/eureka
+      DB_HOST: host.docker.internal
+      DB_PORT: "3306"
+      DB_NAME: ${DB_NAME}
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+      # Redis (Upstash cloud) - backs the gateway's token-bucket rate limiter
+      REDIS_URL: ${REDIS_URL}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    depends_on:
+      service-registry:
+        condition: service_started
+    networks:
+      - intellishopy
+    restart: unless-stopped
+
+  # ---------------- ML image-search service ----------------
+  ml-service:
+    build:
+      context: ./ML
+    container_name: intellishopy-ml
+    ports:
+      - "7860:7860"
+    networks:
+      - intellishopy
+    restart: unless-stopped
+
+  # ---------------- Frontend ----------------
+  frontend:
+    build:
+      context: ./Frontend
+      args:
+        REACT_APP_API_BASE_URL: ${REACT_APP_API_BASE_URL}
+        REACT_APP_OAUTH_BASE_URL: ${REACT_APP_OAUTH_BASE_URL}
+    container_name: intellishopy-frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - primary-service
+    networks:
+      - intellishopy
+    restart: unless-stopped
+
+networks:
+  intellishopy:
+    driver: bridge

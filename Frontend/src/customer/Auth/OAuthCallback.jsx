@@ -12,10 +12,14 @@ const OAuthCallback = () => {
 
   useEffect(() => {
     const token = searchParams.get("token");
+    const refreshToken = searchParams.get("refreshToken");
 
     if (token) {
       // Store JWT in localStorage — SAME as email/password login!
       localStorage.setItem("jwt", token);
+      if (refreshToken) {
+        localStorage.setItem("refreshToken", refreshToken);
+      }
 
       // Dispatch login success to Redux — SAME action
       dispatch({ type: lOGIN_SUCCESS, payload: token });

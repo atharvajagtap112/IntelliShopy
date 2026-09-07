@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { 
-  Grid, 
   Button, 
   Typography, 
   Dialog, 
@@ -108,76 +107,45 @@ const Footer = () => {
 
 
 
-  return (
-    <div className="bg-black">
-      <Grid
-        className="text-center text-white bg-black mt-10"
-        container
-        justifyContent="center"
-        spacing={3}
-        sx={{ bgcolor: "black", color: "white", py: 3 }}
-      >
-        <Grid item xs={12} sm={6} md={3}>
-          <div>
-            <Button 
-              className="py-5 text-white hover:text-gray-300" 
-              variant="text"
-              onClick={() => handleOpenModal('about')}
-              sx={{ color: 'white', '&:hover': { color: '#d1d5db' } }}
-            >
-              About
-            </Button>
-          </div>
-        </Grid>
-        
-        <Grid item xs={12} sm={6} md={3}>
-          <div>
-            <Button 
-              className="py-5 text-white hover:text-gray-300" 
-              variant="text"
-              onClick={() => handleOpenModal('supports')}
-              sx={{ color: 'white', '&:hover': { color: '#d1d5db' } }}
-            >
-              Support
-            </Button>
-          </div>
-        </Grid>
-        
-        <Grid item xs={12} sm={6} md={3}>
-          <div>
-            <Button 
-              className="py-5 text-white hover:text-gray-300" 
-              variant="text"
-              onClick={() => handleOpenModal('privacy')}
-              sx={{ color: 'white', '&:hover': { color: '#d1d5db' } }}
-            >
-              Privacy
-            </Button>
-          </div>
-        </Grid>
-        
-        <Grid item xs={12} sm={6} md={3}>
-          <div>
-            <Button 
-              className="py-5 text-white hover:text-gray-300" 
-              variant="text"
-              onClick={() => handleOpenModal('terms')}
-              sx={{ color: 'white', '&:hover': { color: '#d1d5db' } }}
-            >
-              Terms
-            </Button>
-          </div>
-        </Grid>
-      </Grid>
+  const links = [
+    ["About", "about"],
+    ["Support", "supports"],
+    ["Privacy", "privacy"],
+    ["Terms", "terms"],
+  ];
 
-      <Grid className="pt-10" item xs={12}>
-        <Typography variant="body2" component="p" align="center" className="text-white">
-          All rights reserved.
-        </Typography>
-        <Typography variant="body2" component="p" align="center" className="text-white">
-          Made with love by Me.
-        </Typography>
-      </Grid>
+  return (
+    <div className="bg-zinc-950 text-zinc-400">
+      <div className="mx-auto max-w-[1600px] px-6 py-16 sm:px-10 lg:px-16">
+        <div className="flex flex-col gap-12 border-b border-white/10 pb-12 md:flex-row md:items-start md:justify-between">
+          <div className="max-w-sm">
+            <p className="text-3xl font-semibold tracking-tighter text-white">
+              IntelliShopy
+            </p>
+            <p className="mt-3 text-sm leading-relaxed">
+              AI-powered fashion discovery — search by text, by image, or just by
+              vibe. Built as a full-stack demo.
+            </p>
+          </div>
+
+          <nav className="flex flex-wrap gap-x-10 gap-y-3">
+            {links.map(([label, key]) => (
+              <button
+                key={key}
+                onClick={() => handleOpenModal(key)}
+                className="text-sm font-medium text-zinc-400 underline-offset-4 transition-colors duration-200 hover:text-white hover:underline"
+              >
+                {label}
+              </button>
+            ))}
+          </nav>
+        </div>
+
+        <div className="flex flex-col items-center justify-between gap-3 pt-8 text-xs sm:flex-row">
+          <span>&copy; {new Date().getFullYear()} IntelliShopy. All rights reserved.</span>
+          <span>Made with care.</span>
+        </div>
+      </div>
 
       {/* Modal Dialog */}
       <Dialog

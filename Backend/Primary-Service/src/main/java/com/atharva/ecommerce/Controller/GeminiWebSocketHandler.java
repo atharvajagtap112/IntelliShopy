@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
@@ -27,7 +29,11 @@ public class GeminiWebSocketHandler extends TextWebSocketHandler {
 
 
 
-    private final String GEMINI_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=";
+    // gemini-2.0-flash was retired by Google and began returning 404, which this
+    // handler surfaced to the client as {"error":"API call failed"}.
+    // "gemini-flash-latest" is an alias that tracks the current flash model, so
+    // this will not break again the next time a specific version is sunset.
+    private final String GEMINI_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=";
 
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws IOException {
@@ -72,20 +78,17 @@ public class GeminiWebSocketHandler extends TextWebSocketHandler {
                  "\n" +
                  "### Category Mapping Rules:\n" +
                  "\n" +
-                 "- \"mens kurta\", \"kurta for men\", \"men kurta\", \"mens kurtas\", \"kurta men\", \"kurta\" (unless it's clearly for women) → \"mens_kurta\"\n" +
-                 "- \"shirt\", \"mens shirt\", \"shirt for men\" → \"shirt\"\n" +
-                 "- \"jeans\", \"mens jeans\", \"men jeans\" → \"men_jeans\"\n" +
-                 "- \"sweater\", \"mens sweaters\", \"sweaters for men\" → \"mens_sweaters\"\n" +
-                 "- \"t-shirt\", \"tshirts\", \"tshirt\", \"mens t-shirt\" → \"mens_tshirt\"\n" +
-                 "- \"jacket\", \"mens jacket\", \"jacket for men\" → \"mens_jacket\"\n" +
-                 "- \"activewear\", \"gym wear\", \"mens activewear\" → \"mens_activewear\"\n" +
-                 "- Accessories:\n" +
-                 "  - \"watch\" → \"women_watch\"\n" +
-                 "  - \"wallet\" → \"women_wallet\"\n" +
-                 "  - \"bag\" → \"women_bag\"\n" +
-                 "  - \"belt\" → \"women_belt\"\n" +
-                 "  - \"hat\" → \"women_hat\"\n" +
-                 "  - \"sunglasses\" → \"women_sunglasses\"\n" +
+                 "Use ONLY these categories - they are the only ones stocked.\n" +
+                 "If the query does not clearly match one, return \"category\": \"\".\n" +
+                 "\n" +
+                 "- \"mens_kurta\": mens kurta, kurta for men, men kurta, kurta (unless clearly for women), mens ethnic wear\n" +
+                 "- \"shirt\": shirt, mens shirt, shirt for men, formal shirt, casual shirt, office shirt\n" +
+                 "- \"men_jeans\": jeans, mens jeans, men jeans, mens denim, slim fit jeans\n" +
+                 "- \"saree\": saree, sari, silk saree, cotton saree, designer saree\n" +
+                 "- \"lengha_choli\": lehenga, lehanga, lengha, choli, lehenga choli, bridal wear, wedding wear, festive wear\n" +
+                 "- \"women_dress\": dress, womens dress, gown, frock, party dress, one piece\n" +
+                 "- \"women_jeans\": womens jeans, jeans for women, ladies jeans, womens denim\n" +
+                 "- \"top\": top, tops, womens top, blouse, womens tshirt, womens office wear, womens everyday wear\n" +
                  "\n" +
                  "### Size Mapping Rules:\n" +
                  "\n" +
@@ -138,8 +141,28 @@ public class GeminiWebSocketHandler extends TextWebSocketHandler {
 
             String url = GEMINI_URL + apiKey;
 
-            ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.POST, entity, String.class);
-
+            // Gemini returns a transient 503 ("high demand") or 429 often enough that
+            // a single attempt makes the whole search feature look broken. Retry a
+            // couple of times with backoff before giving up; anything else (a bad
+            // key, a retired model) fails fast because retrying will not help.
+            ResponseEntity<String> response = null;
+            RuntimeException lastError = null;
+            for (int attempt = 1; attempt <= 3; attempt++) {
+                try {
+                    response = restTemplate.exchange(url, HttpMethod.POST, entity, String.class);
+                    lastError = null;
+                    break;
+                } catch (HttpServerErrorException | HttpClientErrorException.TooManyRequests e) {
+                    lastError = (RuntimeException) e;
+                    System.err.println("Gemini attempt " + attempt + " failed (" + e.getMessage() + ")");
+                    if (attempt < 3) {
+                        Thread.sleep(400L * attempt);   // 400ms, then 800ms
+                    }
+                }
+            }
+            if (lastError != null) {
+                throw lastError;
+            }
 
             String responseBody = response.getBody();
 
@@ -173,8 +196,8 @@ public class GeminiWebSocketHandler extends TextWebSocketHandler {
 
             return  jsonResult;
         } catch (Exception e) {
-            System.err.println("❌ API Call Failed: " + e.getMessage());
-            return "{\"error\":\"API call failed\"}";
+            System.err.println("Gemini call failed after retries: " + e.getMessage());
+            return "{\"error\":\"AI search is busy right now. Please try again.\"}";
         }
     }
 
