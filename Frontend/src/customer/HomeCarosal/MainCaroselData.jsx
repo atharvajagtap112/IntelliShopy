@@ -11,7 +11,7 @@ export const mainCarouselData = [
     focus: "90% center",
   },
   {
-    image: "https://rangita.com/cdn/shop/articles/karwa_chouth_blog_banner.jpg?v=1757927847&width=1500",
+    image: "https://rangita.com/cdn/shop/articles/karwa_chouth_blog_banner_7a4e4bf1-fd9b-43d1-94dd-d9e56f534254.jpg?width=1500",
     path: "/women/clothing/lengha_choli?page=1",
     eyebrow: "Festive Edit",
     title: "Dressed for the Occasion",
