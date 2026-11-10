@@ -331,7 +331,12 @@ useEffect(() => {
         {param.query?.replace(/_/g, " ")}
       </h1>
       <p className="mt-2 text-sm text-zinc-500">
-        {products.products?.content?.length ?? 0} matches found
+        {/* totalElements is the count across all pages; content.length is only
+            the current page (capped at pageSize). */}
+        {(() => {
+          const total = products.products?.totalElements ?? 0;
+          return `${total} ${total === 1 ? "match" : "matches"} found`;
+        })()}
       </p>
     </div>
 
@@ -602,7 +607,7 @@ useEffect(() => {
             },
             '& .Mui-selected': {
               backgroundColor: '#ffffff !important',
-              color: 'white',
+              color: '#18181b',   // dark text: the selected pill is white
               '&:hover': {
                 backgroundColor: '#e4e4e7 !important',
               },

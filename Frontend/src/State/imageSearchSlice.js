@@ -72,6 +72,26 @@ export const searchByImage = createAsyncThunk(
   }
 );
 
+// Text -> CLIP -> products whose *images* match the description. Used as the
+// fallback when the AI filter search can't map a query to a category
+// ("something elegant for a beach wedding"). Results land in the same state as
+// image search, so the same results page renders them.
+export const searchByText = createAsyncThunk(
+  "imageSearch/searchByText",
+  async ({ query }, { rejectWithValue }) => {
+    try {
+      const response = await api.get("/products/search/text", { params: { q: query } });
+      return {
+        products: response.data,
+        metadata: { query, timestamp: Date.now() }
+      };
+    } catch (err) {
+      console.error("Text search error:", err);
+      return rejectWithValue(err.response?.data || "Text search failed");
+    }
+  }
+);
+
 const imageSearchSlice = createSlice({
   name: "imageSearch",
   initialState: loadStateFromStorage(), 
@@ -84,21 +104,23 @@ const imageSearchSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder
-      .addCase(searchByImage.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
-      .addCase(searchByImage.fulfilled, (state, action) => {
-        state.loading = false;
-        state.products = action.payload.products;
-        state.searchMetadata = action.payload.metadata;
-        saveStateToStorage(state); 
-      })
-      .addCase(searchByImage.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload;
-      });
+    for (const thunk of [searchByImage, searchByText]) {
+      builder
+        .addCase(thunk.pending, (state) => {
+          state.loading = true;
+          state.error = null;
+        })
+        .addCase(thunk.fulfilled, (state, action) => {
+          state.loading = false;
+          state.products = action.payload.products;
+          state.searchMetadata = action.payload.metadata;
+          saveStateToStorage(state);
+        })
+        .addCase(thunk.rejected, (state, action) => {
+          state.loading = false;
+          state.error = action.payload;
+        });
+    }
   },
 });
 

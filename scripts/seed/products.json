@@ -1,0 +1,663 @@
+{
+  "_note": "Seed catalog. Brands are fictional. Each product's 'pick' is a candidate number on candidates_<category>.jpg (Unsplash, free licence); titles and colours were written to match the chosen photo, and watermarked/logo'd photos were not picked.",
+  "new_categories": [
+    {
+      "name": "mens_tshirt",
+      "parent": "Men"
+    },
+    {
+      "name": "mens_hoodie",
+      "parent": "Men"
+    },
+    {
+      "name": "women_kurta",
+      "parent": "women"
+    }
+  ],
+  "sizes": {
+    "mens_tshirt": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "mens_hoodie": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "women_kurta": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "women_dress": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "shirt": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "lengha_choli": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ]
+  },
+  "products": [
+    {
+      "category": "mens_tshirt",
+      "pick": 0,
+      "title": "Men Solid White Crew Neck T-Shirt",
+      "brand": "Northbound",
+      "color": "white",
+      "price": 999,
+      "discount": 55,
+      "description": "Everyday crew neck tee in 180 GSM combed cotton. Soft, breathable and pre-shrunk so it keeps its shape wash after wash."
+    },
+    {
+      "category": "mens_tshirt",
+      "pick": 2,
+      "title": "Men Classic White Cotton T-Shirt",
+      "brand": "Urban Loom",
+      "color": "white",
+      "price": 899,
+      "discount": 50,
+      "description": "Clean white tee in bio-washed cotton with a regular fit. The easiest layer in your wardrobe."
+    },
+    {
+      "category": "mens_tshirt",
+      "pick": 26,
+      "title": "Men White Relaxed Fit T-Shirt",
+      "brand": "Harbour Line",
+      "color": "white",
+      "price": 849,
+      "discount": 45,
+      "description": "Relaxed-fit white tee with a slightly longer hem. Pairs with trousers for a smart casual look."
+    },
+    {
+      "category": "mens_tshirt",
+      "pick": 1,
+      "title": "Men Dark Green Crew Neck T-Shirt",
+      "brand": "Trailhead",
+      "color": "green",
+      "price": 899,
+      "discount": 45,
+      "description": "Deep forest green tee with a contrast-tipped sleeve. Garment-dyed for a soft, lived-in feel."
+    },
+    {
+      "category": "mens_tshirt",
+      "pick": 3,
+      "title": "Men Black Contrast Trim T-Shirt",
+      "brand": "Streetfold",
+      "color": "black",
+      "price": 999,
+      "discount": 50,
+      "description": "Black crew neck with contrast piping at the neck and sleeves. Heavyweight cotton with a clean drape."
+    },
+    {
+      "category": "mens_tshirt",
+      "pick": 22,
+      "title": "Men Black Athletic Fit T-Shirt",
+      "brand": "Trailhead",
+      "color": "black",
+      "price": 1099,
+      "discount": 50,
+      "description": "Stretch athletic tee that hugs the chest and arms. Quick-dry fabric made for workouts and everyday wear."
+    },
+    {
+      "category": "mens_tshirt",
+      "pick": 7,
+      "title": "Men Lavender Slim Fit Polo",
+      "brand": "Harbour Line",
+      "color": "purple",
+      "price": 1299,
+      "discount": 50,
+      "description": "Soft lavender pique polo with a two-button placket. Slim fit that looks sharp at work and on weekends."
+    },
+    {
+      "category": "mens_tshirt",
+      "pick": 17,
+      "title": "Men Beige Relaxed T-Shirt",
+      "brand": "Urban Loom",
+      "color": "beige",
+      "price": 899,
+      "discount": 45,
+      "description": "Neutral beige tee with a relaxed cut. Easy to layer and pairs with almost anything."
+    },
+    {
+      "category": "mens_tshirt",
+      "pick": 18,
+      "title": "Men Light Blue Polo T-Shirt",
+      "brand": "Northbound",
+      "color": "blue",
+      "price": 1199,
+      "discount": 45,
+      "description": "Light blue polo in breathable cotton pique. A crisp choice for warm office days."
+    },
+    {
+      "category": "mens_tshirt",
+      "pick": 25,
+      "title": "Men Grey V-Neck T-Shirt",
+      "brand": "Streetfold",
+      "color": "grey",
+      "price": 799,
+      "discount": 40,
+      "description": "Grey melange V-neck in a cotton-modal blend. Extra soft and comfortable all day."
+    },
+    {
+      "category": "mens_tshirt",
+      "pick": 37,
+      "title": "Men Black Polo T-Shirt",
+      "brand": "Harbour Line",
+      "color": "black",
+      "price": 1299,
+      "discount": 50,
+      "description": "Classic black polo with a ribbed collar and cuffs. Smart enough for dinner, easy enough for weekends."
+    },
+    {
+      "category": "mens_tshirt",
+      "pick": 47,
+      "title": "Men Slate Blue Polo T-Shirt",
+      "brand": "Northbound",
+      "color": "blue",
+      "price": 1199,
+      "discount": 45,
+      "description": "Slate blue polo in soft cotton pique. A versatile colour that works with denim and chinos."
+    },
+    {
+      "category": "mens_tshirt",
+      "pick": 55,
+      "title": "Men Navy Blue Polo T-Shirt",
+      "brand": "Trailhead",
+      "color": "blue",
+      "price": 1099,
+      "discount": 40,
+      "description": "Navy polo with a clean collar and short placket. A timeless smart-casual staple."
+    },
+    {
+      "category": "mens_tshirt",
+      "pick": 56,
+      "title": "Men Beige Knit Polo T-Shirt",
+      "brand": "Urban Loom",
+      "color": "beige",
+      "price": 1499,
+      "discount": 50,
+      "description": "Textured knit polo in warm beige. Breathable, refined and perfect for evenings out."
+    },
+    {
+      "category": "mens_hoodie",
+      "pick": 3,
+      "title": "Men Grey Melange Pullover Hoodie",
+      "brand": "Northbound",
+      "color": "grey",
+      "price": 1999,
+      "discount": 50,
+      "description": "Heavyweight grey melange pullover with a lined hood and kangaroo pocket. Brushed inside for warmth."
+    },
+    {
+      "category": "mens_hoodie",
+      "pick": 44,
+      "title": "Men Grey Relaxed Fit Hoodie",
+      "brand": "Streetfold",
+      "color": "grey",
+      "price": 2199,
+      "discount": 45,
+      "description": "Relaxed grey hoodie with dropped shoulders. Soft fleece that layers easily under jackets."
+    },
+    {
+      "category": "mens_hoodie",
+      "pick": 15,
+      "title": "Men Teal Pullover Hoodie",
+      "brand": "Trailhead",
+      "color": "green",
+      "price": 1899,
+      "discount": 45,
+      "description": "Fresh teal hoodie in cotton-rich fleece. A bright pick for cool mornings."
+    },
+    {
+      "category": "mens_hoodie",
+      "pick": 18,
+      "title": "Men Black Classic Hoodie",
+      "brand": "Urban Loom",
+      "color": "black",
+      "price": 1999,
+      "discount": 50,
+      "description": "Everyday black hoodie with ribbed cuffs and hem. Warm, comfortable and goes with everything."
+    },
+    {
+      "category": "mens_hoodie",
+      "pick": 80,
+      "title": "Men Black Crew Neck Sweatshirt",
+      "brand": "Harbour Line",
+      "color": "black",
+      "price": 1699,
+      "discount": 45,
+      "description": "Minimal black sweatshirt in brushed fleece. Clean crew neck that works with jeans or joggers."
+    },
+    {
+      "category": "mens_hoodie",
+      "pick": 23,
+      "title": "Men Red Pullover Hoodie",
+      "brand": "Streetfold",
+      "color": "red",
+      "price": 1799,
+      "discount": 40,
+      "description": "Bright red pullover that stands out on grey days. Double-layer hood and roomy front pocket."
+    },
+    {
+      "category": "mens_hoodie",
+      "pick": 30,
+      "title": "Men Beige Oversized Hoodie",
+      "brand": "Northbound",
+      "color": "beige",
+      "price": 2299,
+      "discount": 50,
+      "description": "Oversized beige hoodie with a deep hood. Neutral colour for easy layering."
+    },
+    {
+      "category": "mens_hoodie",
+      "pick": 31,
+      "title": "Men Brown Fleece Hoodie",
+      "brand": "Trailhead",
+      "color": "brown",
+      "price": 1999,
+      "discount": 45,
+      "description": "Warm brown fleece hoodie with ribbed hem and cuffs. Pairs well with denim and boots."
+    },
+    {
+      "category": "mens_hoodie",
+      "pick": 36,
+      "title": "Men Off-White Pullover Hoodie",
+      "brand": "Harbour Line",
+      "color": "white",
+      "price": 2099,
+      "discount": 45,
+      "description": "Soft off-white hoodie with a relaxed fit. A clean statement piece for layered looks."
+    },
+    {
+      "category": "mens_hoodie",
+      "pick": 37,
+      "title": "Men Olive Green Hoodie",
+      "brand": "Trailhead",
+      "color": "green",
+      "price": 1999,
+      "discount": 50,
+      "description": "Utility olive hoodie in brushed fleece. Earthy tone that suits travel and weekend errands."
+    },
+    {
+      "category": "mens_hoodie",
+      "pick": 61,
+      "title": "Men Light Blue Crew Sweatshirt",
+      "brand": "Urban Loom",
+      "color": "blue",
+      "price": 1599,
+      "discount": 40,
+      "description": "Washed light blue sweatshirt in soft cotton fleece. A fresh colour for spring evenings."
+    },
+    {
+      "category": "mens_hoodie",
+      "pick": 69,
+      "title": "Men Orange Pullover Hoodie",
+      "brand": "Streetfold",
+      "color": "orange",
+      "price": 1899,
+      "discount": 45,
+      "description": "Vivid orange hoodie in midweight fleece. Bold colour, cosy fit."
+    },
+    {
+      "category": "mens_hoodie",
+      "pick": 71,
+      "title": "Men Mustard Yellow Sweatshirt",
+      "brand": "Northbound",
+      "color": "yellow",
+      "price": 1699,
+      "discount": 45,
+      "description": "Mustard yellow sweatshirt with ribbed trims. Warm without bulk and easy to style."
+    },
+    {
+      "category": "mens_hoodie",
+      "pick": 75,
+      "title": "Men Maroon Crew Sweatshirt",
+      "brand": "Harbour Line",
+      "color": "maroon",
+      "price": 1799,
+      "discount": 50,
+      "description": "Deep maroon sweatshirt in brushed fleece. A rich colour for winter layering."
+    },
+    {
+      "category": "women_kurta",
+      "pick": 3,
+      "title": "Women White Straight Cotton Kurta",
+      "brand": "Noor Threads",
+      "color": "white",
+      "price": 1599,
+      "discount": 55,
+      "description": "Soft white cotton kurta with three-quarter sleeves. Clean, elegant and perfect for summer days."
+    },
+    {
+      "category": "women_kurta",
+      "pick": 4,
+      "title": "Women White Chikankari Kurta",
+      "brand": "Noor Threads",
+      "color": "white",
+      "price": 1999,
+      "discount": 55,
+      "description": "Hand-embroidered chikankari detailing on breathable white cotton. Lovely for festive days and summer events."
+    },
+    {
+      "category": "women_kurta",
+      "pick": 30,
+      "title": "Women Maroon Embroidered Kurta Set",
+      "brand": "Rangrez",
+      "color": "maroon",
+      "price": 2799,
+      "discount": 60,
+      "description": "Maroon kurta with tonal embroidery, paired with matching bottoms. Elegant for evening functions."
+    },
+    {
+      "category": "women_kurta",
+      "pick": 31,
+      "title": "Women Maroon Chikankari Kurta",
+      "brand": "Rangrez",
+      "color": "maroon",
+      "price": 2499,
+      "discount": 55,
+      "description": "Maroon kurta with intricate white chikankari work. A graceful festive favourite."
+    },
+    {
+      "category": "women_kurta",
+      "pick": 33,
+      "title": "Women Yellow Tiered Embroidered Kurta",
+      "brand": "Kashvi",
+      "color": "yellow",
+      "price": 1899,
+      "discount": 55,
+      "description": "Sunny yellow tiered kurta with an embroidered yoke. Flowy, light and made for celebrations."
+    },
+    {
+      "category": "women_kurta",
+      "pick": 36,
+      "title": "Women Orange Red Short Kurta",
+      "brand": "Kashvi",
+      "color": "orange",
+      "price": 1299,
+      "discount": 50,
+      "description": "Short orange-red kurta with an embroidered neckline. Pairs well with jeans or leggings."
+    },
+    {
+      "category": "women_kurta",
+      "pick": 37,
+      "title": "Women Ikat Print Mandarin Collar Kurta",
+      "brand": "Kashvi",
+      "color": "orange",
+      "price": 1799,
+      "discount": 50,
+      "description": "Vibrant ikat-print kurta with a mandarin collar. Breathable cotton with a playful, colourful pattern."
+    },
+    {
+      "category": "women_kurta",
+      "pick": 38,
+      "title": "Women Red Kurta with Printed Dupatta",
+      "brand": "Rangrez",
+      "color": "red",
+      "price": 2299,
+      "discount": 55,
+      "description": "Festive red kurta with a contrast printed dupatta. Made for pujas, celebrations and family gatherings."
+    },
+    {
+      "category": "women_kurta",
+      "pick": 40,
+      "title": "Women Pink Floral Co-ord Set",
+      "brand": "Kashvi",
+      "color": "pink",
+      "price": 2199,
+      "discount": 55,
+      "description": "Pink floral kurta and pants co-ord in soft cotton. Comfortable, coordinated and easy to wear all day."
+    },
+    {
+      "category": "women_kurta",
+      "pick": 44,
+      "title": "Women Pink Floral Kurta Set",
+      "brand": "Noor Threads",
+      "color": "pink",
+      "price": 1899,
+      "discount": 50,
+      "description": "Pastel pink floral kurta with matching pants. Light fabric that stays cool in the heat."
+    },
+    {
+      "category": "women_kurta",
+      "pick": 45,
+      "title": "Women White Floral Block Print Kurta",
+      "brand": "Noor Threads",
+      "color": "white",
+      "price": 1699,
+      "discount": 50,
+      "description": "Hand block-printed white kurta with delicate florals. Breathable cotton for everyday elegance."
+    },
+    {
+      "category": "women_kurta",
+      "pick": 46,
+      "title": "Women Multicolour Printed Kurta",
+      "brand": "Kashvi",
+      "color": "multi",
+      "price": 1599,
+      "discount": 50,
+      "description": "Bright multicolour printed kurta with a straight cut. Cheerful, comfortable and easy to style."
+    },
+    {
+      "category": "women_kurta",
+      "pick": 53,
+      "title": "Women Blue Silk Blend Kurta",
+      "brand": "Rangrez",
+      "color": "blue",
+      "price": 2499,
+      "discount": 55,
+      "description": "Royal blue silk-blend kurta with a subtle sheen and embroidered neckline. Elegant for weddings and evenings."
+    },
+    {
+      "category": "women_kurta",
+      "pick": 54,
+      "title": "Women Pink Anarkali Kurta",
+      "brand": "Kashvi",
+      "color": "pink",
+      "price": 2299,
+      "discount": 60,
+      "description": "Flared pink Anarkali with a fitted bodice. Flows beautifully and photographs even better."
+    },
+    {
+      "category": "women_dress",
+      "pick": 11,
+      "title": "Women Yellow Belted Shirt Dress",
+      "brand": "Wildflower",
+      "color": "yellow",
+      "price": 1899,
+      "discount": 50,
+      "description": "Sunny yellow shirt dress with a tie belt. Breezy, structured and easy to wear all day."
+    },
+    {
+      "category": "women_dress",
+      "pick": 26,
+      "title": "Women Coral Short Sleeve Shirt Dress",
+      "brand": "Maison Aura",
+      "color": "orange",
+      "price": 1799,
+      "discount": 45,
+      "description": "Coral shirt dress with a self-tie waist and short sleeves. Smart casual for work or brunch."
+    },
+    {
+      "category": "women_dress",
+      "pick": 30,
+      "title": "Women Red Floral Sundress",
+      "brand": "Wildflower",
+      "color": "red",
+      "price": 1599,
+      "discount": 50,
+      "description": "Red floral sundress with thin straps. Lightweight and perfect for warm days out."
+    },
+    {
+      "category": "women_dress",
+      "pick": 35,
+      "title": "Women Light Blue Puff Sleeve Dress",
+      "brand": "Maison Aura",
+      "color": "blue",
+      "price": 1999,
+      "discount": 55,
+      "description": "Light blue fit-and-flare dress with puff sleeves. Sweet, feminine and great for daytime events."
+    },
+    {
+      "category": "women_dress",
+      "pick": 54,
+      "title": "Women White Eyelet Ruffle Dress",
+      "brand": "Wildflower",
+      "color": "white",
+      "price": 2199,
+      "discount": 50,
+      "description": "White eyelet cotton dress with ruffled sleeves and a tie waist. Fresh and summery."
+    },
+    {
+      "category": "women_dress",
+      "pick": 57,
+      "title": "Women Green Tiered Maxi Dress",
+      "brand": "Maison Aura",
+      "color": "green",
+      "price": 2499,
+      "discount": 55,
+      "description": "Flowy green tiered maxi with three-quarter sleeves. Effortless for holidays and garden parties."
+    },
+    {
+      "category": "shirt",
+      "pick": 1,
+      "title": "Men White Formal Shirt",
+      "brand": "Harbour Line",
+      "color": "white",
+      "price": 1599,
+      "discount": 50,
+      "description": "Crisp white cotton shirt with a classic collar. The essential office shirt."
+    },
+    {
+      "category": "shirt",
+      "pick": 7,
+      "title": "Men Light Blue Formal Shirt",
+      "brand": "Harbour Line",
+      "color": "blue",
+      "price": 1499,
+      "discount": 45,
+      "description": "Light blue slim fit shirt in easy-iron cotton. Sharp under a blazer or on its own."
+    },
+    {
+      "category": "shirt",
+      "pick": 11,
+      "title": "Men Blue Striped Casual Shirt",
+      "brand": "Northbound",
+      "color": "blue",
+      "price": 1399,
+      "discount": 50,
+      "description": "Blue and white striped shirt in soft cotton. Wear it buttoned up or open over a tee."
+    },
+    {
+      "category": "shirt",
+      "pick": 14,
+      "title": "Men Tropical Print Short Sleeve Shirt",
+      "brand": "Streetfold",
+      "color": "green",
+      "price": 1299,
+      "discount": 45,
+      "description": "Short sleeve shirt with a bold tropical print. Made for holidays and summer evenings."
+    },
+    {
+      "category": "shirt",
+      "pick": 29,
+      "title": "Men Blue Checked Shirt",
+      "brand": "Urban Loom",
+      "color": "blue",
+      "price": 1399,
+      "discount": 50,
+      "description": "Blue and white checked shirt in brushed cotton. Smart casual for the office or weekends."
+    },
+    {
+      "category": "shirt",
+      "pick": 56,
+      "title": "Men Rust Short Sleeve Casual Shirt",
+      "brand": "Trailhead",
+      "color": "red",
+      "price": 1199,
+      "discount": 40,
+      "description": "Rust-coloured short sleeve shirt in breathable cotton. Relaxed and easy for warm days."
+    },
+    {
+      "category": "lengha_choli",
+      "pick": 2,
+      "title": "Women Mustard Embroidered Lehenga Choli",
+      "brand": "Kashvi",
+      "color": "yellow",
+      "price": 5999,
+      "discount": 55,
+      "description": "Mustard lehenga with heavy maroon and gold embroidery, matching choli and dupatta. A festive showstopper."
+    },
+    {
+      "category": "lengha_choli",
+      "pick": 32,
+      "title": "Women Red Bridal Lehenga Choli",
+      "brand": "Rangrez",
+      "color": "red",
+      "price": 8999,
+      "discount": 60,
+      "description": "Bridal red lehenga with intricate zari embroidery, matching choli and net dupatta. Made for the big day."
+    },
+    {
+      "category": "lengha_choli",
+      "pick": 51,
+      "title": "Women Pink Embroidered Lehenga",
+      "brand": "Kashvi",
+      "color": "pink",
+      "price": 6499,
+      "discount": 55,
+      "description": "Bright pink lehenga with gold embroidery and a sheer dupatta. A dreamy pick for sangeet and receptions."
+    },
+    {
+      "category": "lengha_choli",
+      "pick": 60,
+      "title": "Women Green Embroidered Lehenga Choli",
+      "brand": "Noor Threads",
+      "color": "green",
+      "price": 5499,
+      "discount": 50,
+      "description": "Deep green lehenga with a richly embroidered choli. A festive favourite for Navratri and family functions."
+    },
+    {
+      "category": "lengha_choli",
+      "pick": 72,
+      "title": "Women Orange Festive Lehenga",
+      "brand": "Noor Threads",
+      "color": "orange",
+      "price": 4999,
+      "discount": 55,
+      "description": "Vibrant orange lehenga with a gold border and matching dupatta. Lightweight for long celebrations."
+    },
+    {
+      "category": "lengha_choli",
+      "pick": 79,
+      "title": "Women Ivory Embellished Lehenga",
+      "brand": "Rangrez",
+      "color": "white",
+      "price": 7499,
+      "discount": 60,
+      "description": "Ivory lehenga with tonal embellishment and a structured choli. Elegant for engagements and receptions."
+    }
+  ]
+}

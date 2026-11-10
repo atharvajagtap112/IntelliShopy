@@ -8,16 +8,39 @@ import open_clip
 
 import io
 import os
+import sys
+from pathlib import Path
 
 # --------------------
 # CONFIG
 # --------------------
-DB_CONFIG = {
-    "host": "localhost",
-    "user": "root",
-    "password": "Atharva123*",
-    "database": "ecommerce"
-}
+# Credentials come from intellishopy/.env (or the environment), never the source.
+#   python clip_indexer.py                 -> DB_* (local)
+#   python clip_indexer.py --target aiven  -> AIVEN_DB_* (production)
+# Index the database the deployed service answers for: the index stores product
+# ids, and they only match products in the database it was built from.
+def load_db_config():
+    env = dict(os.environ)
+    env_file = Path(__file__).resolve().parent.parent / ".env"
+    if env_file.exists():
+        for line in env_file.read_text(encoding="utf-8").splitlines():
+            if "=" in line and not line.lstrip().startswith("#"):
+                k, v = line.split("=", 1)
+                env.setdefault(k.strip(), v.strip().strip('"'))
+
+    prefix = "AIVEN_DB_" if "--target" in sys.argv and "aiven" in sys.argv else "DB_"
+    config = {
+        "host": env.get(prefix + "HOST") or "localhost",
+        "port": int(env.get(prefix + "PORT") or 3306),
+        "user": env.get(prefix + "USERNAME") or "root",
+        "password": env.get(prefix + "PASSWORD") or "",
+        "database": env.get(prefix + "NAME") or "ecommerce",
+    }
+    if prefix == "AIVEN_DB_":
+        config["ssl_disabled"] = False
+    return config
+
+DB_CONFIG = load_db_config()
 
 INDEX_FILE = "products.index"
 IDS_FILE = "product_ids.npy"

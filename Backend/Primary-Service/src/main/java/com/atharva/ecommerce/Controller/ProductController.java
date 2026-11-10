@@ -17,6 +17,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/products")
@@ -42,9 +45,7 @@ public class ProductController {
             @RequestParam(required = false) String color
     ) throws Exception {
 
-        List<Long> productIds = clipSearchServics.search(image);
-
-        List<Product> products = productRepository.findAllById(productIds);
+        List<Product> products = inRankedOrder(clipSearchServics.search(image));
 
         if (color != null) {
             products = products.stream()
@@ -53,6 +54,26 @@ public class ProductController {
         }
 
         return products;
+    }
+
+    // Semantic search: matches the text against product *images* via CLIP, so
+    // "floral summer dress" works even though no product field says "summer".
+    @GetMapping("/search/text")
+    public List<Product> searchByText(@RequestParam("q") String query) {
+        return inRankedOrder(clipSearchServics.searchByText(query));
+    }
+
+    // CLIP returns ids ranked by similarity, but findAllById answers in
+    // whatever order the DB feels like - so the closest match was landing
+    // anywhere on the page. Re-sort into the ranked order it came back in.
+    private List<Product> inRankedOrder(List<Long> productIds) {
+        Map<Long, Product> byId = productRepository.findAllById(productIds).stream()
+                .collect(Collectors.toMap(Product::getId, p -> p));
+
+        return productIds.stream()
+                .map(byId::get)
+                .filter(Objects::nonNull)   // id no longer in the catalogue
+                .collect(Collectors.toList());
     }
 
     @GetMapping()

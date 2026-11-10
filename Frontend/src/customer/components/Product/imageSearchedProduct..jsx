@@ -62,7 +62,9 @@ export default function ImageSearchedProduct() {
   const stock = searchParams.get("stock");
  
   const dispatch = useDispatch();
-  const { products: initialProducts, loading, error } = useSelector(state => state.imageSearch);
+  const { products: initialProducts, loading, error, searchMetadata } = useSelector(state => state.imageSearch);
+  // Set by text (visual) search; image search has no query text.
+  const textQuery = searchMetadata?.query;
  
   // Store all products (unfiltered) from Redux
   const allProducts = initialProducts || [];
@@ -389,11 +391,14 @@ const filteredAndSortedProducts = useMemo(() => {
             className="flex flex-col sm:flex-row items-start sm:items-baseline justify-between border-b-2 border-white/10 pt-24 pb-6 gap-4"
           >
             <div>
-              <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-white">
-                New Arrivals
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-accent-500">
+                {textQuery ? "Visual match" : "Image search result"}
+              </p>
+              <h1 className="mt-2 text-3xl sm:text-4xl font-bold tracking-tight text-white">
+                {textQuery ? `"${textQuery}"` : "Similar styles"}
               </h1>
               <p className="text-zinc-400 mt-2 text-sm">
-                Discover our latest collection ({filteredAndSortedProducts.length} products)
+                {filteredAndSortedProducts.length} {filteredAndSortedProducts.length === 1 ? "match" : "matches"}{sortValue ? "" : ", closest first"}
               </p>
             </div>
 
@@ -667,7 +672,7 @@ const filteredAndSortedProducts = useMemo(() => {
                       },
                       '& .Mui-selected': {
                         backgroundColor: '#ffffff !important',
-                        color: 'white',
+                        color: '#18181b',   // dark text: the selected pill is white
                         '&:hover': {
                           backgroundColor: '#e4e4e7 !important',
                         },

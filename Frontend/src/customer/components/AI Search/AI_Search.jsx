@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { findProducts } from '../../../State/Product/Action';
+import { searchByText } from '../../../State/imageSearchSlice';
 import { useNavigate } from 'react-router-dom';
 import { WS_BASE_URL } from '../../../config/apiConfig';
 
@@ -16,6 +17,9 @@ const AISearch = () => {
   const socketRef = useRef(null);
   const pendingRef = useRef(null);
   const searchRef = useRef(null);
+  // The socket reply carries only filters; the visual-search fallback needs the
+  // original text, and onmessage would see a stale userInput.
+  const lastQueryRef = useRef(null);
 
   const dispatch = useDispatch();
   const navigation = useNavigate();
@@ -44,17 +48,32 @@ const AISearch = () => {
         const category =
           typeof data.category === "string" ? data.category.trim() : "";
 
-        if (data.error) {
-          setServerError(String(data.error));
-          setSearchResults([]);
-          setShowResults(true);
-          return;
-        }
+        // Fall back to CLIP visual search, which matches the words against
+        // product images, in two cases:
+        //  - no category: the query describes a look, not a filter ("something
+        //    elegant for a beach wedding");
+        //  - an error: the LLM is down or out of quota, but CLIP doesn't need it,
+        //    so search keeps working instead of just saying "busy".
+        if (data.error || !category) {
+          const query = lastQueryRef.current;
+          const llmError = data.error ? String(data.error) : "";
+          const showEmpty = () => {
+            setServerError(llmError);
+            setSearchResults([]);
+            setShowResults(true);
+          };
+          if (!query) return showEmpty();
 
-        if (!category) {
-          setServerError("");
-          setSearchResults([]);
-          setShowResults(true);
+          setIsLoading(true);
+          dispatch(searchByText({ query }))
+            .unwrap()
+            .then(({ products }) => {
+              if (lastQueryRef.current !== query) return;   // cleared or replaced meanwhile
+              if (products?.length) navigation("/products/search/image/visual");
+              else showEmpty();
+            })
+            .catch(() => { if (lastQueryRef.current === query) showEmpty(); })
+            .finally(() => { if (lastQueryRef.current === query) setIsLoading(false); });
           return;
         }
 
@@ -98,6 +117,7 @@ const AISearch = () => {
 
     setShowResults(false);
     setIsLoading(true);
+    lastQueryRef.current = query;
 
     const ws = socketRef.current;
     if (ws && ws.readyState === WebSocket.OPEN) {
@@ -125,6 +145,7 @@ const AISearch = () => {
     // stuck on "Searching..." with nothing coming back.
     setIsLoading(false);
     pendingRef.current = null;
+    lastQueryRef.current = null;
   };
 
   return (

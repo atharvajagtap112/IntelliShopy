@@ -402,7 +402,11 @@ const handleRadioFilterChange = (event, sectionId) => {
         {param.levelThree?.replace(/_/g, " ")}
       </h1>
       <p className="mt-2 text-sm text-zinc-500">
-        {products.products?.content?.length ?? 0} pieces in this edit
+        {/* totalElements counts every page; content.length is only this page. */}
+        {(() => {
+          const total = products.products?.totalElements ?? 0;
+          return `${total} ${total === 1 ? "piece" : "pieces"} in this edit`;
+        })()}
       </p>
     </div>
 
@@ -667,13 +671,13 @@ const handleRadioFilterChange = (event, sectionId) => {
             '& .MuiPaginationItem-root':  {
               color: '#a1a1aa',
               fontWeight: 600,
-              '&: hover': {
+              '&:hover': {
                 backgroundColor: 'rgba(255,255,255,0.10)',
               },
             },
-            '& . Mui-selected': {
+            '& .Mui-selected': {
               backgroundColor: '#ffffff !important',
-              color: 'white',
+              color: '#18181b',   // dark text: the selected pill is white
               '&:hover': {
                 backgroundColor: '#e4e4e7 !important',
               },
